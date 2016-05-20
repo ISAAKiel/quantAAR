@@ -1,4 +1,3 @@
-library(varnastats)
 context("Tests of function linkage")
 
 testmatrixrand <- data.frame(
@@ -6,41 +5,41 @@ testmatrixrand <- data.frame(
 )
 
 test_that(
-  "the output of linkage is a data.frame", 
+  "the output of linkage is a data.frame",
   {
     expect_equal(
-      is.data.frame(linkage(testmatrixrand)), 
+      is.data.frame(linkage(testmatrixrand)),
       TRUE
     )
   }
 )
 
 test_that(
-  "the output of linkage has the two main output-columns", 
+  "the output of linkage has the two main output-columns",
   {
     expect_equal(
-      c("linkage", "type") %in% colnames(linkage(testmatrixrand)), 
+      c("linkage", "type") %in% colnames(linkage(testmatrixrand)),
       c(TRUE, TRUE)
     )
   }
 )
 
 test_that(
-  "the output of linkage has contains information for variables and objects", 
+  "the output of linkage has contains information for variables and objects",
   {
     expect_equal(
-      c("obj", "var") %in% linkage(testmatrixrand)$type, 
+      c("obj", "var") %in% linkage(testmatrixrand)$type,
       c(TRUE, TRUE)
     )
   }
 )
 
 test_that(
-  "the output of linkage has the correct length and therefore covers all variables and 
-  objects", 
+  "the output of linkage has the correct length and therefore covers all variables and
+  objects",
   {
     expect_equal(
-      nrow(linkage(testmatrixrand)), 
+      nrow(linkage(testmatrixrand)),
       ncol(testmatrixrand) + nrow(testmatrixrand)
     )
   }

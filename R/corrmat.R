@@ -110,7 +110,7 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
           corrtab[z,s] <- sqrt(unlist(x[1])/(unlist(x[1])+sum(tbl)))
         } else if (method == "lambda") {
           # calculation of lambda value
-          corrtab[z,s] <- rapport::lambda.test(tbl, direction = 2)
+          corrtab[z,s] <- rapportools::lambda.test(tbl, direction = 2)
         } else {
           stop("Wrong method name!",
                call. = FALSE)
@@ -141,7 +141,7 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
           x <- chisq.test(tbl)
           corrtab[z,s] <- sqrt(unlist(x[1])/(unlist(x[1])+sum(tbl)))
         } else if (method == "lambda") {
-          corrtab[z,s] <- rapport::lambda.test(tbl, direction = 2)
+          corrtab[z,s] <- rapportools::lambda.test(tbl, direction = 2)
         } else {
           stop("Wrong method name!",
                call. = FALSE)
