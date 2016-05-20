@@ -13,9 +13,9 @@ predictvo(matrix, reltable, mvars, level = 2)
 
 \item{mvars}{vector of variables of interest (full name)}
 
-\item{levels}{switch to define if the prediction should be based on level 1 
-or on level 1 + level 2 variables. A level 1 variable is directly linked to a variable 
-of interest, a level 2 variable is linked to the level 1 variables of said variable of 
+\item{level}{switch to define if the prediction should be based on level 1
+or on level 1 + level 2 variables. A level 1 variable is directly linked to a variable
+of interest, a level 2 variable is linked to the level 1 variables of said variable of
 interest
 
 1: prediction is based only on level 1 variables.
@@ -36,7 +36,7 @@ for every object.
 testmatrixrand <- data.frame(
    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
- 
+
 testcorr <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 
 rel <- reltable(testcorr)
