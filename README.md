@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/MartinHinz/quantaar.svg?branch=master)](https://travis-ci.org/MartinHinz/quantaar)
+
 quantaar
 --------
 
