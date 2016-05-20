@@ -22,5 +22,6 @@ Imports: dplyr (>= 0.4.1),
     reshape2 (>= 1.4.1)
 Suggests: testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    roxygen2
 VignetteBuilder: knitr
