@@ -7,7 +7,7 @@
 rmnegcorr(corrmatrix, matrix, dim, niv = 0.1)
 }
 \arguments{
-\item{corrmatrix}{correlation matrix (as produced by varnastats::corrmat())}
+\item{corrmatrix}{correlation matrix (as produced by quantaar::corrmat())}
 
 \item{matrix}{underlying data.frame}
 

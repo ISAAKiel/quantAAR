@@ -7,9 +7,9 @@
 reltable(corrtable, corrtable2 = data.frame())
 }
 \arguments{
-\item{corrmatrix}{correlation matrix (as produced by varnastats::corrmat())}
+\item{corrmatrix}{correlation matrix (as produced by quantaar::corrmat())}
 
-\item{optional}{second corrmatrix correlation matrix (as produced by varnastats::corrmat())}
+\item{optional}{second corrmatrix correlation matrix (as produced by quantaar::corrmat())}
 }
 \value{
 table of relations and their correlation value
