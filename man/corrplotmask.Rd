@@ -10,9 +10,9 @@ corrplotmask(corrmatrix, xmatrix = "notact", mypath,
 \arguments{
 \item{corrmatrix}{correlation matrix (as produced by quantaar::corrmat())}
 
-\item{xmatrix}{correlation matrix only with the values 0 and 1, where 1 serves as 
-a marker (as produced by quantaar::corrmat(method="chi2")). Relations with the 
-value 1 will be marked with an X in the corrplot. 
+\item{xmatrix}{correlation matrix only with the values 0 and 1, where 1 serves as
+a marker (as produced by quantaar::corrmat(method="chi2")). Relations with the
+value 1 will be marked with an X in the corrplot.
 
 default = 0 (nothing is marked)}
 
@@ -20,7 +20,7 @@ default = 0 (nothing is marked)}
 
 mypath <- file.path("~/path/to/my/directory/",paste("myfilename", ".png", sep = ""))}
 
-\item{voi}{vector of indezes of variables/objects that should be shown on the x-axis. 
+\item{voi}{vector of indezes of variables/objects that should be shown on the x-axis.
 
 default = 1:length(corrmatrix[1,]) (every variable/object is shown)}
 
@@ -36,26 +36,26 @@ default = 3000}
 graphic file of a correlation matrix plot
 }
 \description{
-\code{corrplotmask} is an input mask for the \code{corrplot()} function of the 
-package corrplot. \code{corrplot()} visualizes correlation matrizes. See 
-\code{?corrplot()} for further info. 
-\code{corrplotmask} allows to get a nice, basic corrplot graphic as a png-file 
-that is directly saved to the file system. It doesn't allow to define specific 
+\code{corrplotmask} is an input mask for the \code{corrplot()} function of the
+package corrplot. \code{corrplot()} visualizes correlation matrizes. See
+\code{?corrplot()} for further info.
+\code{corrplotmask} allows to get a nice, basic corrplot graphic as a png-file
+that is directly saved to the file system. It doesn't allow to define specific
 plot settings.
 }
 \examples{
 testmatrixrand <- data.frame(
-   matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
+   matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
- 
+
 testcorr <- corrmat(testmatrixrand, "lambda", chi2limit = 0.1, dim = 1)
 xtestcorr <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 
 testpath <- file.path(".",paste("testfile", ".png", sep = ""))
 
 corrplotmask(
- corrmatrix = testcorr, 
- xmatrix = xtestcorr, 
+ corrmatrix = testcorr,
+ xmatrix = xtestcorr,
  mypath = testpath,
  voi = 1:10,
  w = 500,

@@ -21,7 +21,7 @@
 #' 
 #' @examples
 #' testmatrixrand <- data.frame(
-#'    matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
+#'    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 #' )
 #'  
 #' testcorr <- corrmat(testmatrixrand, "lambda", dim = 1)

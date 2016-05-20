@@ -9,17 +9,17 @@ camask(matrix, supc = c(), supr = c(), caplot = FALSE)
 \arguments{
 \item{matrix}{data.frame with numeric values}
 
-\item{supc}{vector of indezes of variables (columns) that should be included as 
+\item{supc}{vector of indezes of variables (columns) that should be included as
 passive entities into the ca
 
 default = c()}
 
-\item{supr}{vector of indezes of objects (rows) that should be included as 
+\item{supr}{vector of indezes of objects (rows) that should be included as
 passive entities into the ca
 
 default = c()}
 
-\item{caplot}{boolean switch, to decide, whether caplot() should be called to get 
+\item{caplot}{boolean switch, to decide, whether caplot() should be called to get
 some early plots
 
 default = FALSE}
@@ -28,13 +28,13 @@ default = FALSE}
 data.frame with ca coordinates of variables and objects of the input data.frame
 }
 \description{
-\code{camask()} delivers the coordinates of objects and variables of a correspondence 
+\code{camask()} delivers the coordinates of objects and variables of a correspondence
 analyse as a tidy data.frame. Further it allows to directly call the function
 \code{quantaar::caplot()} to get three pages of plots for a first impression.
 The CA is calculated by \code{ca::ca()}. See \code{?ca} for further information.
 }
 \details{
-Structure of the resulting table: 
+Structure of the resulting table:
 
 column 1 - X:    ca coordinates of objects/variables for different dimensions
 
@@ -42,11 +42,11 @@ column X+1:      type (var, obj, passivevar, passiveobj)
 }
 \examples{
 testmatrixrand <- data.frame(
-   matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
+   matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
-rownames(testmatrixrand) <- paste("row", seq(1:nrow(testmatrixrand))) 
-   
+rownames(testmatrixrand) <- paste("row", seq(1:nrow(testmatrixrand)))
+
 camask(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
- 
+
 }
 

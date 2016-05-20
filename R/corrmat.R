@@ -43,7 +43,7 @@
 #'
 #'@examples
 #' testmatrixrand <- data.frame(
-#'    matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
+#'    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 #' )
 #'
 #' corrmat(testmatrixrand, "chi2", chi2limit = 0.03)

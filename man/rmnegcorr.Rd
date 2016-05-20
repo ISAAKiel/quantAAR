@@ -35,7 +35,7 @@ object relations.
 }
 \examples{
 testmatrixrand <- data.frame(
-   matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
+   matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
 
 testmatrixrand[,1] <- c(1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0)

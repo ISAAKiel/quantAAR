@@ -21,7 +21,7 @@ default = 3000}
 
 default = c("red")}
 
-\item{voi}{vector of indezes of variables/objects that should be shown on the x-axis. 
+\item{voi}{vector of indezes of variables/objects that should be shown on the x-axis.
 
 default = 1:length(corrmatrix[1,]) (every variable/object is shown)}
 
@@ -33,11 +33,11 @@ default = 3000}
 graphic file of a graph plot
 }
 \description{
-\code{igraphmask} is an input mask for the \code{plot.igraph()} function of the 
-package igraph. \code{plot.igraph()} creates graph plots based on bivariate relations. 
-See \code{?igraph} for further info. 
-\code{igraphmask} allows to get a nice, basic graph plot as a png-file 
-that is directly saved to the file system. It doesn't allow to define specific 
+\code{igraphmask} is an input mask for the \code{plot.igraph()} function of the
+package igraph. \code{plot.igraph()} creates graph plots based on bivariate relations.
+See \code{?igraph} for further info.
+\code{igraphmask} allows to get a nice, basic graph plot as a png-file
+that is directly saved to the file system. It doesn't allow to define specific
 plot settings.
 }
 \details{
@@ -45,9 +45,9 @@ For graph layout the fruchterman.reingold.grid algorithm is used.
 }
 \examples{
 testmatrixrand <- data.frame(
-   matrix(base::sample(0:1,400,replace=T), nrow=20, ncol=20)
+   matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
- 
+
 testcorr <- corrmat(testmatrixrand, "lambda", chi2limit = 0.1, dim = 1)
 testrel <- reltable(testcorr)
 
