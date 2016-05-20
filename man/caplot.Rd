@@ -6,24 +6,24 @@
 \usage{
 caplot(cadoc)
 }
-\value{
-cadoc object of class \code{ca}. Produced e.g. \code{by ca::ca()}
+\arguments{
+\item{cadoc}{object of class \code{ca}. Produced e.g. \code{by ca::ca()}}
 }
 \description{
-\code{caplot()} delivers three pages of plots based on \code{ca::plot.ca()}. 
+\code{caplot()} delivers three pages of plots based on \code{ca::plot.ca()}.
 Useful to get a first impression of the results to decide, whether a more elaborated
-plot should be created and whether other axis besides dim1 and dim2 contain interesting 
+plot should be created and whether other axis besides dim1 and dim2 contain interesting
 information.
 }
 \examples{
 testmatrixrand <- data.frame(
    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
-rownames(testmatrixrand) <- paste("row", seq(1:nrow(testmatrixrand))) 
-   
+rownames(testmatrixrand) <- paste("row", seq(1:nrow(testmatrixrand)))
+
 library(ca)
 
-caplot(ca(testmatrixrand))     
- 
+caplot(ca(testmatrixrand))
+
 }
 

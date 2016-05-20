@@ -26,7 +26,11 @@
 #'
 #' default = 3000
 #'
+<<<<<<< HEAD
 #' @param w width of the resulting graphic file in px
+=======
+#' @param h height of the resulting graphic file in px
+>>>>>>> 838ccbc500b106cf2728feed918b4299b4259695
 #'
 #' default = 3000
 #'
@@ -65,7 +69,11 @@ corrplotmask <- function(corrmatrix, xmatrix = "notact", mypath, voi=1:length(co
     # decision: with or without crossmarking of certain values.
     if (is.character(xmatrix)) {
         corrplot::corrplot(
+<<<<<<< HEAD
           as.matrix(corrmatrix[,voi]),
+=======
+          corrmatrix[,voi],
+>>>>>>> 838ccbc500b106cf2728feed918b4299b4259695
           method = "color",
           cl.lim = c(0, 1),
           tl.col = "black",
@@ -74,8 +82,13 @@ corrplotmask <- function(corrmatrix, xmatrix = "notact", mypath, voi=1:length(co
           )
       } else {
         corrplot::corrplot(
+<<<<<<< HEAD
           as.matrix(corrmatrix[,voi]),
           p.mat=as.matrix(xmatrix[,voi]),
+=======
+          corrmatrix[,voi],
+          p.mat=xmatrix[,voi],
+>>>>>>> 838ccbc500b106cf2728feed918b4299b4259695
           method = "color",
           cl.lim = c(0, 1),
           tl.col = "black",
@@ -86,4 +99,8 @@ corrplotmask <- function(corrmatrix, xmatrix = "notact", mypath, voi=1:length(co
 
   dev.off()
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 838ccbc500b106cf2728feed918b4299b4259695

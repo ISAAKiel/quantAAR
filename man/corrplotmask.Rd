@@ -28,7 +28,7 @@ default = 1:length(corrmatrix[1,]) (every variable/object is shown)}
 
 default = 3000}
 
-\item{w}{width of the resulting graphic file in px
+\item{h}{height of the resulting graphic file in px
 
 default = 3000}
 }

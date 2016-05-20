@@ -70,7 +70,7 @@
 corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegniv = 0) {
 
   # create empty correlation table for the input data.frame
-  corrtab <- quantaar:::newcorrtable(matrix, dim)
+  corrtab <- quantaar::newcorrtable(matrix, dim)
 
   if (dim == 1) {
     # loop to compare every column with every other column
