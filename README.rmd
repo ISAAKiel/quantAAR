@@ -10,6 +10,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+[![Travis-CI Build Status](https://travis-ci.org/MartinHinz/quantaar.svg?branch=master)](https://travis-ci.org/MartinHinz/quantaar)
+
 ## quantaar
 R Library for Quantitative Analysis in Archaeology
 
