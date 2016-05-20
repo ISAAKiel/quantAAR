@@ -7,20 +7,20 @@
 reltable(corrtable, corrtable2 = data.frame())
 }
 \arguments{
-\item{corrmatrix}{correlation matrix (as produced by quantaar::corrmat())}
+\item{corrtable}{correlation matrix (data.frame as produced by quantaar::corrmat())}
 
-\item{optional}{second corrmatrix correlation matrix (as produced by quantaar::corrmat())}
+\item{corrtable2}{optional second corrmatrix correlation matrix (data.frame as produced by quantaar::corrmat())}
 }
 \value{
 table of relations and their correlation value
 }
 \description{
 \code{reltable} creates a sorted table of the relations of a correlation matrix.
-Relations with a correlation value of zero and autocorrelations get removed. 
+Relations with a correlation value of zero and autocorrelations get removed.
 \code{reltable} can consume a lot of time for big datasets!
 }
 \details{
-Structure of the resulting table: 
+Structure of the resulting table:
 
 column 1 + 2:    indezes of the variables/objects in the correlation matrix
 
@@ -34,7 +34,7 @@ column 6:        optional second correlation value
 testmatrixrand <- data.frame(
    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
- 
+
 testcorr <- corrmat(testmatrixrand, "lambda", dim = 1)
 testcorr2 <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 

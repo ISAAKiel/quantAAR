@@ -14,15 +14,11 @@
 #'
 #' mypath <- file.path("~/path/to/my/directory/",paste("myfilename", ".png", sep = ""))
 #'
-#' @param voi vector of indezes of variables/objects that should be shown on the x-axis.
-#'
-#' default = 1:length(corrmatrix[1,]) (every variable/object is shown)
-#'
 #' @param w width of the resulting graphic file in px
 #'
 #' default = 3000
 #'
-#' @param w width of the resulting graphic file in px
+#' @param h height of the resulting graphic file in px
 #'
 #' default = 3000
 #'
