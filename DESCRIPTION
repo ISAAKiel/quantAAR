@@ -1,11 +1,11 @@
 Package: quantaar
 Type: Package
-Title: What the Package Does (Title Case)
+Title: R Library for Quantitative Analysis in Archaeology
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Martin Hinz, Clemens Schmid
+Maintainer: Martin Hinz <martin.hinz@ufg.uni-kiel.de>
+Description: quantaar is a collection of functions useful for archaeologists.
+License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Suggests: testthat
