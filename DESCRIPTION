@@ -8,4 +8,5 @@ Description: quantaar is a collection of functions useful for archaeologists.
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
-Suggests: testthat
+Suggests: testthat,
+    covr
