@@ -8,5 +8,14 @@ Description: quantaar is a collection of functions useful for archaeologists.
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
+Imports: dplyr (>= 0.4.1),
+    magrittr (>= 1.5),
+    igraph (>= 0.7.1),
+    corrplot (>= 0.73),
+    MASS (>= 7.3.0),
+    ca (>= 0.58),
+    rapport (>= 0.4.1),
+    reshape2 (>= 1.4.1)
 Suggests: testthat,
-    covr
+    knitr
+VignetteBuilder: knitr
