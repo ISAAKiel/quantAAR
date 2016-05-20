@@ -11,9 +11,11 @@
 #' check_num_nonzero(c(0,0,0,0,0), 1)
 #' check_num_nonzero(c(0,0,0,0,1), 1)
 #' check_num_nonzero(c(2:4,0,1), 1)
+#'
+#' @export
 
-check_num_nonzero<-function(x,minnumber){
-  if(sum(x==0)+(minnumber-1)<length(x)) {T} else {F}
+check_num_nonzero <- function(x, minnumber){
+  if (sum(x == 0) + (minnumber - 1) < length(x)) T else F
 }
 
 #' Removes iterative all rows and columns of a matrix or dataframe with less than a given number of non zero elements.
@@ -28,15 +30,26 @@ check_num_nonzero<-function(x,minnumber){
 #' a
 #' itremove(a,1)
 #'
-itremove<-function(object,minnumber)
-{
-  enough_non_zero_elements_x<-apply(object,MARGIN=1,FUN=check_num_nonzero,minnumber=minnumber)
-  enough_non_zero_elements_y<-apply(object,MARGIN=2,FUN=check_num_nonzero,minnumber=minnumber)
-  if(any(c(enough_non_zero_elements_x,enough_non_zero_elements_y)==F))
-  {
-    return(itremove(object[enough_non_zero_elements_x,enough_non_zero_elements_y],minnumber))}
-  else
-  {return(object)}
+#'@export
+
+itremove <- function(object, minnumber) {
+
+  enough_non_zero_elements_x <- apply(object,
+                                    MARGIN = 1,
+                                    FUN = check_num_nonzero,
+                                    minnumber = minnumber)
+  enough_non_zero_elements_y <- apply(object,
+                                    MARGIN = 2,
+                                    FUN = check_num_nonzero,
+                                    minnumber = minnumber)
+
+  if (any(c(enough_non_zero_elements_x, enough_non_zero_elements_y) == F)) {
+    return(itremove(object[enough_non_zero_elements_x,
+                           enough_non_zero_elements_y],
+                    minnumber))
+    } else {
+    return(object)
+    }
 }
 
 # End CA Utility Functions  ---------------------------
