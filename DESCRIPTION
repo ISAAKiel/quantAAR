@@ -18,7 +18,7 @@ Imports: dplyr (>= 0.4.1),
     corrplot (>= 0.73),
     MASS (>= 7.3.0),
     ca (>= 0.58),
-    rapport (>= 0.4.1),
+    rapportools (>= 1.0),
     reshape2 (>= 1.4.1)
 Suggests: testthat,
     knitr
