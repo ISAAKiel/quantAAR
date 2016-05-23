@@ -28,12 +28,12 @@ hexatest <- as.matrix(hexatestdf)
 
 cx = fillhexa(hexatest, 0.1)
 
-library(rgl)
-plot3d(
- cx[,1], cx[,2], cx[,3],
- type = "p",
- xlab = "x", ylab = "y", zlab = "z"
-)
+#library(rgl)
+#plot3d(
+# cx[,1], cx[,2], cx[,3],
+# type = "p",
+# xlab = "x", ylab = "y", zlab = "z"
+#)
 
 }
 

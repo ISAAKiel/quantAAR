@@ -35,12 +35,12 @@ NumericMatrix makematrix(NumericVector vec, int lres3){
 //'
 //' cx = fillhexa(hexatest, 0.1)
 //'
-//' library(rgl)
-//' plot3d(
-//'  cx[,1], cx[,2], cx[,3],
-//'  type = "p",
-//'  xlab = "x", ylab = "y", zlab = "z"
-//' )
+//' #library(rgl)
+//' #plot3d(
+//' # cx[,1], cx[,2], cx[,3],
+//' # type = "p",
+//' # xlab = "x", ylab = "y", zlab = "z"
+//' #)
 //'
 //' @export
 // [[Rcpp::export]]
