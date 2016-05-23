@@ -414,79 +414,50 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
 
   # create empty correlation table for the input data.frame
   corrtab <- quantaar::newcorrtable(matrix, dim)
+  my_dim<-c(2,1)[dim]
 
-
-  if (dim == 1) {
-    # loop to compare every column with every other column
-    for (z in 1:length(matrix)) {
-      for (s in 1:length(matrix)) {
-        # calculation of a contingency table for the current column-column relation
-        tbl = table(matrix[,z], matrix[,s])
-        # perform chi-square test for the current relation
-        x <- chisq.test(tbl)
-        # method decision
-        if (method == "chi2") {
-          # comparing p-Value with defined decision niveau chi2limit to make a test decision
-          # DE: p-Value (Verwerfungsniveau) wird aus den Testergebnissen extrahiert und mit der eingegebenen
-          # Irrtumswahrscheinlichkeit chi2limit verglichen. Wenn die Wahrscheinlichkeit, dass man sich bei einer
-          # Ablehnung der Nullhypothese (H0: kein Zusammenhang der Variablen) irrt, kleiner als chi2limit ausfällt,
-          # dann kann ein signifikanter Zusammenhang angenommen werden, der mit einer 1 in der Ergebnismatrix
-          # testtable festgehalten wird. Umgekehrt weist eine 0 auf keinen signifikanten Zusammenhang hin.
-          if (unlist(x[3]) < chi2limit) {
-            corrtab[z,s] <- 1
-          } else {
-            corrtab[z,s] <- 0
-          }
-        } else if (method == "phi") {
-          # calculation of phi = √(chi2/n)
-          # -> chi2 is the chisquare value
-          # -> n is the sum of the contingency table
-          corrtab[z,s] <- sqrt(unlist(x[1])/sum(tbl))
-        } else if (method == "cc") {
-          # calculation of CC = √(chi2/(chi2+n))
-          # -> chi2 is the chisquare value
-          # -> n is the sum of the contingency table
-          corrtab[z,s] <- sqrt(unlist(x[1])/(unlist(x[1])+sum(tbl)))
-        } else if (method == "lambda") {
-          # calculation of lambda value
-          corrtab[z,s] <- rapportools::lambda.test(tbl, direction = 2)
+  newcortab<-apply(matrix,my_dim,function(z){
+    apply(matrix,my_dim,function(s){
+      tbl <- table(z,s)
+      x <- chisq.test(tbl)
+      if (method == "chi2") {
+        # comparing p-Value with defined decision niveau chi2limit to make a test decision
+        # DE: p-Value (Verwerfungsniveau) wird aus den Testergebnissen extrahiert und mit der eingegebenen
+        # Irrtumswahrscheinlichkeit chi2limit verglichen. Wenn die Wahrscheinlichkeit, dass man sich bei einer
+        # Ablehnung der Nullhypothese (H0: kein Zusammenhang der Variablen) irrt, kleiner als chi2limit ausfällt,
+        # dann kann ein signifikanter Zusammenhang angenommen werden, der mit einer 1 in der Ergebnismatrix
+        # testtable festgehalten wird. Umgekehrt weist eine 0 auf keinen signifikanten Zusammenhang hin.
+        if (unlist(x[3]) < chi2limit) {
+          result <- 1
         } else {
-          stop("Wrong method name!",
-               call. = FALSE)
+          result <- 0
         }
-
+      } else if (method == "phi") {
+        # calculation of phi = √(chi2/n)
+        # -> chi2 is the chisquare value
+        # -> n is the sum of the contingency table
+        result <- sqrt(unlist(x[1])/sum(tbl))
+      } else if (method == "cc") {
+        # calculation of CC = √(chi2/(chi2+n))
+        # -> chi2 is the chisquare value
+        # -> n is the sum of the contingency table
+        result <- sqrt(unlist(x[1])/(unlist(x[1])+sum(tbl)))
+      } else if (method == "lambda") {
+        # calculation of lambda value
+        result <- rapportools::lambda.test(tbl, direction = 2)
+      } else {
+        stop("Wrong method name!",
+             call. = FALSE)
       }
-    }
-  }
+      result
+    })
+  })
 
-  if (dim == 2) {
-    # loop to compare every row with every other row
-    # other comments: see above
-    for (z in 1:length(matrix[,1])) {
-      for (s in 1:length(matrix[,1])) {
-        tbl = table(unlist(matrix[z,]), unlist(matrix[s,]))
+  newcortab<-t(newcortab)
 
-        x <- chisq.test(tbl)
-        if (method == "chi2") {
-          if (unlist(x[3]) < chi2limit) {
-            corrtab[z,s] <- 1
-          } else {
-            corrtab[z,s] <- 0
-          }
-        } else if (method == "phi") {
-          corrtab[z,s] <- sqrt(unlist(x[1])/sum(tbl))
-        } else if (method == "cc") {
-          corrtab[z,s] <- sqrt(unlist(x[1])/(unlist(x[1])+sum(tbl)))
-        } else if (method == "lambda") {
-          corrtab[z,s] <- rapportools::lambda.test(tbl, direction = 2)
-        } else {
-          stop("Wrong method name!",
-               call. = FALSE)
-        }
-
-      }
-    }
-  }
+  rownames(newcortab)<-rownames(corrtab)
+  colnames(newcortab)<-colnames(corrtab)
+  corrtab<-newcortab
 
   # apply removal of negativ relations with rmnegcorr
   if (rmnegniv > 0) {
