@@ -17,7 +17,7 @@ NumericMatrix makematrix(NumericVector vec, int lres3){
 
 //' Fills hexahedrons with a systematic point raster
 //'
-//' test
+//' https://stackoverflow.com/questions/36115215/filling-a-3d-body-with-a-systematic-point-raster
 //'
 //' @param hex matrix
 //' @param res double

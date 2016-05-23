@@ -15,7 +15,7 @@ fillhexa(hex, res)
 final matrix
 }
 \description{
-test
+https://stackoverflow.com/questions/36115215/filling-a-3d-body-with-a-systematic-point-raster
 }
 \examples{
 hexatestdf <- data.frame(
