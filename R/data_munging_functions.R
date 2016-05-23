@@ -453,7 +453,7 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
     })
   })
 
-  newcortab<-t(newcortab)
+  newcortab<-as.data.frame(t(newcortab))
 
   rownames(newcortab)<-rownames(corrtab)
   colnames(newcortab)<-colnames(corrtab)
