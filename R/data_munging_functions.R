@@ -421,11 +421,10 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
       for (s in 1:length(matrix)) {
         # calculation of a contingency table for the current column-column relation
         tbl = table(matrix[,z], matrix[,s])
-
+        # perform chi-square test for the current relation
+        x <- chisq.test(tbl)
         # method decision
         if (method == "chi2") {
-          # perform chi-square test for the current relation
-          x <- chisq.test(tbl)
           # comparing p-Value with defined decision niveau chi2limit to make a test decision
           # DE: p-Value (Verwerfungsniveau) wird aus den Testergebnissen extrahiert und mit der eingegebenen
           # Irrtumswahrscheinlichkeit chi2limit verglichen. Wenn die Wahrscheinlichkeit, dass man sich bei einer
@@ -438,15 +437,11 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
             corrtab[z,s] <- 0
           }
         } else if (method == "phi") {
-          # perform chi-square test for the current relation
-          x <- chisq.test(tbl)
           # calculation of phi = √(chi2/n)
           # -> chi2 is the chisquare value
           # -> n is the sum of the contingency table
           corrtab[z,s] <- sqrt(unlist(x[1])/sum(tbl))
         } else if (method == "cc") {
-          # perform chi-square test for the current relation
-          x <- chisq.test(tbl)
           # calculation of CC = √(chi2/(chi2+n))
           # -> chi2 is the chisquare value
           # -> n is the sum of the contingency table
@@ -470,18 +465,16 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
       for (s in 1:length(matrix[,1])) {
         tbl = table(unlist(matrix[z,]), unlist(matrix[s,]))
 
+        x <- chisq.test(tbl)
         if (method == "chi2") {
-          x <- chisq.test(tbl)
           if (unlist(x[3]) < chi2limit) {
             corrtab[z,s] <- 1
           } else {
             corrtab[z,s] <- 0
           }
         } else if (method == "phi") {
-          x <- chisq.test(tbl)
           corrtab[z,s] <- sqrt(unlist(x[1])/sum(tbl))
         } else if (method == "cc") {
-          x <- chisq.test(tbl)
           corrtab[z,s] <- sqrt(unlist(x[1])/(unlist(x[1])+sum(tbl)))
         } else if (method == "lambda") {
           corrtab[z,s] <- rapportools::lambda.test(tbl, direction = 2)
