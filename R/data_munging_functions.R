@@ -85,19 +85,10 @@ presencecount <- function(matrix, dim=1){
 #'
 
 booleanize <- function(matrix, present=TRUE, absent=FALSE) {
-
-  # loop to reach every cell of the matrix
-  for(r in 1:length(matrix[,1])) {
-    for(c in 1:length(matrix[1,])) {
-      # if a cell contains 0, than the value of "absent" will be written into this cell
-      if (matrix[r,c] == 0) {
-        matrix[r,c] <- absent
-        # if a cell contains a numeric value >0, than the value of "present" will be written into this cell
-      } else if (matrix[r,c] > 0) {
-        matrix[r,c] <- present
-      }
-    }
-  }
+  absent_elements <- which(matrix == 0, arr.ind = T)
+  present_elements <- which(matrix > 0, arr.ind = T)
+  matrix[absent_elements] <- absent
+  matrix[present_elements] <- present
 
   return(matrix)
 
