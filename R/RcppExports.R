@@ -30,6 +30,5 @@
 #'
 #' @export
 fillhexa <- function(hex, res) {
-    .Call('quantaar_fillhexa', PACKAGE = 'quantaar', hex, res)
+    .Call("quantaar_fillhexa", PACKAGE = "quantaar", hex, res)
 }
-
