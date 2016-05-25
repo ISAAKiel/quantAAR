@@ -31,109 +31,108 @@ caplot <- function (cadoc) {
   ## PAGE 1
 
   m <- layout (
-    matrix(c(1,2,3,4,4,4),3,2),
-    widths=c(1.5,3),
-    heights=c(1,1,1)
+    matrix(c(1, 2, 3, 4, 4, 4), 3, 2),
+    widths = c(1.5, 3),
+    heights = c(1, 1, 1)
   )
-  #layout.show(m)
 
   # inertia barplot
-  summary(cadoc)[[1]][,2] -> inert
+  summary(cadoc)[[1]][, 2] -> inert
   inert <- inert[1:5]
 
   barplot(
     inert,
-    names.arg = paste('', 1:length(inert)),
+    names.arg = paste("", 1:length(inert)),
     col = 8,
     ylim = c(0, round(1.5 * max(inert), 1)),
     space = 0,
     las = 1
   )
   text(
-    (1:length(inert))-.5, inert, round(inert,3),
-    pos=3
+    (1:length(inert)) - .5, inert, round(inert, 3),
+    pos = 3
   )
-  title(main="Inertia value of dimensions 1-5", font=2)
+  title(main = "Inertia value of dimensions 1-5", font = 2)
 
   # ca plots
   plot(
     cadoc,
-    dim = c(1,2),
-    labels = c(0,0),
+    dim = c(1, 2),
+    labels = c(0, 0),
     map = "rowprincipal",
-    mass = c(TRUE,FALSE)
+    mass = c(TRUE, FALSE)
   )
-  title(main="Mass", font=2)
+  title(main = "Mass", font = 2)
 
   plot(
     cadoc,
-    dim = c(1,2),
-    labels = c(0,0),
+    dim = c(1, 2),
+    labels = c(0, 0),
     map = "rowprincipal",
     contrib = "relative"
   )
-  title(main="Quality", font=2)
+  title(main = "Quality", font = 2)
 
   plot(
     cadoc,
-    dim = c(1,2),
-    labels = c(2,0),
+    dim = c(1, 2),
+    labels = c(2, 0),
     map = "rowprincipal"
   )
-  title(main="CA - X: dim1, Y: dim2", font=2)
+  title(main = "CA - X: dim1, Y: dim2", font = 2)
 
 
   ## Page 2
 
   m <- layout (
-    matrix(c(1,1,2,3),2,2),
-    widths=c(1,1),
-    heights=c(1,1)
+    matrix(c(1, 1, 2, 3), 2, 2),
+    widths = c(1, 1),
+    heights = c(1, 1)
   )
 
   # ca plots
   plot(
     cadoc,
-    dim = c(1,2),
-    labels = c(2,0),
+    dim = c(1, 2),
+    labels = c(2, 0),
     map = "rowprincipal",
-    xlim = c(-2,2),
-    ylim = c(-2,2)
+    xlim = c(-2, 2),
+    ylim = c(-2, 2)
   )
-  title(main="X: dim1, Y: dim2 Zoom", font=2)
+  title(main = "X: dim1, Y: dim2 Zoom", font = 2)
 
   plot(
     cadoc,
-    dim = c(1,3),
-    labels = c(2,0),
+    dim = c(1, 3),
+    labels = c(2, 0),
     map = "rowprincipal"
   )
-  title(main="X: dim1, Y: dim3", font=2)
+  title(main = "X: dim1, Y: dim3", font = 2)
 
   plot(
     cadoc,
-    dim = c(2,3),
-    labels = c(2,0),
+    dim = c(2, 3),
+    labels = c(2, 0),
     map = "rowprincipal")
-  title(main="X: dim2, Y: dim3", font=2)
+  title(main = "X: dim2, Y: dim3", font = 2)
 
 
   ## PAGE 3
 
   m <- layout (
-    matrix(c(1),2,2),
-    widths=c(1,1),
-    heights=c(1,1)
+    matrix(c(1), 2, 2),
+    widths = c(1, 1),
+    heights = c(1, 1)
   )
 
   # ca plot
   plot(
     cadoc,
-    dim = c(1,2),
-    labels = c(0,2),
+    dim = c(1, 2),
+    labels = c(0, 2),
     map = "rowprincipal"
   )
-  title(main="X: dim1, Y: dim2", font=2)
+  title(main = "X: dim1, Y: dim2", font = 2)
 
   # set graphic values back to default
   par(.graphicdefault)
@@ -199,18 +198,23 @@ caplot <- function (cadoc) {
 #' @export
 #'
 
-corrplotmask <- function(corrmatrix, xmatrix = "notact", mypath, voi=1:length(corrmatrix[1,]), w = 3000, h = 3000) {
+corrplotmask <- function(corrmatrix,
+                         xmatrix = "notact",
+                         mypath,
+                         voi=1:length(corrmatrix[1, ]),
+                         w = 3000,
+                         h = 3000) {
 
   # define color palette (with a nice green)
-  col2 <- colorRampPalette(c("white","white", "chartreuse4"))
+  col2 <- colorRampPalette(c("white", "white", "chartreuse4"))
 
   # plotting in file
-  png(file = mypath, width=w, height=h)
+  png(file = mypath, width = w, height = h)
 
   # decision: with or without crossmarking of certain values.
   if (is.character(xmatrix)) {
     corrplot::corrplot(
-      corrmatrix[,voi],
+      corrmatrix[, voi],
       method = "color",
       cl.lim = c(0, 1),
       tl.col = "black",
@@ -219,13 +223,13 @@ corrplotmask <- function(corrmatrix, xmatrix = "notact", mypath, voi=1:length(co
     )
   } else {
     corrplot::corrplot(
-      as.matrix(corrmatrix[,voi]),
-      p.mat=as.matrix(xmatrix[,voi]),
+      as.matrix(corrmatrix[, voi]),
+      p.mat = as.matrix(xmatrix[, voi]),
       method = "color",
       cl.lim = c(0, 1),
       tl.col = "black",
       tl.cex = 2,
-      col=col2(50)
+      col = col2(50)
     )
   }
 
@@ -283,10 +287,16 @@ corrplotmask <- function(corrmatrix, xmatrix = "notact", mypath, voi=1:length(co
 #' @export
 #'
 
-igraphmask <- function (reltable, mypath, w = 3000, h = 3000, colorvector = c("red")) {
+igraphmask <- function (reltable,
+                        mypath,
+                        w = 3000,
+                        h = 3000,
+                        colorvector = c("red")) {
 
   # reduce reltable to the necessary columns
-  reltablesimple <- data.frame(from = reltable$namevar1, to = reltable$namevar2, weight = reltable$corrvalue)
+  reltablesimple <- data.frame(from = reltable$namevar1,
+                               to = reltable$namevar2,
+                               weight = reltable$corrvalue)
 
   # create graph-list (class of igraph)
   graphbasis <- igraph::graph.data.frame(reltablesimple, directed = TRUE)
