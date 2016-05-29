@@ -30,19 +30,17 @@
 
 presencecount <- function(matrix, dim=1){
 
-  #matrix <- data.frame(matrix, names = rownames(matrix))
-
   # count variables
   if (dim == 1) {
     # prepare data.frame to store the results
     widthdataset <- length(matrix)
-    presencecount <- data.frame(matrix[1,], row.names = "count")
+    presencecount <- data.frame(matrix[1, ], row.names = "count")
     # loop to determine the amount of appearences
     for (i in 1:widthdataset) {
-      presencecount[1,i] <- length(which(matrix[,i] != "0"))
+      presencecount[1, i] <- length(which(matrix[, i] != "0"))
     }
     # sort results by amount of appearences
-    presencecount <- presencecount[,order(presencecount[1,])]
+    presencecount <- presencecount[, order(presencecount[1, ])]
   }
 
   # count objects
@@ -51,13 +49,13 @@ presencecount <- function(matrix, dim=1){
     matrix <- data.frame(t(matrix))
     # prepare data.frame to store the results
     widthdataset <- length(matrix)
-    presencecount <- data.frame(matrix[1,], row.names = "count")
+    presencecount <- data.frame(matrix[1, ], row.names = "count")
     # loop to determine the amount of appearences
     for (i in 1:widthdataset) {
-      presencecount[1,i] <- length(which(matrix[,i] != "0"))
+      presencecount[1, i] <- length(which(matrix[, i] != "0"))
     }
     # sort results by amount of appearences
-    presencecount <- presencecount[,order(presencecount[1,])]
+    presencecount <- presencecount[, order(presencecount[1, ])]
   }
 
   return(presencecount)
@@ -145,29 +143,29 @@ rmnegcorr <- function (corrmatrix, matrix, dim, niv = 0.1) {
   }
 
   # loop to check every cell of the correlation matrix
-  for (l in 1:length(corrmatrix[,1])) {
-    for (c in 1:length(corrmatrix[1,])) {
+  for (l in 1:length(corrmatrix[, 1])) {
+    for (c in 1:length(corrmatrix[1, ])) {
       # calculation of a contingency table for the current corrmatrix cell
-      corrtab <- table(matrix[,l], matrix[,c])
+      corrtab <- table(matrix[, l], matrix[, c])
       # set ratio value to 100%
       prop1 <- 1
       prop2 <- 1
       # calculate ratio values for current cell, if there's a least one positiv
       # overlap of occurences of the underlying variables/objects
-      if (corrtab[1,2] != 0) {
-        prop1 <- corrtab[2,2]/sum(corrtab[,2])
+      if (corrtab[1, 2] != 0) {
+        prop1 <- corrtab[2, 2] / sum(corrtab[, 2])
       }
-      if (corrtab[2,1] != 0) {
-        prop2 <- corrtab[2,2]/sum(corrtab[2,])
+      if (corrtab[2, 1] != 0) {
+        prop2 <- corrtab[2, 2] / sum(corrtab[2, ])
       }
       # set correlation value to 0, if one or both ratio values is smaller than
       # a defined niveau.
       if (prop1 < niv) {
-        corrmatrix[l,c] <- 0
+        corrmatrix[l, c] <- 0
       } else if (prop2 < niv) {
-        corrmatrix[l,c] <- 0
+        corrmatrix[l, c] <- 0
       } else if (prop1 < niv && prop2 < niv) {
-        corrmatrix[l,c] <- 0
+        corrmatrix[l, c] <- 0
       }
     }
   }
@@ -212,7 +210,8 @@ rmnegcorr <- function (corrmatrix, matrix, dim, niv = 0.1) {
 
 reltable <- function(corrtable, corrtable2 = data.frame()) {
 
-  # copy matrix to apply an increasingly fast search algorithm for the matrix maximum
+  # copy matrix to apply an increasingly fast search algorithm
+  # for the matrix maximum
   destroycorr <- corrtable
 
   # Setup an empty data.frame as basis for the relation table
@@ -220,7 +219,7 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
     a <- matrix(
       NA,
       nrow = length(corrtable[corrtable != 0]),
-      ncol=6
+      ncol = 6
     )
     a <- data.frame(a)
     colnames(a) <- c(
@@ -235,7 +234,7 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
     a <- matrix(
       NA,
       nrow = length(corrtable[corrtable != 0]),
-      ncol=7
+      ncol = 7
     )
     a <- data.frame(a)
     colnames(a) <- c(
@@ -250,37 +249,40 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
   }
 
   # loop to fill relationship table (in order of decreasing correlation values)
-  for (i in 1:length(a[,1])) {
+  for (i in 1:length(a[, 1])) {
     if (max(destroycorr) != 0) {
       # search for current max value (highest correlation / best relation)
-      a[i,1:2] <- which(destroycorr == max(destroycorr), arr.ind = TRUE)[1,]
-      a[i,3] <- destroycorr[a[i,1],a[i,2]]
-      a[i,4] <- colnames(destroycorr)[a[i,1]]
-      a[i,5] <- colnames(destroycorr)[a[i,2]]
+      a[i, 1:2] <- which(destroycorr == max(destroycorr), arr.ind = TRUE)[1, ]
+      a[i, 3] <- destroycorr[a[i, 1], a[i, 2]]
+      a[i, 4] <- colnames(destroycorr)[a[i, 1]]
+      a[i, 5] <- colnames(destroycorr)[a[i, 2]]
       # create namehash to identify every relationship bijektivly
       suppressWarnings(
-        namehashvector <- as.numeric(charToRaw(a[i,4])) + as.numeric(charToRaw(a[i,5]))
+        namehashvector <- as.numeric(charToRaw(a[i, 4])) +
+          as.numeric(charToRaw(a[i, 5]))
       )
-      a[i,6] <- paste(namehashvector,collapse="")
+      a[i, 6] <- paste(namehashvector, collapse = "")
       if (nrow(corrtable2) != 0) {
-        a[i,7] <- corrtable2[a[i,1],a[i,2]]
+        a[i, 7] <- corrtable2[a[i, 1], a[i, 2]]
       }
-      # set current relation to 0, to find the next best relation in the next loop run
-      destroycorr[a[i,1],a[i,2]] <- 0
+      # set current relation to 0,
+      # to find the next best relation in the next loop run
+      destroycorr[a[i, 1], a[i, 2]] <- 0
     }
   }
 
   # remove autocorrelation
   b <- dplyr::filter(a, namevar1 != namevar2)
 
-  # remove every relation, that is already present inversely (var1 + var2 = var2 + var1)
-  c <- b[which(duplicated(b[,6])),]
+  # remove every relation, that is already present
+  # inversely (var1 + var2 = var2 + var1)
+  c <- b[which(duplicated(b[, 6])), ]
 
-  row.names(c) <- 1:length(c[,1])
+  row.names(c) <- 1:length(c[, 1])
 
   #remove namehash
 
-  d <- c[,-6]
+  d <- c[, -6]
 
   return(d)
 }
@@ -329,7 +331,7 @@ newcorrtable <- function (matrix, dim = 1) {
 
   # table is created for row (objects) relations
   if (dim == 2) {
-    matrixheight <- length(matrix[,1])
+    matrixheight <- length(matrix[, 1])
     newtable <- matrix(nrow = matrixheight, ncol = matrixheight, 0)
     colnames(newtable) <- rownames(matrix)
     rownames(newtable) <- rownames(matrix)
@@ -410,23 +412,28 @@ newcorrtable <- function (matrix, dim = 1) {
 #' @export
 #'
 
-corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegniv = 0) {
+corrmat <- function (matrix, method = "chi2",
+                     dim = 1, chi2limit = 0.05, rmnegniv = 0) {
 
   # create empty correlation table for the input data.frame
   corrtab <- quantaar::newcorrtable(matrix, dim)
-  my_dim<-c(2,1)[dim]
+  my_dim <- c(2, 1)[dim]
 
-  newcortab<-apply(matrix,my_dim,function(z){
-    apply(matrix,my_dim,function(s){
-      tbl <- table(z,s)
+  newcortab <- apply(matrix, my_dim, function(z){
+    apply(matrix, my_dim, function(s){
+      tbl <- table(z, s)
       x <- chisq.test(tbl)
       if (method == "chi2") {
-        # comparing p-Value with defined decision niveau chi2limit to make a test decision
-        # DE: p-Value (Verwerfungsniveau) wird aus den Testergebnissen extrahiert und mit der eingegebenen
-        # Irrtumswahrscheinlichkeit chi2limit verglichen. Wenn die Wahrscheinlichkeit, dass man sich bei einer
-        # Ablehnung der Nullhypothese (H0: kein Zusammenhang der Variablen) irrt, kleiner als chi2limit ausfällt,
-        # dann kann ein signifikanter Zusammenhang angenommen werden, der mit einer 1 in der Ergebnismatrix
-        # testtable festgehalten wird. Umgekehrt weist eine 0 auf keinen signifikanten Zusammenhang hin.
+        # comparing p-Value with defined decision niveau chi2limit
+        # to make a test decision
+        # DE: p-Value (Verwerfungsniveau) wird aus den Testergebnissen
+        # extrahiert und mit der eingegebenen Irrtumswahrscheinlichkeit
+        # chi2limit verglichen. Wenn die Wahrscheinlichkeit, dass man sich
+        # bei einer Ablehnung der Nullhypothese (H0: kein Zusammenhang
+        # der Variablen) irrt, kleiner als chi2limit ausfällt, dann kann
+        # ein signifikanter Zusammenhang angenommen werden, der mit einer 1
+        # in der Ergebnismatrix testtable festgehalten wird. Umgekehrt
+        # weist eine 0 auf keinen signifikanten Zusammenhang hin.
         if (unlist(x[3]) < chi2limit) {
           result <- 1
         } else {
@@ -436,12 +443,12 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
         # calculation of phi = √(chi2/n)
         # -> chi2 is the chisquare value
         # -> n is the sum of the contingency table
-        result <- sqrt(unlist(x[1])/sum(tbl))
+        result <- sqrt(unlist(x[1]) / sum(tbl))
       } else if (method == "cc") {
         # calculation of CC = √(chi2/(chi2+n))
         # -> chi2 is the chisquare value
         # -> n is the sum of the contingency table
-        result <- sqrt(unlist(x[1])/(unlist(x[1])+sum(tbl)))
+        result <- sqrt(unlist(x[1]) / (unlist(x[1]) + sum(tbl)))
       } else if (method == "lambda") {
         # calculation of lambda value
         result <- rapportools::lambda.test(tbl, direction = 2)
@@ -453,11 +460,11 @@ corrmat <- function (matrix, method = "chi2", dim = 1, chi2limit = 0.05, rmnegni
     })
   })
 
-  newcortab<-as.data.frame(t(newcortab))
+  newcortab <- as.data.frame(t(newcortab))
 
-  rownames(newcortab)<-rownames(corrtab)
-  colnames(newcortab)<-colnames(corrtab)
-  corrtab<-newcortab
+  rownames(newcortab) <- rownames(corrtab)
+  colnames(newcortab) <- colnames(corrtab)
+  corrtab <- newcortab
 
   # apply removal of negativ relations with rmnegcorr
   if (rmnegniv > 0) {
@@ -552,8 +559,8 @@ delempty <- function(matrix) {
   # search empty columns and save index in a vector
   n <- c()
   u <- 1
-  for (i in 1:length(matrix[1,])) {
-    if (sum(matrix[,i]) == 0) {
+  for (i in 1:length(matrix[1, ])) {
+    if (sum(matrix[, i]) == 0) {
       n[u] <- i
       u <- u + 1
     }
@@ -563,8 +570,8 @@ delempty <- function(matrix) {
   z <- c()
   i <- 1
   u <- 1
-  for (i in 1:length(matrix[,1])) {
-    if (sum(matrix[i,]) == 0) {
+  for (i in 1:length(matrix[, 1])) {
+    if (sum(matrix[i, ]) == 0) {
       z[u] <- i
       u <- u + 1
     }
@@ -572,12 +579,12 @@ delempty <- function(matrix) {
 
   # delete empty colums
   if (!is.null(n)) {
-    matrix <- matrix[,-n]
+    matrix <- matrix[, -n]
   }
 
   # delete empty rows
   if (!is.null(z)) {
-    matrix <- matrix[-z,]
+    matrix <- matrix[-z, ]
   }
 
   return(matrix)
@@ -636,7 +643,8 @@ delempty <- function(matrix) {
 
 delrc <- function(matrix, climit = 0, rlimit = 0) {
 
-  # reduce too big input to the extends of the matrix to cover the possible maximum
+  # reduce too big input to the extends of the matrix
+  # to cover the possible maximum
   if (climit > ncol(matrix)) {
     climit <- ncol(matrix) + 1
   }
@@ -651,7 +659,7 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
     if (!(ncol(matrix) == 0 | nrow(matrix) == 0) &&
         !is.vector(matrix)) {
       for (s in 1:ncol(matrix)) {
-        if (length(which(matrix[,s] > 0)) < climit) {
+        if (length(which(matrix[, s] > 0)) < climit) {
           n[p] <- s
           p <- p + 1
         }
@@ -668,7 +676,7 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
     if (!(ncol(matrix) == 0 | nrow(matrix) == 0) &&
         !is.vector(matrix)) {
       for (i in 1:nrow(matrix)) {
-        if (length(which(matrix[i,] > 0)) < rlimit) {
+        if (length(which(matrix[i, ] > 0)) < rlimit) {
           z[u] <- i
           u <- u + 1
         }
@@ -677,9 +685,10 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
     return(z)
   }
 
-  # loop to go through the matrix again and again until every relevant row/column is removed.
-  # That's necessary, because the removal of e.g. one column  could cause the need to remove an other
-  # row previously still relevant
+  # loop to go through the matrix again and again until
+  # every relevant row/column is removed. That's necessary,
+  # because the removal of e.g. one column could cause the need
+  # to remove an other row previously still relevant
   while (nrow(matrix) > 0 &&
          ncol(matrix) > 0 &&
          (!is.null(cdel(matrix, climit)) ||
@@ -691,7 +700,7 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
 
     # delete columns
     if (!is.null(n) && ncol(matrix) >= max(n))  {
-      matrix <- matrix[,-n]
+      matrix <- matrix[, -n]
     }
 
     # call search function
@@ -699,7 +708,7 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
 
     # delete rows
     if (!is.null(z) && nrow(matrix) >= max(z)) {
-      matrix <- matrix[-z,]
+      matrix <- matrix[-z, ]
     }
   }
 

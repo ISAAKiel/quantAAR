@@ -55,8 +55,8 @@ predictvo <- function (matrix, reltable, mvars, level = 2) {
 
     # extract partner variables of the variable of interest (1. Level)
     withoutmvar <- c(
-      redtovar[redtovar$namevar1 != mvar,]$namevar1,
-      redtovar[redtovar$namevar2 != mvar,]$namevar2
+      redtovar[redtovar$namevar1 != mvar, ]$namevar1,
+      redtovar[redtovar$namevar2 != mvar, ]$namevar2
     )
 
    # extract partner variables of partner variables of interest (2. Level)
@@ -76,7 +76,8 @@ predictvo <- function (matrix, reltable, mvars, level = 2) {
       )
     }
 
-    # create vector of partner variables (2. Level or 1. Level + Variable of Interest)
+    # create vector of partner variables
+    # (2. Level or 1. Level + Variable of Interest)
     if (level == 1) {
       mvarvec <- c(withoutmvar, mvar)
     } else if (level == 2) {
@@ -88,9 +89,9 @@ predictvo <- function (matrix, reltable, mvars, level = 2) {
 
     mvarrel <- c()
     # loop: check relation of the variable of interest with every object
-    for (i in 1:length(matrix[,1])){
+    for (i in 1:length(matrix[, 1])){
       # determine variables present in current object
-      cur <- colnames(matrix)[as.logical(matrix[i,])]
+      cur <- colnames(matrix)[as.logical(matrix[i, ])]
       # compare variables present in current object with the list of 2. Level
       # partner variables. Count overlap
       mvarrel[i] <- length(mvarvec[mvarvec %in% cur])
@@ -98,15 +99,15 @@ predictvo <- function (matrix, reltable, mvars, level = 2) {
 
     # normalize overlap vector
     for (i in 1:length(mvarrel)){
-      mvarrel[i] <- mvarrel[i]/max(mvarrel)
+      mvarrel[i] <- mvarrel[i] / max(mvarrel)
     }
 
     # write overlap vector into a data.frame to collect the information for
     # every variable of information in one table
     if (!(exists("relvaluetable"))) {
-      relvaluetable <- data.frame(mvarrel, matrix[,mvar])
+      relvaluetable <- data.frame(mvarrel, matrix[, mvar])
     } else {
-      relvaluetable <- data.frame(relvaluetable, mvarrel, matrix[,mvar])
+      relvaluetable <- data.frame(relvaluetable, mvarrel, matrix[, mvar])
     }
 
   }

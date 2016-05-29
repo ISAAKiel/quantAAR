@@ -14,13 +14,13 @@ table with linkage values
 }
 \description{
 \code{linkage()} calculates a linkage value for every variable and every object
-of an input data.frame and returns a table with this information. 
+of an input data.frame and returns a table with this information.
 This linkage value allows predictions about whether a variable/object can be used
-for multivariate analysis. If a variable/object is not well linked to the other entities, 
+for multivariate analysis. If a variable/object is not well linked to the other entities,
 it will often appear as an outlier.
 }
 \details{
-Structure of the resulting table: 
+Structure of the resulting table:
 
 column 1:  linkage value (see code to understand how it's calculated)
 
@@ -32,11 +32,11 @@ column 3:  type (variable or object)
 testmatrixrand <- data.frame(
    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
- 
+
 linkage(testmatrixrand)
- 
-link <- subset(linkage(testmatrixrand), type == "obj")  
-barplot(link$linkage, names.arg = rownames(link))  
- 
+
+link <- subset(linkage(testmatrixrand), type == "obj")
+barplot(link$linkage, names.arg = rownames(link))
+
 }
 
