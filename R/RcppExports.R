@@ -33,3 +33,13 @@ fillhexa <- function(hex, res) {
     .Call('quantaar_fillhexa', PACKAGE = 'quantaar', hex, res)
 }
 
+#' Test
+#'
+#' @param crlist
+#' @param maplist
+#'
+#' @export
+posdec <- function(crlist, maplist) {
+    .Call('quantaar_posdec', PACKAGE = 'quantaar', crlist, maplist)
+}
+
