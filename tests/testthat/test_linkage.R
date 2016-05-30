@@ -40,3 +40,21 @@ test_that(
     )
   }
 )
+
+testmatrix_short <- data.frame(
+  matrix(c(1,0,0,0,0,0,0,0,1,0,0,1),nrow=4)
+)
+
+
+test_that(
+  "with zero linkage value is not calculated as logarithm",  {
+    expect_equal(
+      linkage(testmatrix_short)[2,1],
+      linkage(testmatrix_short)[2,2]
+    )
+    expect_equal(
+      linkage(testmatrix_short)[6,1],
+      linkage(testmatrix_short)[6,2]
+    )
+  }
+)

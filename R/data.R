@@ -23,7 +23,8 @@
 #'   \item fibula_1: fibula type 1 (1--10)
 #'   \item fibula_2: fibula type 2 (1--10)
 #' }
-"bs1"
+#' @name bs1
+NULL
 
 #' A burial site from the Unetice culture in western Slovakia
 #'
@@ -71,4 +72,5 @@
 #' @source {Tocik, Anton (1979) Vycapy-Opatovce : a dalsie pohrebiska z
 #'  starsej doby bronzovej na Juhozapadnom Slovensku = Vycapy-Oopatovce :
 #'  und weitere altbronzezeitliche Graberfelder in der Sudwestslowakei. Nitra.}
-"matuskovo"
+#' @name matuskovo
+NULL
