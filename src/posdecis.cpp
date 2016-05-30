@@ -5,25 +5,6 @@
 
 using namespace Rcpp;
 
-NumericMatrix catmatrix(NumericMatrix a, NumericMatrix b) {
-  int acoln = a.ncol();
-  int bcoln = b.ncol();
-  NumericMatrix out = no_init_matrix(a.nrow(), acoln + bcoln);
-  for (int j = 0; j < acoln + bcoln; j++) {
-    if (j < acoln) {
-      out(_, j) = a(_, j);
-    } else {
-      out(_, j) = b(_, j - acoln);
-    }
-  }
-  return out;
-}
-
-int vecmax(NumericVector x) {
-  NumericVector::iterator it = std::max_element(x.begin(), x.end());
-  return it - x.begin();
-}
-
 //' Test
 //'
 //' Testdescription
@@ -42,7 +23,7 @@ List posdec(List crlist, List maplist){
     // create table for current cube with decision column
     SEXP cube2mid = crlist[crp];
     NumericMatrix cube2 = asMatrix(cube2mid);
-    NumericMatrix cubedec = NumericMatrix(cube2.nrow(), 1);
+    NumericMatrix cubedec(cube2.nrow(), 4);
     // loop to deal with every layer for the current cube
     for (int mp = 0; mp < maplist.size(); mp++){
       SEXP curmapmid = maplist[mp];
@@ -51,12 +32,12 @@ List posdec(List crlist, List maplist){
       NumericVector mindistps(4);
       NumericVector mindistz(4);
       for (int pcube = 0; pcube < cube2.nrow(); pcube++) {
-        double x1 = cube2(pcube, 1);
-        double y1 = cube2(pcube, 2);
+        double x1 = cube2(pcube, 0);
+        double y1 = cube2(pcube, 1);
         // loop to determine four points with the shortest distance
         for (int p1 = 0; p1 < curmap.nrow(); p1++) {
-          double x2 = curmap(p1, 1);
-          double y2 = curmap(p1, 2);
+          double x2 = curmap(p1, 0);
+          double y2 = curmap(p1, 1);
           double x = x1 - x2;
           double y = y1 - y2;
           double dist = pow(x, 2) + pow(y, 2);
@@ -80,7 +61,7 @@ List posdec(List crlist, List maplist){
 
           if (dist < mindistps(id)) {
             mindistps(id) = dist;
-            mindistz(id) = curmap(p1, 3);
+            mindistz(id) = curmap(p1, 2);
           }
 
         }
@@ -90,14 +71,19 @@ List posdec(List crlist, List maplist){
         }
         double zmap = ztemp/4.0;
 
-        if (cube2(pcube, 3) < zmap) {
-          cubedec(pcube, 1) = 5;
-        } else {
-          cubedec(pcube, 1) = mp+1;
+
+        cubedec(pcube, 0) = cube2(pcube, 0);
+        cubedec(pcube, 1) = cube2(pcube, 1);
+        cubedec(pcube, 2) = cube2(pcube, 2);
+
+        if (mp == 0 & cube2(pcube, 2) >= zmap) {
+          cubedec(pcube, 3) = mp+1;
+        } else if (cube2(pcube, 2) != 0 & cube2(pcube, 2) >= zmap) {
+          cubedec(pcube, 3) += 1;
         }
       }
     }
-    crlist[crp] = catmatrix(cube2, cubedec);
+    crlist[crp] = cubedec;
   }
 
   // output
