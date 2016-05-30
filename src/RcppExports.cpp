@@ -18,7 +18,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // posdec
-NumericVector posdec(List crlist, List maplist);
+List posdec(List crlist, List maplist);
 RcppExport SEXP quantaar_posdec(SEXP crlistSEXP, SEXP maplistSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;

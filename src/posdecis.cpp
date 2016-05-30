@@ -31,7 +31,7 @@ int vecmax(NumericVector x) {
 //'
 //' @export
 // [[Rcpp::export]]
-NumericVector posdec(List crlist, List maplist){
+List posdec(List crlist, List maplist){
 
   Function asMatrix("as.matrix");
 
@@ -53,29 +53,34 @@ NumericVector posdec(List crlist, List maplist){
         double y1 = cube2(pcube, 2);
         // loop to determine four points with the shortest distance
         for (int p1 = 0; p1 < curmap.nrow(); p1++) {
-          double x2 = curmap(p1, 2);
+          double x2 = curmap(p1, 1);
           double y2 = curmap(p1, 2);
           double x = x1 - x2;
           double y = y1 - y2;
           double dist = pow(x, 2) + pow(y, 2);
           dist = sqrt(dist);
-          int id;
-          if(p1 == 0) {
-            id = 0;
-          } else if (p1 == 1) {
-            id = 1;
-          } else if (p1 == 2) {
-            id = 2;
-          } else if (p1 == 3) {
-            id = 3;
-          } else {
-            id = vecmax(mindistps);
+
+          if (p1 == 0){
+            mindistps(0) = dist;
+            mindistps(1) = dist;
+            mindistps(2) = dist;
+            mindistps(3) = dist;
           }
+
+          double max = 0;
+          int id = 0;
+          for (int p2 = 0; p2 < 4; p2++) {
+            if(mindistps(p2) > max) {
+              max = mindistps(p2);
+              id = p2;
+            }
+          }
+
           if (dist < mindistps(id)) {
             mindistps(id) = dist;
             mindistz(id) = curmap(p1, 3);
           }
-          return mindistz;
+
         }
         double zmap = sum(mindistz)/4;
         if (cube2(pcube, 3) < zmap) {
@@ -89,4 +94,5 @@ NumericVector posdec(List crlist, List maplist){
   }
 
   // output
+  return crlist;
 }
