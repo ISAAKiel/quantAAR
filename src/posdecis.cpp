@@ -82,9 +82,14 @@ List posdec(List crlist, List maplist){
           }
 
         }
-        double zmap = sum(mindistz)/4;
+        double ztemp = 0;
+        for (int p3 = 0; p3 < mindistz.size(); p3++) {
+          ztemp += mindistz(p3);
+        }
+        double zmap = ztemp/4.0;
+
         if (cube2(pcube, 3) < zmap) {
-          cubedec(pcube, 1) = mp;
+          cubedec(pcube, 1) = 5;
         } else {
           cubedec(pcube, 1) = mp+1;
         }
