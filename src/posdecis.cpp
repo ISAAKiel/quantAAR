@@ -26,8 +26,10 @@ int vecmax(NumericVector x) {
 
 //' Test
 //'
-//' @param crlist
-//' @param maplist
+//' Testdescription
+//'
+//' @param crlist TODO
+//' @param maplist TODO
 //'
 //' @export
 // [[Rcpp::export]]

@@ -35,8 +35,10 @@ fillhexa <- function(hex, res) {
 
 #' Test
 #'
-#' @param crlist
-#' @param maplist
+#' Testdescription
+#'
+#' @param crlist TODO
+#' @param maplist TODO
 #'
 #' @export
 posdec <- function(crlist, maplist) {
