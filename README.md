@@ -7,7 +7,7 @@ R Library for Quantitative Analysis in Archaeology
 
 #### Released version
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/roxcal)](http://cran.r-project.org/package=roxcal)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/quantaar)](http://cran.r-project.org/package=quantaar)
 
 `quantaar` is a collection of functions useful for archaeologists.
 
