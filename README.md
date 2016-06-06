@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.org/MartinHinz/quantaar.svg?branch=master)](https://travis-ci.org/MartinHinz/quantaar) [![Coverage Status](https://img.shields.io/codecov/c/github/MartinHinz/quantaar/master.svg)](https://codecov.io/github/MartinHinz/quantaar?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/ISAAKiel/quantaar.svg?branch=master)](https://travis-ci.org/ISAAKiel/quantaar) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/quantaar/master.svg)](https://codecov.io/github/ISAAKiel/quantaar?branch=master)
 
 quantaar
 --------
