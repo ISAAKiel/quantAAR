@@ -25,4 +25,4 @@ Installation
 
     if(!require('devtools')) install.packages('devtools')
     library(devtools)
-    install_github('MartinHinz/quantaar')
+    install_github('ISAAKiel/quantaar')
