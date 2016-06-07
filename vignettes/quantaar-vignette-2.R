@@ -75,8 +75,72 @@ cx = fillhexa(hexatest, 0.05)
 cx <- data.frame(cx)
 colnames(cx) <- c("x", "y" , "z")
 
+cuberasterlist <- list(cx)
+
 vis %>% add_trace(data = cx, x = x, y = y, z = z, 
             mode = "markers", type = "scatter3d", 
             marker = list(size = 1, color = "red", symbol = 104)
   )
+
+## ----fig.width=7, fig.height=5-------------------------------------------
+crlist <- posdec(cuberasterlist, maps)
+
+hexa <- data.frame(crlist[[1]])
+colnames(hexa) <- c("x", "y", "z", "decision")
+
+a <- filter(
+  hexa,
+  decision == 0
+)
+
+b <- filter(
+  hexa,
+  decision == 1
+)
+
+c <- filter(
+  hexa,
+  decision == 2
+)
+
+vis %>% add_trace(data = a, x = x, y = y, z = z, 
+            mode = "markers", type = "scatter3d", 
+            marker = list(size = 1, color = "#31a354", symbol = 104)
+  ) %>% add_trace(data = b, x = x, y = y, z = z, 
+            mode = "markers", type = "scatter3d", 
+            marker = list(size = 1, color = "#de2d26", symbol = 104)
+  ) %>% add_trace(data = c, x = x, y = y, z = z, 
+            mode = "markers", type = "scatter3d", 
+            marker = list(size = 1, color = "#2b8cbe", symbol = 104)
+  )
+
+## ------------------------------------------------------------------------
+# deci: create a result data.frame which shows the distribution of cube points
+deci <- function (crlist) {
+  
+  # reformat matrizes in crlist to data.frames
+  for (i in 1:length(crlist)) {
+    crlist[[i]] <- data.frame(crlist[[i]])
+    colnames(crlist[[i]]) <- c("x", "y", "z", "decision")
+  }
+  
+  # determine amount of layers
+  nl = max(unlist(lapply(crlist, function(x) max(x$decision, na.rm=T))))
+  # create result data.frame
+  m <- matrix(NA, ncol = nl+1, nrow = 1)
+  decision <- data.frame(m)
+  names(decision) <- c(0:nl)
+  # calculate distribution
+  for (crp in 1:length(crlist)) {
+    cr <- crlist[[crp]]
+    crd <- sort(unique(cr$decision))
+    ncr <- nrow(cr)
+    for (i in 1:length(crd)) {
+      decision[crp, names(decision) == crd[i]] <- nrow(filter(cr, decision == crd[i]))/ncr*100
+    }
+  }
+  return(decision)
+}
+
+deci(crlist)
 
