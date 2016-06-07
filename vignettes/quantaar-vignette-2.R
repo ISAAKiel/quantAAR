@@ -46,12 +46,11 @@ x2 <- as.numeric(colnames(surf2))
 y2 <- as.numeric(rownames(surf2))
 z2 <- as.matrix(surf2)
 
-
 vis <- plot_ly(x = x1, y = x1, z = z1, type = "surface", showscale = FALSE
   ) %>%
   add_trace(data = df1, x = x, y = y, z = z, 
             mode = "markers", type = "scatter3d", 
-            marker = list(size = 4, color = "red", symbol = 104)
+            marker = list(size = 4, color = "green", symbol = 104)
   ) %>%
   add_trace(x = x2, y = x2, z = z2, type = "surface", showscale = FALSE
   ) %>%
@@ -63,19 +62,21 @@ vis <- plot_ly(x = x1, y = x1, z = z1, type = "surface", showscale = FALSE
   
 vis
 
-## ------------------------------------------------------------------------
+## ----fig.width=7, fig.height=5-------------------------------------------
 hexatestdf <- data.frame(
-  x = c(0,1,0,4,5,5,5,5),
-  y = c(1,1,4,4,1,1,4,4),
-  z = c(4,8,4,9,4,8,4,6)
+  x = c(1.5, 1.5, 2.2, 1.8, 1.3, 1.2, 1.7, 2),
+  y = c(0.2, 0.4, 0.2, 0.4, 0.15, 0.35, 0.2, 0.4),
+  z = c(0.2, 0.1, 0.2, 0.1, 1.5, 1.6, 1.5, 1.6)
 )
 
 hexatest <- as.matrix(hexatestdf)
 
-# put all cubes in a list
-#cubelist <- list(excube)
-
-cx = fillhexa(hexatest, 0.1)
+cx = fillhexa(hexatest, 0.05)
 cx <- data.frame(cx)
 colnames(cx) <- c("x", "y" , "z")
+
+vis %>% add_trace(data = cx, x = x, y = y, z = z, 
+            mode = "markers", type = "scatter3d", 
+            marker = list(size = 1, color = "red", symbol = 104)
+  )
 
