@@ -70,13 +70,12 @@ cootrans <- function(pair_matrix, pm_column, data_matix, dm_column){
   alpha_std <- sd(vec_a[is.nan(vec_a) == FALSE])
 
   # 1.5 out print for checking transforamtion
-  #print("Transformation:")
-  #print(" local centroid:", sp_loc)
-  #print(" absolute centroid:", sp_abs)
-  #print(" scale:", scale)
-  #print(" rotation arc:", alpha)
+  writeLines(c("Transformation:\n local centroid:   ", toString(sp_loc),
+               "\n absolute centroid:", toString(sp_abs),
+               "\n scale:", toString(scale),
+               "\n roation arc:", toString((alpha*180)/pi)), sep = " ")
   if ((alpha_std >= 0.1) | (scale_std >= 0.1)){
-    print("WARNING: High deviations! Some coordinates may be mapped incorrectly.")
+    writeLines("\n\nWARNING: High deviations! Some coordinates may be mapped incorrectly.")
   }
 
   # 2. transformation
