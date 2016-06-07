@@ -1,5 +1,3 @@
-# Try on get the transformations-function from Python into R
-
 #' Tool for transforming local metric coordinates
 #'
 #' This function transforms local metric coordinates to absolute coordinates of referenced
