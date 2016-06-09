@@ -4,16 +4,16 @@
 \alias{cootrans}
 \title{Tool for transforming local metric coordinates}
 \usage{
-cootrans(pair_matrix, pm_column, data_matix, dm_column)
+cootrans(pair_matrix, pm_column, data_matrix, dm_column)
 }
 \arguments{
 \item{pair_matrix}{data.frame or matrix with pairs of local and corresponding absolute coordinates (Minimum two!)}
 
 \item{pm_column}{vector with numerical index of the columns in order: local x-value, local y-value, absolute x-value, absolute y-value}
 
-\item{dm_column}{vector with numerical index of the columns in order: local x-value, local y-value.}
-
 \item{data_matrix}{data.frame with local x- and y-values which schould be transformed.}
+
+\item{dm_column}{vector with numerical index of the columns in order: local x-value, local y-value.}
 }
 \value{
 Original data.frame with additional columns containing the absolute x- and y-coordinates.
