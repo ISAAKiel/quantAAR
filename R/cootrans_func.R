@@ -22,7 +22,7 @@
 #'
 
 
-cootrans <- function(pair_matrix, pm_column, data_matix, dm_column){
+cootrans <- function(pair_matrix, pm_column, data_matrix, dm_column){
 
   # 0. initial stuff
   # 0.1 define vector calculation function
@@ -78,7 +78,7 @@ cootrans <- function(pair_matrix, pm_column, data_matix, dm_column){
 
   # 2. transformation
   # 2.1 vector attributes
-  vs <- v_func(data_matix[,tx_col], data_matix[,ty_col], sp_loc)
+  vs <- v_func(data_matrix[,tx_col], data_matrix[,ty_col], sp_loc)
 
   # 2.2 calculating new coordinates
   Ax <- ifelse(is.nan(vs$alpha), sp_abs[1], sp_abs[1] + scale * vs$m * sin((vs$alpha + alpha)))
@@ -86,7 +86,7 @@ cootrans <- function(pair_matrix, pm_column, data_matix, dm_column){
 
 
   # 3. append data
-  out_frame <- data.frame(data_matix, abs_x = Ax, abs_y = Ay)
+  out_frame <- data.frame(data_matrix, abs_x = Ax, abs_y = Ay)
 
   return(out_frame)
 }
