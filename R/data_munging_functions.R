@@ -422,7 +422,9 @@ corrmat <- function (matrix, method = "chi2",
   newcortab <- apply(matrix, my_dim, function(z){
     apply(matrix, my_dim, function(s){
       tbl <- table(z, s)
+      options(warn=-1)
       x <- chisq.test(tbl)
+      options(warn=0)
       if (method == "chi2") {
         # comparing p-Value with defined decision niveau chi2limit
         # to make a test decision
