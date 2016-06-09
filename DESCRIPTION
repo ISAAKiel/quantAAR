@@ -4,15 +4,17 @@ Title: R Library for Quantitative Analysis in Archaeology
 Version: 0.1.0
 Author: c(
   person("Martin", "Hinz", email = "martin.hinz@ufg.uni-kiel.de", role = c("aut", "cre")),
-  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut"))
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut")),
+  person("Benjamin", "Serbe", email = "b.serbe@web.de", role = c("aut"))
   )
 Maintainer: Martin Hinz <martin.hinz@ufg.uni-kiel.de>
 Description: quantaar is a collection of functions useful for archaeologists.
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
-URL: https://github.com/MartinHinz/quantaar
+URL: https://github.com/ISAAKiel/quantaar
 Imports: dplyr (>= 0.4.1),
+    plyr,
     magrittr (>= 1.5),
     igraph (>= 0.7.1),
     corrplot (>= 0.73),
@@ -20,11 +22,13 @@ Imports: dplyr (>= 0.4.1),
     ca (>= 0.58),
     rapportools (>= 1.0),
     reshape2 (>= 1.4.1),
-    Rcpp
+    Rcpp,
+    kriging
 Suggests: testthat,
     knitr,
     rmarkdown,
-    roxygen2
+    roxygen2,
+    plotly
 VignetteBuilder: knitr
 Depends: R (>= 2.10)
 LinkingTo: Rcpp

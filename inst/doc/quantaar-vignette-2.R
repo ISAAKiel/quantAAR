@@ -1,8 +1,13 @@
+## ---- echo=FALSE---------------------------------------------------------
+if (!requireNamespace("plotly", quietly = TRUE)) {
+  stop("plotly needed for this vignette to build.",
+    call. = FALSE)
+}
+
 ## ---- message=FALSE------------------------------------------------------
 devtools::load_all()
 library(plotly)
 library(kriging)
-library(ggplot2)
 library(reshape2)
 library(dplyr)
 library(magrittr)
