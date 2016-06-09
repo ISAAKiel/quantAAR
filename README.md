@@ -26,4 +26,7 @@ Installation
     if(!require('devtools')) install.packages('devtools')
     library(devtools)
     install_github('ISAAKiel/quantaar')
+    
+To install with vignettes:
 
+    install_github('ISAAKiel/quantaar', build_vignettes = TRUE, force = TRUE)
