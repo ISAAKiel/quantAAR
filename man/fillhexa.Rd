@@ -7,15 +7,17 @@
 fillhexa(hex, res)
 }
 \arguments{
-\item{hex}{matrix}
+\item{hex}{dataframe with three columns and eight rows to define a hexahedron by its corner
+point coordinates}
 
-\item{res}{double}
+\item{res}{numeric value > 0 and <= 1 for the resolution of the point raster}
 }
 \value{
-final matrix
+matrix with the spatial coordinates of the resulting points of the filling raster
 }
 \description{
-https://stackoverflow.com/questions/36115215/filling-a-3d-body-with-a-systematic-point-raster
+See \url{https://stackoverflow.com/questions/36115215/filling-a-3d-body-with-a-systematic-point-raster}
+for a description of the function and how it was developed.
 }
 \examples{
 hexatestdf <- data.frame(

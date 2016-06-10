@@ -3,12 +3,14 @@
 
 #' Fills hexahedrons with a systematic point raster
 #'
-#' https://stackoverflow.com/questions/36115215/filling-a-3d-body-with-a-systematic-point-raster
+#' See \url{https://stackoverflow.com/questions/36115215/filling-a-3d-body-with-a-systematic-point-raster}
+#' for a description of the function and how it was developed.
 #'
-#' @param hex matrix
-#' @param res double
+#' @param hex dataframe with three columns and eight rows to define a hexahedron by its corner
+#' point coordinates
+#' @param res numeric value > 0 and <= 1 for the resolution of the point raster
 #'
-#' @return final matrix
+#' @return matrix with the spatial coordinates of the resulting points of the filling raster
 #'
 #' @examples
 #' hexatestdf <- data.frame(
