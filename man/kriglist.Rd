@@ -2,31 +2,47 @@
 % Please edit documentation in R/geo_functions.R
 \name{kriglist}
 \alias{kriglist}
-\title{Apply kriging for a list of data.frames}
+\title{Apply kriging \{kriging\} to a list of data.frames}
 \usage{
-kriglist(plist, x = 1, y = 2, z = 3, lags = 6, model = "spherical")
+kriglist(plist, x = 1, y = 2, z = 3, ...)
 }
 \arguments{
-\item{plist}{test}
+\item{plist}{List of data.frames with point coordinates}
 
-\item{x}{test}
+\item{x}{index of data.frame column with x-axis spatial points. Defaults to 1}
 
-\item{y}{test}
+\item{y}{index of data.frame column with y-axis spatial points. Defaults to 2}
 
-\item{z}{test}
+\item{z}{index of data.frame column with z-axis spatial points. Defaults to 3}
 
-\item{lags}{test}
-
-\item{model}{test}
+\item{...}{Arguments to be passed to method \code{kriging} \{kriging\}}
 }
 \value{
-list with data.frame maps
+list with data.frames which contains the predicted values along with the coordinate covariates
 }
 \description{
-Test
+\code{kriging} \{kriging\} is a simple and highly optimized ordinary kriging algorithm to plot
+geographical data. This interface to the method allows to not just apply it to one data.frame but
+to a list of data.frames. The result is reduced to the data.frame with the predicted values.
+For a more detailed output \code{kriging} \{kriging\} has to be called for the individual input
+data.frames.
 }
 \examples{
-1 == 1
+df1 <- data.frame(
+ x = rnorm(50),
+ y = rnorm(50),
+ z = rnorm(50) - 5
+)
+
+df2 <- data.frame(
+ x = rnorm(50),
+ y = rnorm(50),
+ z = rnorm(50) + 5
+)
+
+lpoints <- list(df1, df2)
+
+kriglist(lpoints, lags = 3, model = "spherical")
 
 }
 

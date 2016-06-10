@@ -1,35 +1,51 @@
 # Begin geo modelling functions  ---------------------------
 
-#' Apply kriging for a list of data.frames
+#' Apply kriging \{kriging\} to a list of data.frames
 #'
-#' Test
+#' \code{kriging} \{kriging\} is a simple and highly optimized ordinary kriging algorithm to plot
+#' geographical data. This interface to the method allows to not just apply it to one data.frame but
+#' to a list of data.frames. The result is reduced to the data.frame with the predicted values.
+#' For a more detailed output \code{kriging} \{kriging\} has to be called for the individual input
+#' data.frames.
 #'
-#' @param plist test
-#' @param x test
-#' @param y test
-#' @param z test
-#' @param lags test
-#' @param model test
+#' @param plist List of data.frames with point coordinates
+#' @param x index of data.frame column with x-axis spatial points. Defaults to 1
+#' @param y index of data.frame column with y-axis spatial points. Defaults to 2
+#' @param z index of data.frame column with z-axis spatial points. Defaults to 3
+#' @param ... Arguments to be passed to method \code{kriging} \{kriging\}
 #'
-#' @return list with data.frame maps
+#' @return list with data.frames which contains the predicted values along with the coordinate covariates
 #'
 #' @examples
-#' 1 == 1
+#' df1 <- data.frame(
+#'  x = rnorm(50),
+#'  y = rnorm(50),
+#'  z = rnorm(50) - 5
+#' )
+#'
+#' df2 <- data.frame(
+#'  x = rnorm(50),
+#'  y = rnorm(50),
+#'  z = rnorm(50) + 5
+#' )
+#'
+#' lpoints <- list(df1, df2)
+#'
+#' kriglist(lpoints, lags = 3, model = "spherical")
 #'
 #' @export
 #'
 
-kriglist <- function(plist, x = 1, y = 2, z = 3, lags = 6, model = "spherical") {
-  # create output df
+kriglist <- function(plist, x = 1, y = 2, z = 3, ...) {
+  # create output list
   maplist <- list()
-  # loop to do kriging for all dfs in the input list
+  # loop to do kriging for all data.frames in the input list
   for (i in 1:length(plist)) {
     maplist[[i]] <- kriging(
       x = plist[[i]][,x],
       y = plist[[i]][,y],
       response = plist[[i]][,z],
-      model = model,
-      lags = lags
+      ...
     )$map
   }
   return(maplist)
