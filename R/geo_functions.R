@@ -41,7 +41,7 @@ kriglist <- function(plist, x = 1, y = 2, z = 3, ...) {
   maplist <- list()
   # loop to do kriging for all data.frames in the input list
   for (i in 1:length(plist)) {
-    maplist[[i]] <- kriging(
+    maplist[[i]] <- kriging::kriging(
       x = plist[[i]][,x],
       y = plist[[i]][,y],
       response = plist[[i]][,z],
