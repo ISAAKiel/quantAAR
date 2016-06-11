@@ -13,7 +13,7 @@ point coordinates}
 \item{res}{numeric value > 0 and <= 1 for the resolution of the point raster}
 }
 \value{
-matrix with the spatial coordinates of the resulting points of the filling raster
+data.frame with the spatial coordinates of the resulting points of the filling raster
 }
 \description{
 See \url{https://stackoverflow.com/questions/36115215/filling-a-3d-body-with-a-systematic-point-raster}

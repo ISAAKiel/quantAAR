@@ -156,7 +156,7 @@ DataFrame posdec(DataFrame crlist, List maplist){
 //'
 //' cubelist <- list(cx1, cx2)
 //'
-//' posdec(cubelist, maps)
+//' posdeclist(cubelist, maps)
 //'
 //' @export
 // [[Rcpp::export]]
@@ -228,7 +228,14 @@ List posdeclist(List crlist, List maplist){
         }
       }
     }
-    crlist[crp] = cubedec;
+
+    NumericVector x = cubedec(_,0);
+    NumericVector y = cubedec(_,1);
+    NumericVector z = cubedec(_,2);
+    NumericVector pos = cubedec(_,3);
+
+    // output
+    crlist[crp] = DataFrame::create(_["x"] = x, _["y"] = y, _["z"] = z, _["pos"] = pos);
   }
 
   // output

@@ -48,7 +48,7 @@ cx2 <- fillhexa(hexadf2, 0.1)
 
 cubelist <- list(cx1, cx2)
 
-posdec(cubelist, maps)
+posdeclist(cubelist, maps)
 
 }
 

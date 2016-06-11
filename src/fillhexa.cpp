@@ -24,7 +24,7 @@ NumericMatrix makematrix(NumericVector vec, int lres3){
 //' point coordinates
 //' @param res numeric value > 0 and <= 1 for the resolution of the point raster
 //'
-//' @return matrix with the spatial coordinates of the resulting points of the filling raster
+//' @return data.frame with the spatial coordinates of the resulting points of the filling raster
 //'
 //' @examples
 //' hexatestdf <- data.frame(

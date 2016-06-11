@@ -10,7 +10,7 @@
 #' point coordinates
 #' @param res numeric value > 0 and <= 1 for the resolution of the point raster
 #'
-#' @return matrix with the spatial coordinates of the resulting points of the filling raster
+#' @return data.frame with the spatial coordinates of the resulting points of the filling raster
 #'
 #' @examples
 #' hexatestdf <- data.frame(
@@ -111,7 +111,7 @@ posdec <- function(crlist, maplist) {
 #'
 #' cubelist <- list(cx1, cx2)
 #'
-#' posdec(cubelist, maps)
+#' posdeclist(cubelist, maps)
 #'
 #' @export
 posdeclist <- function(crlist, maplist) {
