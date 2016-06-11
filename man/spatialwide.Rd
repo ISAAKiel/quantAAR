@@ -2,25 +2,32 @@
 % Please edit documentation in R/geo_functions.R
 \name{spatialwide}
 \alias{spatialwide}
-\title{Transform a long surface describing df to a wide surface describing df}
+\title{Transforms a data.frame with three attributes in long format to a data.frame with wide format.}
 \usage{
-spatialwide(x, y, z)
+spatialwide(x, y, z, digits = 3)
 }
 \arguments{
-\item{x}{test}
+\item{x}{vector of first independent variable. e.g. vector with x-axis spatial points}
 
-\item{y}{test}
+\item{y}{vector of second independent variable. e.g. vector with y-axis spatial points}
 
-\item{z}{test}
+\item{z}{vector of dependent variable. e.g. vector with z-axis spatial points}
+
+\item{digits}{integer indicating the number of decimal places to be used for rounding
+the colnames (\code{x}) and rownames (\code{y}).}
 }
 \value{
-widedf
+data.frame in wide format
 }
 \description{
-Test
+Transforms a data.frame with three attributes in long format to a data.frame with wide format.
 }
 \examples{
-1 == 1
+x <- c(1, 1, 1, 2, 2, 2, 3, 3, 4)
+y <- c(1, 2, 3, 1, 2, 3, 1, 2, 3)
+z <- c(3, 4, 2, 3, NA, 5, 6, 3, 1)
+
+spatialwide(x, y, z)
 
 }
 

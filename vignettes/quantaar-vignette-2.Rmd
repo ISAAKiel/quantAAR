@@ -58,8 +58,8 @@ maps <- kriglist(lpoints, lags = 3, model = "spherical")
 ```
 
 ```{r fig.width=7, fig.height=5}
-surf1 <- spatialwide(maps[[1]]$x, maps[[1]]$y, maps[[1]]$pred)
-surf2 <- spatialwide(maps[[2]]$x, maps[[2]]$y, maps[[2]]$pred)
+surf1 <- spatialwide(maps[[1]]$x, maps[[1]]$y, maps[[1]]$pred, 3)
+surf2 <- spatialwide(maps[[2]]$x, maps[[2]]$y, maps[[2]]$pred, 3)
 
 x1 <- as.numeric(colnames(surf1))
 y1 <- as.numeric(rownames(surf1))

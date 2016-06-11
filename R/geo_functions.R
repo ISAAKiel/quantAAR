@@ -55,47 +55,56 @@ kriglist <- function(plist, x = 1, y = 2, z = 3, ...) {
 
 # Begin geo data layout transformation functions  ---------------------------
 
-#' Transform a long surface describing df to a wide surface describing df
+#' Transforms a data.frame with three attributes in long format to a data.frame with wide format.
 #'
-#' Test
+#' @param x vector of first independent variable. e.g. vector with x-axis spatial points
+#' @param y vector of second independent variable. e.g. vector with y-axis spatial points
+#' @param z vector of dependent variable. e.g. vector with z-axis spatial points
+#' @param digits integer indicating the number of decimal places to be used for rounding
+#' the colnames (\code{x}) and rownames (\code{y}).
 #'
-#' @param x test
-#' @param y test
-#' @param z test
-#'
-#' @return widedf
+#' @return data.frame in wide format
 #'
 #' @examples
-#' 1 == 1
+#' x <- c(1, 1, 1, 2, 2, 2, 3, 3, 4)
+#' y <- c(1, 2, 3, 1, 2, 3, 1, 2, 3)
+#' z <- c(3, 4, 2, 3, NA, 5, 6, 3, 1)
+#'
+#' spatialwide(x, y, z)
 #'
 #' @export
 #'
 
-spatialwide <- function(x , y , z ) {
+spatialwide <- function(x , y , z, digits = 3) {
 
+  # combine input vectors to data.frame
   longdf <- data.frame(x, y, z)
 
+  # define result matrix
   xu <- unique(longdf$x)
   yu <- unique(longdf$y)
   widedf <- matrix(NA, length(yu), length(xu))
 
+  # loop to fill wide matrix
   for (p1 in 1:ncol(widedf)) {
     for (p2 in 1:nrow(widedf)) {
-      zc <- filter(
+      zc <- dplyr::filter(
         longdf,
         x == xu[p1],
         y == yu[p2]
       )$z
-      widedf[p2, p1] <- zc
+      if (length(zc) != 0) {
+        widedf[p2, p1] <- zc
+      }
     }
   }
 
+  # prepare output and attribute colnames&rownames
   widedf <- data.frame(widedf)
-  colnames(widedf) <- round(xu, 3)
-  rownames(widedf) <- round(yu, 3)
+  colnames(widedf) <- round(xu, digits)
+  rownames(widedf) <- round(yu, digits)
 
   return(widedf)
-
 }
 
 # End geo data layout transformation functions  ---------------------------
