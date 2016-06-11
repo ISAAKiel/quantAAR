@@ -26,9 +26,7 @@ hexatestdf <- data.frame(
   z = c(4,8,4,9,4,8,4,6)
 )
 
-hexatest <- as.matrix(hexatestdf)
-
-cx = fillhexa(hexatest, 0.1)
+cx = fillhexa(hexatestdf, 0.1)
 
 #library(rgl)
 #plot3d(

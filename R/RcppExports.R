@@ -19,9 +19,7 @@
 #'   z = c(4,8,4,9,4,8,4,6)
 #' )
 #'
-#' hexatest <- as.matrix(hexatestdf)
-#'
-#' cx = fillhexa(hexatest, 0.1)
+#' cx = fillhexa(hexatestdf, 0.1)
 #'
 #' #library(rgl)
 #' #plot3d(
@@ -108,11 +106,8 @@ posdec <- function(crlist, maplist) {
 #'   z = c(-1, -5, -1, -6, -1, -5, -1, -3)
 #' )
 #'
-#' hexa1 <- as.matrix(hexadf1)
-#' hexa2 <- as.matrix(hexadf2)
-#'
-#' cx1 <- fillhexa(hexa1, 0.1)
-#' cx2 <- fillhexa(hexa2, 0.1)
+#' cx1 <- fillhexa(hexadf1, 0.1)
+#' cx2 <- fillhexa(hexadf2, 0.1)
 #'
 #' cubelist <- list(cx1, cx2)
 #'

@@ -151,11 +151,8 @@ DataFrame posdec(DataFrame crlist, List maplist){
 //'   z = c(-1, -5, -1, -6, -1, -5, -1, -3)
 //' )
 //'
-//' hexa1 <- as.matrix(hexadf1)
-//' hexa2 <- as.matrix(hexadf2)
-//'
-//' cx1 <- fillhexa(hexa1, 0.1)
-//' cx2 <- fillhexa(hexa2, 0.1)
+//' cx1 <- fillhexa(hexadf1, 0.1)
+//' cx2 <- fillhexa(hexadf2, 0.1)
 //'
 //' cubelist <- list(cx1, cx2)
 //'

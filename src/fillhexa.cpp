@@ -33,9 +33,7 @@ NumericMatrix makematrix(NumericVector vec, int lres3){
 //'   z = c(4,8,4,9,4,8,4,6)
 //' )
 //'
-//' hexatest <- as.matrix(hexatestdf)
-//'
-//' cx = fillhexa(hexatest, 0.1)
+//' cx = fillhexa(hexatestdf, 0.1)
 //'
 //' #library(rgl)
 //' #plot3d(
@@ -46,9 +44,12 @@ NumericMatrix makematrix(NumericVector vec, int lres3){
 //'
 //' @export
 // [[Rcpp::export]]
-NumericVector fillhexa(SEXP hex, double res){
+DataFrame fillhexa(DataFrame hex, double res){
 
-  NumericMatrix hexa = NumericMatrix(hex);
+  Function asMatrix("as.matrix");
+
+  SEXP hex2mid = hex;
+  NumericMatrix hexa = asMatrix(hex2mid);
 
   // check, if res is between 0 and 1
 
@@ -149,6 +150,10 @@ NumericVector fillhexa(SEXP hex, double res){
     final(p1,_) = Am(p1,_) + Bm(p1,_) + Cm(p1,_) + Dm(p1,_) + Em(p1,_) + Fm(p1,_) + Gm(p1,_) + Hm(p1,_);
   }
 
+  NumericVector x = final(_,0);
+  NumericVector y = final(_,1);
+  NumericVector z = final(_,2);
+
   // output
-  return final;
+  return DataFrame::create(_["x"] = x, _["y"] = y, _["z"] = z);
 }

@@ -92,11 +92,7 @@ hexatestdf <- data.frame(
   z = c(0.2, 0.1, 0.2, 0.1, 1.5, 1.6, 1.5, 1.6)
 )
 
-hexatest <- as.matrix(hexatestdf)
-
-cx = fillhexa(hexatest, 0.05)
-cx <- data.frame(cx)
-colnames(cx) <- c("x", "y" , "z")
+cx = fillhexa(hexatestdf, 0.05)
 
 cuberasterlist <- list(cx)
 

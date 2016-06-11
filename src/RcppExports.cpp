@@ -6,12 +6,12 @@
 using namespace Rcpp;
 
 // fillhexa
-NumericVector fillhexa(SEXP hex, double res);
+DataFrame fillhexa(DataFrame hex, double res);
 RcppExport SEXP quantaar_fillhexa(SEXP hexSEXP, SEXP resSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< SEXP >::type hex(hexSEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type hex(hexSEXP);
     Rcpp::traits::input_parameter< double >::type res(resSEXP);
     __result = Rcpp::wrap(fillhexa(hex, res));
     return __result;
