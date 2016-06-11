@@ -42,8 +42,84 @@ fillhexa <- function(hex, res) {
 #' @param crlist TODO
 #' @param maplist TODO
 #'
+#' @examples
+#' df1 <- data.frame(
+#'   x = rnorm(50),
+#'   y = rnorm(50),
+#'   z = rnorm(50) - 5
+#' )
+#'
+#' df2 <- data.frame(
+#'   x = rnorm(50),
+#'   y = rnorm(50),
+#'   z = rnorm(50) + 5
+#')
+#'
+#' lpoints <- list(df1, df2)
+#'
+#' maps <- kriglist(lpoints, lags = 3, model = "spherical")
+#'
+#' finds <- data.frame(
+#'   x = c(0, 1, 0.5, 0.7),
+#'   y = c(0.5, 0, 1, 0.7),
+#'   z = c(-10, 10, 0, 2)
+#' )
+#'
+#' posdec(finds, maps)
+#'
 #' @export
 posdec <- function(crlist, maplist) {
     .Call('quantaar_posdec', PACKAGE = 'quantaar', crlist, maplist)
+}
+
+#' Test
+#'
+#' Testdescription
+#'
+#' @param crlist TODO
+#' @param maplist TODO
+#'
+#' @examples
+#' df1 <- data.frame(
+#'   x = rnorm(50),
+#'   y = rnorm(50),
+#'   z = rnorm(50) - 5
+#' )
+#'
+#' df2 <- data.frame(
+#'   x = rnorm(50),
+#'   y = rnorm(50),
+#'   z = rnorm(50) + 5
+#')
+#'
+#' lpoints <- list(df1, df2)
+#'
+#' maps <- kriglist(lpoints, lags = 3, model = "spherical")
+#'
+#' hexadf1 <- data.frame(
+#'   x = c(0, 1, 0, 4, 5, 5, 5, 5),
+#'   y = c(1, 1, 4, 4, 1, 1, 4, 4),
+#'   z = c(1, 5, 1, 6, 1, 5, 1, 3)
+#' )
+#'
+#' hexadf2 <- data.frame(
+#'   x = c(0, 1, 0, 4, 5, 5, 5, 5),
+#'   y = c(1, 1, 4, 4, 1, 1, 4, 4),
+#'   z = c(-1, -5, -1, -6, -1, -5, -1, -3)
+#' )
+#'
+#' hexa1 <- as.matrix(hexadf1)
+#' hexa2 <- as.matrix(hexadf2)
+#'
+#' cx1 <- fillhexa(hexa1, 0.1)
+#' cx2 <- fillhexa(hexa2, 0.1)
+#'
+#' cubelist <- list(cx1, cx2)
+#'
+#' posdec(cubelist, maps)
+#'
+#' @export
+posdeclist <- function(crlist, maplist) {
+    .Call('quantaar_posdeclist', PACKAGE = 'quantaar', crlist, maplist)
 }
 

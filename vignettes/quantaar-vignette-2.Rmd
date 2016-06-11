@@ -107,7 +107,7 @@ vis %>% add_trace(data = cx, x = x, y = y, z = z,
 ```
 
 ```{r fig.width=7, fig.height=5}
-crlist <- posdec(cuberasterlist, maps)
+crlist <- posdeclist(cuberasterlist, maps)
 
 hexa <- data.frame(crlist[[1]])
 colnames(hexa) <- c("x", "y", "z", "decision")

@@ -18,14 +18,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // posdec
-List posdec(List crlist, List maplist);
+DataFrame posdec(DataFrame crlist, List maplist);
 RcppExport SEXP quantaar_posdec(SEXP crlistSEXP, SEXP maplistSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< DataFrame >::type crlist(crlistSEXP);
+    Rcpp::traits::input_parameter< List >::type maplist(maplistSEXP);
+    __result = Rcpp::wrap(posdec(crlist, maplist));
+    return __result;
+END_RCPP
+}
+// posdeclist
+List posdeclist(List crlist, List maplist);
+RcppExport SEXP quantaar_posdeclist(SEXP crlistSEXP, SEXP maplistSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< List >::type crlist(crlistSEXP);
     Rcpp::traits::input_parameter< List >::type maplist(maplistSEXP);
-    __result = Rcpp::wrap(posdec(crlist, maplist));
+    __result = Rcpp::wrap(posdeclist(crlist, maplist));
     return __result;
 END_RCPP
 }
