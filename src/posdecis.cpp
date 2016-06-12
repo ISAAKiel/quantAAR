@@ -5,12 +5,17 @@
 
 using namespace Rcpp;
 
-//' Test
+//' position decision in relation to a set of stacked surfaces
 //'
-//' Testdescription
+//' \code{posdec} has the purpose to make a decision about the position of individual points in relation
+//' to a set of stacked surfaces. The decision is made by comparing the mean z-axis value of the four
+//' horizontally closest points of a surface to the z-axis value of the point in question.
 //'
-//' @param crlist TODO
-//' @param maplist TODO
+//' @param crlist data.frame with the spatial coordinates of the points of interest
+//' @param maplist list of data.frames which contain the points that make up the surfaces
+//'
+//' @return data.frame with the spatial coordinates of the points of interest and the respective position
+//' information
 //'
 //' @examples
 //' df1 <- data.frame(
@@ -115,12 +120,16 @@ DataFrame posdec(DataFrame crlist, List maplist){
   return DataFrame::create(_["x"] = x, _["y"] = y, _["z"] = z, _["pos"] = pos);
 }
 
-//' Test
+//' position decision in relation to a set of stacked surfaces (for lists of data.frames)
 //'
-//' Testdescription
+//' \code{posdeclist} works as \code{posdec} but not just for a single data.frame but for a list of
+//' data.frames
 //'
-//' @param crlist TODO
-//' @param maplist TODO
+//' @param crlist list of data.frames with the spatial coordinates of the points of interest
+//' @param maplist list of data.frames which contain the points that make up the surfaces
+//'
+//' @return list of data.frames with the spatial coordinates of the points of interest and the respective
+//' position information
 //'
 //' @examples
 //' df1 <- data.frame(
