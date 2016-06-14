@@ -1,5 +1,5 @@
 ---
-title: "Spit attribution for small scale excavations"
+title: "Surface kriging and object attribution for small scale excavations"
 author: "Clemens Schmid"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -16,14 +16,22 @@ if (!requireNamespace("plotly", quietly = TRUE)) {
 }
 ```
 
+First we need to load quantaar and some external packages:
+
+- **dplyr**: filter function
+- **kriging**: simple surface modelling tool
+- **magrittr**: introduces piping to R via %>% operator
+- **plotly**: nice, interactive plots via javascript implementation
+
 ```{r, message=FALSE}
 devtools::load_all()
-library(plotly)
-library(kriging)
-library(reshape2)
 library(dplyr)
+library(kriging)
 library(magrittr)
+library(plotly)
 ```
+
+Now let's imagine an artificial and pretty simple excavation trench with a depth of 2 meters, a length of 3 meters and a width of 1 meter. 
 
 ```{r}
 edges <- data.frame(
@@ -31,12 +39,39 @@ edges <- data.frame(
   y = c(0, 0, 0, 0, 1, 1, 1, 1),
   z = c(0, 0, 2, 2, 0, 0, 2, 2)
 )
+```
 
+We can plot the corner points of this trench:
+
+```{r fig.width=7, fig.height=5}
+vis <- plot_ly(edges, x = x, y = y, z = z, type = "scatter3d", mode = "markers"
+  ) %>% 
+  layout(
+    showlegend = FALSE,
+    autorange = F, 
+    aspectmode = 'manual', 
+    scene = list(
+      dragmode = "orbit",
+      aspectratio = list(x=3, y=1, z=3),
+      camera = list(
+        eye = list(x = 4, y = 4, z = 1) 
+      )
+    )
+  )
+
+vis
+```
+
+When we look at the profiles of our fictional trench we can trace three clearly separated horizons. Let's figuratively take some measurements of the two horizon borders by creating two data.frames with points along the profiles. The z-axis values are randomly computed.  
+
+```{r}
 df1 <- data.frame(
   x = c(rep(0, 6), seq(0.2, 2.8, 0.2), seq(0.2, 2.8, 0.2), rep(3,6)),
   y = c(seq(0, 1, 0.2), rep(0, 14), rep(1, 14), seq(0, 1, 0.2)), 
   z = c(1+0.1*rnorm(6), 1+0.1*rnorm(14), 0.8+0.1*rnorm(14), 0.8+0.1*rnorm(6))
 )
+
+df1
 
 df2 <- data.frame(
   x = c(rep(0, 6), seq(0.2, 2.8, 0.2), seq(0.2, 2.8, 0.2), rep(3,6)),
@@ -46,16 +81,28 @@ df2 <- data.frame(
 ```
 
 ```{r fig.width=7, fig.height=5}
-plot_ly(edges, x = x, y = y, z = z, type = "scatter3d", mode = "markers")
+vis <- vis %>%
+  add_trace(data = df1, x = x, y = y, z = z, 
+            mode = "markers", type = "scatter3d", 
+            marker = list(size = 4, color = "green", symbol = 104)
+  ) %>%
+  add_trace(data = df2, x = x, y = y, z = z, 
+            mode = "markers", type = "scatter3d", 
+            marker = list(size = 4, color = "blue", symbol = 104)
+  ) 
+
+vis
 ```
+
+We can put this two or even more data.frames with observations into a list and feed it to \code{quantaar::kriglist}. This function serves as an interface to \code{kriging::kriging}. We'll get a list list of data.frames with surface estimations for the two input layers. 
 
 ```{r }
 lpoints <- list(df1, df2)
-```
 
-```{r }
 maps <- kriglist(lpoints, lags = 3, model = "spherical")
 ```
+
+As the result of \code{kriging::kriging} is in a tall format, we have to make it wide to plot it. For this purpose we use \code{quantaar::spatialwide}.
 
 ```{r fig.width=7, fig.height=5}
 surf1 <- spatialwide(maps[[1]]$x, maps[[1]]$y, maps[[1]]$pred, 3)
@@ -68,27 +115,19 @@ x2 <- as.numeric(colnames(surf2))
 y2 <- as.numeric(rownames(surf2))
 z2 <- as.matrix(surf2)
 
-vis <- plot_ly(x = x1, y = x1, z = z1, type = "surface", showscale = FALSE
-  ) %>%
-  add_trace(data = df1, x = x, y = y, z = z, 
-            mode = "markers", type = "scatter3d", 
-            marker = list(size = 4, color = "green", symbol = 104)
+vis <- vis %>% 
+  add_trace(x = x1, y = x1, z = z1, type = "surface", showscale = FALSE
   ) %>%
   add_trace(x = x2, y = x2, z = z2, type = "surface", showscale = FALSE
-  ) %>%
-  add_trace(data = df2, x = x, y = y, z = z, 
-            mode = "markers", type = "scatter3d", 
-            marker = list(size = 4, color = "blue", symbol = 104)
-  ) %>% 
-  layout(showlegend = FALSE)
-  
+  ) 
+
 vis
 ```
 
 ```{r fig.width=7, fig.height=5}
 hexatestdf <- data.frame(
   x = c(1.5, 1.5, 2.2, 1.8, 1.3, 1.2, 1.7, 2),
-  y = c(0.2, 0.4, 0.2, 0.4, 0.15, 0.35, 0.2, 0.4),
+  y = c(0.2, 0.6, 0.2, 0.6, 0.15, 0.35, 0.2, 0.6),
   z = c(0.2, 0.1, 0.2, 0.1, 1.5, 1.6, 1.5, 1.6)
 )
 
@@ -96,7 +135,8 @@ cx = fillhexa(hexatestdf, 0.05)
 
 cuberasterlist <- list(cx)
 
-vis %>% add_trace(data = cx, x = x, y = y, z = z, 
+vis %>% 
+  add_trace(data = cx, x = x, y = y, z = z, 
             mode = "markers", type = "scatter3d", 
             marker = list(size = 1, color = "red", symbol = 104)
   )
