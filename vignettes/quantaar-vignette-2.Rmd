@@ -71,14 +71,14 @@ df1 <- data.frame(
   z = c(1+0.1*rnorm(6), 1+0.1*rnorm(14), 0.8+0.1*rnorm(14), 0.8+0.1*rnorm(6))
 )
 
-df1
-
 df2 <- data.frame(
   x = c(rep(0, 6), seq(0.2, 2.8, 0.2), seq(0.2, 2.8, 0.2), rep(3,6)),
   y = c(seq(0, 1, 0.2), rep(0, 14), rep(1, 14), seq(0, 1, 0.2)),
   z = c(0.5+0.1*rnorm(6), 0.5+0.1*rnorm(14), 0.4+0.1*rnorm(14), 0.4+0.1*rnorm(6))
 )
 ```
+
+Looks complicated? Becomes pretty simple, when you look at a plot:
 
 ```{r fig.width=7, fig.height=5}
 vis <- vis %>%
@@ -94,7 +94,7 @@ vis <- vis %>%
 vis
 ```
 
-We can put this two or even more data.frames with observations into a list and feed it to \code{quantaar::kriglist}. This function serves as an interface to \code{kriging::kriging}. We'll get a list list of data.frames with surface estimations for the two input layers. 
+We can put this two or even more data.frames with observations into a list and feed it to `quantaar::kriglist`. This function serves as an interface to `kriging::kriging`. We'll get a list list of data.frames with surface estimations for the two input layers. 
 
 ```{r }
 lpoints <- list(df1, df2)
@@ -102,9 +102,9 @@ lpoints <- list(df1, df2)
 maps <- kriglist(lpoints, lags = 3, model = "spherical")
 ```
 
-As the result of \code{kriging::kriging} is in a tall format, we have to make it wide to plot it. For this purpose we use \code{quantaar::spatialwide}.
+The result of `kriging::kriging` is in a tall format -- we have to make it wide to plot it. For this purpose we use `quantaar::spatialwide`.
 
-```{r fig.width=7, fig.height=5}
+```{r}
 surf1 <- spatialwide(maps[[1]]$x, maps[[1]]$y, maps[[1]]$pred, 3)
 surf2 <- spatialwide(maps[[2]]$x, maps[[2]]$y, maps[[2]]$pred, 3)
 
@@ -114,7 +114,11 @@ z1 <- as.matrix(surf1)
 x2 <- as.numeric(colnames(surf2))
 y2 <- as.numeric(rownames(surf2))
 z2 <- as.matrix(surf2)
+```
 
+We can also visualize the generated surfaces:
+
+```{r fig.width=7, fig.height=5}
 vis <- vis %>% 
   add_trace(x = x1, y = x1, z = z1, type = "surface", showscale = FALSE
   ) %>%
@@ -124,17 +128,23 @@ vis <- vis %>%
 vis
 ```
 
+Now imagine the excavation leader is away just for thirty minutes eating ice-cream and somebody excavated in this trench in a mind-bogglingly stupid way. Whoever did this managed to take out a strangly shaped spit, took no measurements for single finds and only collected what he found. The only thing we can do now, is taking measurements of the weird spit. 
+
 ```{r fig.width=7, fig.height=5}
 hexatestdf <- data.frame(
   x = c(1.5, 1.5, 2.2, 1.8, 1.3, 1.2, 1.7, 2),
   y = c(0.2, 0.6, 0.2, 0.6, 0.15, 0.35, 0.2, 0.6),
   z = c(0.2, 0.1, 0.2, 0.1, 1.5, 1.6, 1.5, 1.6)
 )
+```
 
+Let's fill the shape with an equidistant three dimensional point raster using `quantaar::fillhexa` and take a look at it.
+
+```{r}
 cx = fillhexa(hexatestdf, 0.05)
+```
 
-cuberasterlist <- list(cx)
-
+```{r fig.width=7, fig.height=5}
 vis %>% 
   add_trace(data = cx, x = x, y = y, z = z, 
             mode = "markers", type = "scatter3d", 
@@ -142,7 +152,11 @@ vis %>%
   )
 ```
 
+Damn! Whoever did this penetrated all three major horizons with his spit.
+
 ```{r fig.width=7, fig.height=5}
+cuberasterlist <- list(cx)
+
 crlist <- posdeclist(cuberasterlist, maps)
 
 hexa <- crlist[[1]]
