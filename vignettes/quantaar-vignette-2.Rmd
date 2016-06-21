@@ -62,23 +62,23 @@ vis <- plot_ly(edges, x = x, y = y, z = z, type = "scatter3d", mode = "markers"
 vis
 ```
 
-When we look at the profiles of our fictional trench we can trace three clearly separated horizons. Let's figuratively take some measurements of the two horizon borders by creating two data.frames with points along the profiles. The z-axis values are randomly computed.  
+When we look at the profiles of our fictional trench we can trace three clearly separated horizons following the natural slope. Let's figuratively take some measurements of the two horizon borders by creating two data.frames with points along the profiles. The z-axis values are randomly computed.  
 
 ```{r}
 df1 <- data.frame(
   x = c(rep(0, 6), seq(0.2, 2.8, 0.2), seq(0.2, 2.8, 0.2), rep(3,6)),
   y = c(seq(0, 1, 0.2), rep(0, 14), rep(1, 14), seq(0, 1, 0.2)), 
-  z = c(1+0.1*rnorm(6), 1+0.1*rnorm(14), 0.8+0.1*rnorm(14), 0.8+0.1*rnorm(6))
+  z = c(0.9+0.05*rnorm(6), 0.9+0.05*rnorm(14), 1.3+0.05*rnorm(14), 1.2+0.05*rnorm(6))
 )
 
 df2 <- data.frame(
   x = c(rep(0, 6), seq(0.2, 2.8, 0.2), seq(0.2, 2.8, 0.2), rep(3,6)),
   y = c(seq(0, 1, 0.2), rep(0, 14), rep(1, 14), seq(0, 1, 0.2)),
-  z = c(0.5+0.1*rnorm(6), 0.5+0.1*rnorm(14), 0.4+0.1*rnorm(14), 0.4+0.1*rnorm(6))
+  z = c(0.6+0.05*rnorm(6), 0.6+0.05*rnorm(14), 1.0+0.05*rnorm(14), 0.9+0.05*rnorm(6))
 )
 ```
 
-Looks complicated? Becomes pretty simple, when you look at a plot:
+Looks complicated? Becomes pretty simple, when we look at a plot:
 
 ```{r fig.width=7, fig.height=5}
 vis <- vis %>%
@@ -102,7 +102,7 @@ lpoints <- list(df1, df2)
 maps <- kriglist(lpoints, lags = 3, model = "spherical")
 ```
 
-The result of `kriging::kriging` is in a tall format -- we have to make it wide to plot it. For this purpose we use `quantaar::spatialwide`.
+The result of `kriging::kriging` is in a tall format -- we have to transform it. For this purpose we use `quantaar::spatialwide`.
 
 ```{r}
 surf1 <- spatialwide(maps[[1]]$x, maps[[1]]$y, maps[[1]]$pred, 3)
@@ -116,7 +116,7 @@ y2 <- as.numeric(rownames(surf2))
 z2 <- as.matrix(surf2)
 ```
 
-We can also visualize the generated surfaces:
+After the transformation we can visualize the generated surfaces:
 
 ```{r fig.width=7, fig.height=5}
 vis <- vis %>% 
@@ -128,17 +128,17 @@ vis <- vis %>%
 vis
 ```
 
-Now imagine the excavation leader is away just for thirty minutes eating ice-cream and somebody excavated in this trench in a mind-bogglingly stupid way. Whoever did this managed to take out a strangly shaped spit, took no measurements for single finds and only collected what he found. The only thing we can do now, is taking measurements of the weird spit. 
+During the excavation we separated the finds of many artificial spits (each 1m\*1m\*0.2m). Let's enter the corner coordinates for one:
 
 ```{r fig.width=7, fig.height=5}
 hexatestdf <- data.frame(
-  x = c(1.5, 1.5, 2.2, 1.8, 1.3, 1.2, 1.7, 2),
-  y = c(0.2, 0.6, 0.2, 0.6, 0.15, 0.35, 0.2, 0.6),
-  z = c(0.2, 0.1, 0.2, 0.1, 1.5, 1.6, 1.5, 1.6)
+  x = c(1, 1, 1, 1, 2, 2, 2, 2),
+  y = c(0, 1, 0, 1, 0, 1, 0, 1),
+  z = c(0.8, 0.8, 1, 1, 0.8, 0.8, 1, 1)
 )
 ```
 
-Let's fill the shape with an equidistant three dimensional point raster using `quantaar::fillhexa` and take a look at it.
+Now we can fill the shape with an equidistant three dimensional point raster using `quantaar::fillhexa` and take a look at it.
 
 ```{r}
 cx = fillhexa(hexatestdf, 0.05)
@@ -152,7 +152,7 @@ vis %>%
   )
 ```
 
-Damn! Whoever did this penetrated all three major horizons with his spit.
+Damn! This spit penetrates both reconstructed surfaces. We should try to determine how his volume is distributed among the three major horizons of our trench. For this purpose we apply `quantaar::posdeclist`. It makes a position decision for every point of the artificial point raster we created with `quantaar::fillhexa`.
 
 ```{r fig.width=7, fig.height=5}
 cuberasterlist <- list(cx)
@@ -187,6 +187,8 @@ vis %>% add_trace(data = a, x = x, y = y, z = z,
             marker = list(size = 1, color = "#2b8cbe", symbol = 104)
   )
 ```
+
+Finally we can find out the percentual distribution. Could be an interesting information to determine the possible origin of finds from this spit.
 
 ```{r}
 # deci: create a result data.frame which shows the distribution of cube points
