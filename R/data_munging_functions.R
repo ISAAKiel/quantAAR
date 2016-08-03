@@ -143,8 +143,8 @@ rmnegcorr <- function (corrmatrix, matrix, dim, niv = 0.1) {
   }
 
   # loop to check every cell of the correlation matrix
-  for (l in 1:length(corrmatrix[, 1])) {
-    for (c in 1:length(corrmatrix[1, ])) {
+  for (l in 1:nrow(corrmatrix)) {
+    for (c in 1:ncol(corrmatrix)) {
       # calculation of a contingency table for the current corrmatrix cell
       corrtab <- table(matrix[, l], matrix[, c])
       # set ratio value to 100%
@@ -249,7 +249,7 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
   }
 
   # loop to fill relationship table (in order of decreasing correlation values)
-  for (i in 1:length(a[, 1])) {
+  for (i in 1:nrow(a)) {
     if (max(destroycorr) != 0) {
       # search for current max value (highest correlation / best relation)
       a[i, 1:2] <- which(destroycorr == max(destroycorr), arr.ind = TRUE)[1, ]
@@ -278,7 +278,7 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
   # inversely (var1 + var2 = var2 + var1)
   c <- b[which(duplicated(b[, 6])), ]
 
-  row.names(c) <- 1:length(c[, 1])
+  row.names(c) <- 1:nrow(c)
 
   #remove namehash
 
@@ -331,7 +331,7 @@ newcorrtable <- function (matrix, dim = 1) {
 
   # table is created for row (objects) relations
   if (dim == 2) {
-    matrixheight <- length(matrix[, 1])
+    matrixheight <- nrow(matrix)
     newtable <- matrix(nrow = matrixheight, ncol = matrixheight, 0)
     colnames(newtable) <- rownames(matrix)
     rownames(newtable) <- rownames(matrix)
@@ -561,7 +561,7 @@ delempty <- function(matrix) {
   # search empty columns and save index in a vector
   n <- c()
   u <- 1
-  for (i in 1:length(matrix[1, ])) {
+  for (i in 1:ncol(matrix)) {
     if (sum(matrix[, i]) == 0) {
       n[u] <- i
       u <- u + 1
@@ -572,7 +572,7 @@ delempty <- function(matrix) {
   z <- c()
   i <- 1
   u <- 1
-  for (i in 1:length(matrix[, 1])) {
+  for (i in 1:nrow(matrix)) {
     if (sum(matrix[i, ]) == 0) {
       z[u] <- i
       u <- u + 1
@@ -590,7 +590,6 @@ delempty <- function(matrix) {
   }
 
   return(matrix)
-
 }
 
 #' Delete rows and columns of a data.frame by amount of values > 0
