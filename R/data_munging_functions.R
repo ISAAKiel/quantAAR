@@ -219,6 +219,20 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
     a <- matrix(
       NA,
       nrow = length(corrtable[corrtable != 0]),
+      ncol = 5
+    )
+    a <- data.frame(a)
+    colnames(a) <- c(
+      "indexvar1",
+      "indexvar2",
+      "corrvalue",
+      "namevar1",
+      "namevar2"
+    )
+  } else {
+    a <- matrix(
+      NA,
+      nrow = length(corrtable[corrtable != 0]),
       ncol = 6
     )
     a <- data.frame(a)
@@ -228,22 +242,6 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
       "corrvalue",
       "namevar1",
       "namevar2",
-      "namehash"
-    )
-  } else {
-    a <- matrix(
-      NA,
-      nrow = length(corrtable[corrtable != 0]),
-      ncol = 7
-    )
-    a <- data.frame(a)
-    colnames(a) <- c(
-      "indexvar1",
-      "indexvar2",
-      "corrvalue",
-      "namevar1",
-      "namevar2",
-      "namehash",
       "corrvalue2"
     )
   }
@@ -256,14 +254,8 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
       a[i, 3] <- destroycorr[a[i, 1], a[i, 2]]
       a[i, 4] <- colnames(destroycorr)[a[i, 1]]
       a[i, 5] <- colnames(destroycorr)[a[i, 2]]
-      # create namehash to identify every relationship bijektivly
-      suppressWarnings(
-        namehashvector <- as.numeric(charToRaw(a[i, 4])) +
-          as.numeric(charToRaw(a[i, 5]))
-      )
-      a[i, 6] <- paste(namehashvector, collapse = "")
       if (nrow(corrtable2) != 0) {
-        a[i, 7] <- corrtable2[a[i, 1], a[i, 2]]
+        a[i, 6] <- corrtable2[a[i, 1], a[i, 2]]
       }
       # set current relation to 0,
       # to find the next best relation in the next loop run
@@ -272,19 +264,36 @@ reltable <- function(corrtable, corrtable2 = data.frame()) {
   }
 
   # remove autocorrelation
-  b <- dplyr::filter(a, namevar1 != namevar2)
+  b <- dplyr::filter(a, indexvar1 != indexvar2)
 
   # remove every relation, that is already present
-  # inversely (var1 + var2 = var2 + var1)
-  c <- b[which(duplicated(b[, 6])), ]
+  # inversely (var1 & var2 = var2 & var1)
+  p1 <- 1
+  while (p1 <= nrow(b)) {
 
-  row.names(c) <- 1:nrow(c)
+    ind1 <- b[p1, 1]
+    ind2 <- b[p1, 2]
 
-  #remove namehash
+    ind1in1 <- which(b$indexvar1 == ind1)
+    ind1in2 <- which(b$indexvar2 == ind1)
+    ind2in2 <- which(b$indexvar2 == ind2)
+    ind2in1 <- which(b$indexvar1 == ind2)
 
-  d <- c[, -6]
+    check1 <- ind1in1[ind1in1 %in% ind2in2]
+    check2 <- ind1in2[ind1in2 %in% ind2in1]
+    check <- c(check1, check2)
 
-  return(d)
+
+    if (length(check) > 1) {
+      b <- b[-check[-1], ]
+    }
+
+    p1 <- p1 + 1
+  }
+
+  row.names(b) <- 1:nrow(b)
+
+  return(b)
 }
 
 #' Create an empty correlation matrix of a given data.frame
