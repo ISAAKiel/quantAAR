@@ -459,7 +459,7 @@ corrmat <- function (matrix, method = "chi2",
         result <- sqrt((chi2) / sum(tbl))
       } else if (method == "cc") {
         # calculation of CC = √(chi2/(chi2+n))
-        result <- sqrt((chi2) / (chi2) + sum(tbl))
+        result <- sqrt((chi2) / ((chi2) + sum(tbl)))
       } else if (method == "lambda") {
         # calculation of mean lambda value
         result <- mean(unlist(rapportools::lambda.test(tbl, direction = 0)))
