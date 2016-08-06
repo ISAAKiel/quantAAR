@@ -376,7 +376,8 @@ newcorrtable <- function (matrix, dim = 1) {
 #'
 #' "cc": Pearson's contingency coefficient.
 #'
-#' "lambda": Goodman and Kruskal's lambda value.
+#' "lambda": Goodman and Kruskal's lambda value. Mean of both values calculated
+#' depending on what's the dependent and what's the independent variable
 #'
 #' @param dim switch to define if the correlation matrix should be created
 #' for columns or rows.
@@ -424,45 +425,44 @@ newcorrtable <- function (matrix, dim = 1) {
 corrmat <- function (matrix, method = "chi2",
                      dim = 1, chi2limit = 0.05, rmnegniv = 0) {
 
-  # create empty correlation table for the input data.frame
+  # create empty correlation table that fits to the input data.frame
   corrtab <- quantaar::newcorrtable(matrix, dim)
+
+  # invert column/row selection due to unusal api (1 --> cols / 2 --> rows)
   my_dim <- c(2, 1)[dim]
 
+  # loop to apply calculation of correlation values for every bivariate
+  # variable relation
   newcortab <- apply(matrix, my_dim, function(z){
     apply(matrix, my_dim, function(s){
+
+      # create data.frame and table of current relation
       tbl <- table(z, s)
-      options(warn=-1)
+
+      # perform chisq.test and store result values
+      options(warn = -1)
       x <- chisq.test(tbl)
-      options(warn=0)
+      chi2 <- unlist(x[1])
+      pval <- unlist(x[3])
+      options(warn = 0)
+
       if (method == "chi2") {
         # comparing p-Value with defined decision niveau chi2limit
         # to make a test decision
-        # DE: p-Value (Verwerfungsniveau) wird aus den Testergebnissen
-        # extrahiert und mit der eingegebenen Irrtumswahrscheinlichkeit
-        # chi2limit verglichen. Wenn die Wahrscheinlichkeit, dass man sich
-        # bei einer Ablehnung der Nullhypothese (H0: kein Zusammenhang
-        # der Variablen) irrt, kleiner als chi2limit ausfällt, dann kann
-        # ein signifikanter Zusammenhang angenommen werden, der mit einer 1
-        # in der Ergebnismatrix testtable festgehalten wird. Umgekehrt
-        # weist eine 0 auf keinen signifikanten Zusammenhang hin.
-        if (unlist(x[3]) < chi2limit) {
+        if (pval < chi2limit) {
           result <- 1
         } else {
           result <- 0
         }
       } else if (method == "phi") {
         # calculation of phi = √(chi2/n)
-        # -> chi2 is the chisquare value
-        # -> n is the sum of the contingency table
-        result <- sqrt(unlist(x[1]) / sum(tbl))
+        result <- sqrt((chi2) / sum(tbl))
       } else if (method == "cc") {
         # calculation of CC = √(chi2/(chi2+n))
-        # -> chi2 is the chisquare value
-        # -> n is the sum of the contingency table
-        result <- sqrt(unlist(x[1]) / (unlist(x[1]) + sum(tbl)))
+        result <- sqrt((chi2) / (chi2) + sum(tbl))
       } else if (method == "lambda") {
-        # calculation of lambda value
-        result <- rapportools::lambda.test(tbl, direction = 2)
+        # calculation of mean lambda value
+        result <- mean(unlist(rapportools::lambda.test(tbl, direction = 0)))
       } else {
         stop("Wrong method name!",
              call. = FALSE)
@@ -471,8 +471,10 @@ corrmat <- function (matrix, method = "chi2",
     })
   })
 
+  # transpose result correlation matrix to correct format
   newcortab <- as.data.frame(t(newcortab))
 
+  # set colnames and rownames of result correlation matrix
   rownames(newcortab) <- rownames(corrtab)
   colnames(newcortab) <- colnames(corrtab)
   corrtab <- newcortab
