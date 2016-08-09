@@ -22,7 +22,6 @@ library(ca)
 This Vignette shows a workflow for archaeologists workig on burial sites. Starting point is a data.frame with burials (objects) and their classified attributes (grave goods, orientation, size, sex etc.). An example dataset with 50 fictional burials and 18 stereotypical attributes is provided in `data/bs1`. Here's an extract of bs1:  
 
 ```{r, echo=FALSE}
-load("../data/bs1.rda")
 bs1[1:10,9:16]
 ```
 
