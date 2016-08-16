@@ -13,16 +13,18 @@ License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
 URL: https://github.com/ISAAKiel/quantaar
-Imports: dplyr (>= 0.4.1),
+Imports: dplyr,
     plyr,
-    magrittr (>= 1.5),
-    igraph (>= 0.7.1),
-    corrplot (>= 0.73),
-    MASS (>= 7.3.0),
-    ca (>= 0.58),
-    rapportools (>= 1.0),
-    reshape2 (>= 1.4.1),
-    Rcpp
+    magrittr,
+    igraph,
+    corrplot,
+    MASS,
+    ca,
+    rapportools,
+    reshape2,
+    stats,
+    utils,
+    graphics
 Suggests: testthat,
     knitr,
     rmarkdown,

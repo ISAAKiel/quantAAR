@@ -20,7 +20,8 @@ negativ test result with a numeric "0".
 
 "cc": Pearson's contingency coefficient.
 
-"lambda": Goodman and Kruskal's lambda value.}
+"lambda": Goodman and Kruskal's lambda value. Mean of both values calculated
+depending on what's the dependent and what's the independent variable}
 
 \item{dim}{switch to define if the correlation matrix should be created
 for columns or rows.

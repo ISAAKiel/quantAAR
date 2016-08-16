@@ -70,12 +70,12 @@ cootrans <- function(pair_matrix, pm_column, data_matrix, dm_column){
   # 1.3 Scalation
   vec_m <- abs_v$m / loc_v$m
   scale <- mean(vec_m[is.infinite(vec_m) == FALSE])
-  scale_std <- sd(vec_m[is.infinite(vec_m) == FALSE])
+  scale_std <- stats::sd(vec_m[is.infinite(vec_m) == FALSE])
 
   # 1.4 rotation arc
   vec_a <- (abs_v$alpha - loc_v$alpha) %% (2*pi)
   alpha <- mean(vec_a[is.nan(vec_a) == FALSE])
-  alpha_std <- sd(vec_a[is.nan(vec_a) == FALSE])
+  alpha_std <- stats::sd(vec_a[is.nan(vec_a) == FALSE])
 
   # 1.5 out print for checking transforamtion
   writeLines(c("Transformation:\n local centroid:   ", toString(sp_loc),

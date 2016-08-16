@@ -83,6 +83,7 @@ presencecount <- function(matrix, dim=1){
 #'
 
 booleanize <- function(matrix, present=TRUE, absent=FALSE) {
+
   absent_elements <- which(matrix == 0, arr.ind = T)
   present_elements <- which(matrix > 0, arr.ind = T)
   matrix[absent_elements] <- absent
@@ -441,7 +442,7 @@ corrmat <- function (matrix, method = "chi2",
 
       # perform chisq.test and store result values
       options(warn = -1)
-      x <- chisq.test(tbl)
+      x <- stats::chisq.test(tbl)
       chi2 <- unlist(x[1])
       pval <- unlist(x[3])
       options(warn = 0)

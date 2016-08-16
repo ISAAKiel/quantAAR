@@ -5,7 +5,7 @@
 \title{Mask function for corrplot::corrplot()}
 \usage{
 corrplotmask(corrmatrix, xmatrix = "notact", mypath,
-  voi = 1:length(corrmatrix[1, ]), w = 3000, h = 3000)
+  voi = 1:ncol(corrmatrix), w = 3000, h = 3000)
 }
 \arguments{
 \item{corrmatrix}{correlation matrix (as produced by quantaar::corrmat())}
