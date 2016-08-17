@@ -67,7 +67,7 @@ corrtablechi2test <- quantaar::corrmat(bsprep, method = "chi2", dim = 1, chi2lim
 corrtablephi <- quantaar::corrmat(bsprep, method = "phi", dim = 1)
 mastercorr <- quantaar::rmnegcorr(corrtablephi, bsprep, niv = 0.1, dim = 1)
 
-col2 <- colorRampPalette(c("white","white", "chartreuse4"))
+col2 <- grDevices::colorRampPalette(c("white","white", "chartreuse4"))
 corrplot::corrplot(
   t(mastercorr),
   method = c("color")   
@@ -78,7 +78,7 @@ corrplot::corrplot(
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5, warning=FALSE}
 signicorr <- quantaar::reltable(mastercorr, corrtablechi2test)
-signicorr <- filter(signicorr, corrvalue2 == TRUE)
+signicorr <- dplyr::filter(signicorr, corrvalue2 == TRUE)
 
 signicorr
 ```
@@ -92,7 +92,7 @@ signicorrmod <- data.frame(
   weight = signicorr$corrvalue)
 
 graphbasis <- igraph::graph.data.frame(signicorrmod, directed = TRUE)
-plot.igraph(graphbasis)
+igraph::plot.igraph(graphbasis)
 ```
 
 Within *signicorr* it's easy to search for the directly to an individual attribute linked attributes (level 1 relations).
