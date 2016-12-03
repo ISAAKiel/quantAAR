@@ -565,43 +565,12 @@ itremove <- function(object, minnumber) {
 #'
 #' withoutempty <- delempty(matrix = testmatrix)
 #'
-#' @export
+#' @importFrom magrittr "%>%"
 #'
-
+#' @export
 delempty <- function(matrix) {
-
-  # search empty columns and save index in a vector
-  n <- c()
-  u <- 1
-  for (i in 1:ncol(matrix)) {
-    if (sum(matrix[, i]) == 0) {
-      n[u] <- i
-      u <- u + 1
-    }
-  }
-
-  # search empty rows and save index in a vector
-  z <- c()
-  i <- 1
-  u <- 1
-  for (i in 1:nrow(matrix)) {
-    if (sum(matrix[i, ]) == 0) {
-      z[u] <- i
-      u <- u + 1
-    }
-  }
-
-  # delete empty colums
-  if (!is.null(n)) {
-    matrix <- matrix[, -n]
-  }
-
-  # delete empty rows
-  if (!is.null(z)) {
-    matrix <- matrix[-z, ]
-  }
-
-  return(matrix)
+  delrc (matrix, climit = 1, rlimit = 1) %>%
+    return
 }
 
 #' Delete rows and columns of a data.frame by amount of values > 0
@@ -652,12 +621,9 @@ delempty <- function(matrix) {
 #' colSums(booleanize(testresult))
 #'
 #' @export
-#'
-
 delrc <- function(matrix, climit = 0, rlimit = 0) {
 
-  # reduce too big input to the extends of the matrix
-  # to cover the possible maximum
+  # reduce too big input to the extends of the matrix to cover the possible maximum
   if (climit > ncol(matrix)) {
     climit <- ncol(matrix) + 1
   }
@@ -669,8 +635,7 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
   cdel <- function(matrix, climit) {
     n <- c()
     p <- 1
-    if (!(ncol(matrix) == 0 | nrow(matrix) == 0) &&
-        !is.vector(matrix)) {
+    if (!(ncol(matrix) == 0 | nrow(matrix) == 0) && !is.vector(matrix)) {
       for (s in 1:ncol(matrix)) {
         if (length(which(matrix[, s] > 0)) < climit) {
           n[p] <- s
@@ -702,10 +667,9 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
   # every relevant row/column is removed. That's necessary,
   # because the removal of e.g. one column could cause the need
   # to remove an other row previously still relevant
-  while (nrow(matrix) > 0 &&
-         ncol(matrix) > 0 &&
-         (!is.null(cdel(matrix, climit)) ||
-          !is.null(rdel(matrix, rlimit)))
+  while (
+    nrow(matrix) > 0 && ncol(matrix) > 0 &&
+    (!is.null(cdel(matrix, climit)) || !is.null(rdel(matrix, rlimit)))
   ) {
 
     # call search function
