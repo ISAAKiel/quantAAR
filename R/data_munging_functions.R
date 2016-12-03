@@ -80,9 +80,7 @@ presencecount <- function(matrix, dim=1){
 #' cakedata <- booleanize(matrix = testmatrix, present = "cake", absent = "no cake")
 #'
 #' @export
-#'
-
-booleanize <- function(matrix, present=TRUE, absent=FALSE) {
+booleanize <- function(matrix, present = TRUE, absent = FALSE) {
 
   absent_elements <- which(matrix == 0, arr.ind = T)
   present_elements <- which(matrix > 0, arr.ind = T)
@@ -90,7 +88,6 @@ booleanize <- function(matrix, present=TRUE, absent=FALSE) {
   matrix[present_elements] <- present
 
   return(matrix)
-
 }
 
 # End General Data Munging Functions  ---------------------------
@@ -569,7 +566,7 @@ itremove <- function(object, minnumber) {
 #'
 #' @export
 delempty <- function(matrix) {
-  delrc (matrix, climit = 1, rlimit = 1) %>%
+  delrc(matrix, climit = 1, rlimit = 1) %>%
     return
 }
 
