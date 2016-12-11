@@ -36,6 +36,14 @@
 
 predictvo <- function (matrix, reltable, mvars, level = 2) {
 
+  namevar1 <- NULL;
+  namevar2 <- NULL;
+
+  # check if reltable has the variables namevar1 and namevar2
+  if (c("namevar1", "namevar2") %in% colnames(reltable) %>% all %>% `!`) {
+    stop("reltable doesn't have the variables namevar1 and namevar2.")
+  }
+
   # loop: check relations of every variable of interest
   for (pointer in 1:length(mvars)){
 

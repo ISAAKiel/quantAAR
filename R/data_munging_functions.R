@@ -208,6 +208,10 @@ rmnegcorr <- function (corrmatrix, matrix, dim, niv = 0.1) {
 
 reltable <- function(corrtable, corrtable2 = data.frame()) {
 
+  # avoiding note (no visible binding for global variable)
+  indexvar1 <- NULL;
+  indexvar2 <- NULL;
+
   # copy matrix to apply an increasingly fast search algorithm
   # for the matrix maximum
   destroycorr <- corrtable
@@ -330,7 +334,7 @@ newcorrtable <- function (matrix, dim = 1) {
 
   # table is created for column (variables) relations
   if (dim == 1) {
-    matrixwidth <- length(matrix)
+    matrixwidth <- ncol(matrix)
     newtable <- matrix(nrow = matrixwidth, ncol = matrixwidth, 0)
     colnames(newtable) <- colnames(matrix)
     rownames(newtable) <- colnames(matrix)
@@ -738,8 +742,6 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
 #' camask(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
 #'
 #' @export
-#'
-
 camask <- function(matrix, supc = c(), supr = c(), caplot = FALSE) {
 
   # call ca::ca() to perform CA
@@ -786,7 +788,6 @@ camask <- function(matrix, supc = c(), supr = c(), caplot = FALSE) {
   }
 
   return(df)
-
 }
 
 # End CA Utility Functions  ---------------------------
