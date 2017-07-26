@@ -1,4 +1,4 @@
-Package: quantaar
+Package: quantAAR
 Type: Package
 Title: R Library for Quantitative Analysis in Archaeology
 Version: 0.1.0
@@ -8,11 +8,11 @@ Author: c(
   person("Benjamin", "Serbe", email = "b.serbe@web.de", role = c("aut"))
   )
 Maintainer: Martin Hinz <martin.hinz@ufg.uni-kiel.de>
-Description: quantaar is a collection of functions useful for archaeologists.
+Description: quantAAR is a collection of functions useful for archaeologists.
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 6.0.1
-URL: https://github.com/ISAAKiel/quantaar
+URL: https://github.com/ISAAKiel/quantAAR
 Imports:
     ca (>= 0.64),
     dplyr (>= 0.5.0),

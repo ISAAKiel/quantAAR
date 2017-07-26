@@ -151,9 +151,9 @@ caplot <- function (cadoc) {
 #' that is directly saved to the file system. It doesn't allow to define specific
 #' plot settings.
 #'
-#' @param corrmatrix correlation matrix (as produced by quantaar::corrmat())
+#' @param corrmatrix correlation matrix (as produced by quantAAR::corrmat())
 #' @param xmatrix correlation matrix only with the values 0 and 1, where 1 serves as
-#' a marker (as produced by quantaar::corrmat(method="chi2")). Relations with the
+#' a marker (as produced by quantAAR::corrmat(method="chi2")). Relations with the
 #' value 1 will be marked with an X in the corrplot.
 #'
 #' default = 0 (nothing is marked)
@@ -253,7 +253,7 @@ corrplotmask <- function(corrmatrix,
 #'
 #' @details For graph layout the fruchterman.reingold.grid algorithm is used.
 #'
-#' @param reltable list of bivariate relations (as produced by quantaar::reltable())
+#' @param reltable list of bivariate relations (as produced by quantAAR::reltable())
 #' @param mypath file.path where the plot file should be stored
 #'
 #' mypath <- file.path("~/path/to/my/directory/",paste("myfilename", ".png", sep = ""))

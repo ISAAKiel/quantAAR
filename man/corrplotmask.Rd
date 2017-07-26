@@ -8,10 +8,10 @@ corrplotmask(corrmatrix, xmatrix = "notact", mypath,
   voi = 1:ncol(corrmatrix), w = 3000, h = 3000)
 }
 \arguments{
-\item{corrmatrix}{correlation matrix (as produced by quantaar::corrmat())}
+\item{corrmatrix}{correlation matrix (as produced by quantAAR::corrmat())}
 
 \item{xmatrix}{correlation matrix only with the values 0 and 1, where 1 serves as
-a marker (as produced by quantaar::corrmat(method="chi2")). Relations with the
+a marker (as produced by quantAAR::corrmat(method="chi2")). Relations with the
 value 1 will be marked with an X in the corrplot.
 
 default = 0 (nothing is marked)}

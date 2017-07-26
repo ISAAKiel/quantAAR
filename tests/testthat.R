@@ -1,4 +1,4 @@
 library(testthat)
-library(quantaar)
+library(quantAAR)
 
-test_check("quantaar")
+test_check("quantAAR")

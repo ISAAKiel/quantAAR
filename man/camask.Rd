@@ -30,7 +30,7 @@ data.frame with ca coordinates of variables and objects of the input data.frame
 \description{
 \code{camask()} delivers the coordinates of objects and variables of a correspondence
 analyse as a tidy data.frame. Further it allows to directly call the function
-\code{quantaar::caplot()} to get three pages of plots for a first impression.
+\code{quantAAR::caplot()} to get three pages of plots for a first impression.
 The CA is calculated by \code{ca::ca()}. See \code{?ca} for further information.
 }
 \details{

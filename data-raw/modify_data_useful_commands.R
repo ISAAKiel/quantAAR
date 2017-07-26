@@ -1,4 +1,4 @@
-bs1 <- read.csv("~/Rstats/quantaar/data-raw/bs1.csv",
+bs1 <- read.csv("data-raw/bs1.csv",
                 sep=";",
                 header=TRUE,
                 row.names=1,

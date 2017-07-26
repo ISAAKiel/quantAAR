@@ -27,7 +27,7 @@ testmatrix2 <- data.frame(
   c6 = c(0, 6, 1, 0, 0, 0),
   c7 = c(0, 1, 1, 1, 0, 0)
   )
-testmatrix2 <- quantaar::booleanize(testmatrix2)
+testmatrix2 <- quantAAR::booleanize(testmatrix2)
 
 test_that(
   "the output of corrmat is a data.frame with the correct width and heigth",  {

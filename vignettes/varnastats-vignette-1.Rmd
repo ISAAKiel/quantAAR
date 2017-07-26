@@ -28,15 +28,15 @@ bs1[1:10,9:16]
 For bivariate analysis it's useful to use categorized data. In the context of burialsites the simple information wether a grave good is present or absent in a certain grave is often already sufficient. To reduce our dataset to this information the function `booleanize()` can be applied. Empty graves and attributes that never appeare can be removed with `delempty()`. 
 
 ```{r, echo=FALSE, echo=TRUE}
-bs <- quantaar::booleanize(bs1)
-bs <- quantaar::delempty(bs)
+bs <- quantAAR::booleanize(bs1)
+bs <- quantAAR::delempty(bs)
 bs[1:10,9:16]
 ```
 
 Let's look at the appearences of the individual grave goods with `presencecount()`. While most goods are frequent, *pottery_4* is quite rare - too rare to be meaningfully analyzed with chi square statistics. 
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5}
-presencematerial <- quantaar::presencecount(bs[,7:18], dim = 1)
+presencematerial <- quantAAR::presencecount(bs[,7:18], dim = 1)
 
 presence.m <- reshape2::melt(presencematerial)
 ggplot(presence.m,
@@ -49,9 +49,9 @@ With `delrc()` we can delete every grave good that appeares less than ten times.
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5}
 bsred <- bs[,7:18]
-bsred <- quantaar::delrc(bsred, climit = 10)
+bsred <- quantAAR::delrc(bsred, climit = 10)
 
-presencematerial <- quantaar::presencecount(bsred, dim = 1)
+presencematerial <- quantAAR::presencecount(bsred, dim = 1)
 presence.m <- reshape2::melt(presencematerial)
 ggplot(presence.m,
        aes(x = variable,
@@ -63,9 +63,9 @@ Now we can calculate the bivariate relations of all attributes with the function
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width=7.5, fig.height=7.5}
 bsprep <- data.frame(bs[,1:6], bsred)
-corrtablechi2test <- quantaar::corrmat(bsprep, method = "chi2", dim = 1, chi2limit = 0.02)
-corrtablephi <- quantaar::corrmat(bsprep, method = "phi", dim = 1)
-mastercorr <- quantaar::rmnegcorr(corrtablephi, bsprep, niv = 0.1, dim = 1)
+corrtablechi2test <- quantAAR::corrmat(bsprep, method = "chi2", dim = 1, chi2limit = 0.02)
+corrtablephi <- quantAAR::corrmat(bsprep, method = "phi", dim = 1)
+mastercorr <- quantAAR::rmnegcorr(corrtablephi, bsprep, niv = 0.1, dim = 1)
 
 col2 <- grDevices::colorRampPalette(c("white","white", "chartreuse4"))
 corrplot::corrplot(
@@ -77,7 +77,7 @@ corrplot::corrplot(
 `reltable()` creates a list of the significant relationships within the correlation table. We choose the phi coefficient to be the first correlation value and the chi square test decision to be the second. 
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5, warning=FALSE}
-signicorr <- quantaar::reltable(mastercorr, corrtablechi2test)
+signicorr <- quantAAR::reltable(mastercorr, corrtablechi2test)
 signicorr <- dplyr::filter(signicorr, corrvalue2 == TRUE)
 
 signicorr
@@ -123,7 +123,7 @@ mvar1female
 `predictvo()` uses the initial data.frame and *signicorr* to make a prediction about whether an object could contain a variable or not based on cross-references. Useful to determine for example the sex of buried individuals based on their grave goods when no anthropological determination is availbable.
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5, warning=FALSE}
-predictgen <- quantaar::predictvo(bsprep, signicorr, mvar, level = 1)
+predictgen <- quantAAR::predictvo(bsprep, signicorr, mvar, level = 1)
 
 sexprediction <- data.frame(
   m = predictgen[,1], 

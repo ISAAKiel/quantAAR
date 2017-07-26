@@ -9,7 +9,7 @@ testmatrix <- data.frame(
   c6 = c(0, 6, 1, 0, 0, 0),
   c7 = c(0, 1, 1, 1, 0, 0)
 )
-testmatrix <- quantaar::booleanize(testmatrix)
+testmatrix <- quantAAR::booleanize(testmatrix)
 testcorr <- corrmat(testmatrix, "chi2", chi2limit = 0.2, dim = 1)
 rel <- reltable(testcorr)
 testvars <- c("c1", "c3", "c7")

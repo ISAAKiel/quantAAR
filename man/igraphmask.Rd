@@ -7,7 +7,7 @@
 igraphmask(reltable, mypath, w = 3000, h = 3000, colorvector = c("red"))
 }
 \arguments{
-\item{reltable}{list of bivariate relations (as produced by quantaar::reltable())}
+\item{reltable}{list of bivariate relations (as produced by quantAAR::reltable())}
 
 \item{mypath}{file.path where the plot file should be stored
 

@@ -102,7 +102,7 @@ booleanize <- function(matrix, present = TRUE, absent = FALSE) {
 #' This function can be applied for correlation matrizes created for variable or
 #' object relations.
 #'
-#' @param corrmatrix correlation matrix (as produced by quantaar::corrmat())
+#' @param corrmatrix correlation matrix (as produced by quantAAR::corrmat())
 #' @param matrix underlying data.frame
 #' @param dim switch to define if the correlation matrix should be created
 #' for columns or rows.
@@ -188,8 +188,8 @@ rmnegcorr <- function (corrmatrix, matrix, dim, niv = 0.1) {
 #'
 #' column 6:        optional second correlation value
 #'
-#' @param corrtable correlation matrix (as produced by quantaar::corrmat())
-#' @param corrtable2 optional second corrmatrix correlation matrix (as produced by quantaar::corrmat())
+#' @param corrtable correlation matrix (as produced by quantAAR::corrmat())
+#' @param corrtable2 optional second corrmatrix correlation matrix (as produced by quantAAR::corrmat())
 #' @return table of relations and their correlation value
 #'
 #' @examples
@@ -428,7 +428,7 @@ corrmat <- function (matrix, method = "chi2",
                      dim = 1, chi2limit = 0.05, rmnegniv = 0) {
 
   # create empty correlation table that fits to the input data.frame
-  corrtab <- quantaar::newcorrtable(matrix, dim)
+  corrtab <- quantAAR::newcorrtable(matrix, dim)
 
   # invert column/row selection due to unusal api (1 --> cols / 2 --> rows)
   my_dim <- c(2, 1)[dim]
@@ -483,7 +483,7 @@ corrmat <- function (matrix, method = "chi2",
 
   # apply removal of negativ relations with rmnegcorr
   if (rmnegniv > 0) {
-    corrtab <- quantaar::rmnegcorr(
+    corrtab <- quantAAR::rmnegcorr(
       corrmatrix = corrtab,
       matrix = matrix,
       dim = dim,
