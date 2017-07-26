@@ -215,19 +215,25 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
 #'
 #' column X+1:      type (var, obj, passivevar, passiveobj)
 #'
-#' @param matrix data.frame with numeric values
-#' @param supc vector of indezes of variables (columns) that should be included as
+#' @param x data.frame with numeric values
+#' @param supc numeric vector of indexes of variables (columns) that should be included as
 #' passive entities into the ca
 #'
-#' default = c()
+#' default = NULL
 #'
-#' @param supr vector of indezes of objects (rows) that should be included as
+#' @param supr numeric vector of indexes of objects (rows) that should be included as
 #' passive entities into the ca
 #'
-#' default = c()
+#' default = NULL
 #'
 #' @param caplot boolean switch, to decide, whether caplot() should be called to get
 #' some early plots
+#'
+#' default = FALSE
+#'
+#' @param verbose boolean switch, to decide, whether the output should be a list with all
+#' the diagnostic output of \code{ca::ca()} (TRUE) or just the result coordinate data.frame
+#' (FALSE)
 #'
 #' default = FALSE
 #'
@@ -242,44 +248,19 @@ delrc <- function(matrix, climit = 0, rlimit = 0) {
 #' camask(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
 #'
 #' @export
-camask <- function(matrix, supc = c(), supr = c(), caplot = FALSE) {
+camask <- function(x, supc = NULL, supr = NULL, caplot = FALSE, verbose = FALSE) {
 
   # call ca::ca() to perform CA
   # switch ist necessary to deal with presence or absence of passive variables:
   # ca() can't simply work with empty vectors
   if (!is.null(supr) && !is.null(supc)) {
-    q <- ca::ca(matrix, suprow = supr, supcol = supc)
+    q <- ca::ca(x, suprow = supr, supcol = supc)
   } else if (!is.null(supr) && is.null(supc)) {
-    q <- ca::ca(matrix, suprow = supr)
+    q <- ca::ca(x, suprow = supr)
   } else if (is.null(supr) && !is.null(supc)) {
-    q <- ca::ca(matrix, supcol = supc)
+    q <- ca::ca(x, supcol = supc)
   } else {
-    q <- ca::ca(matrix)
-  }
-
-  # create a dataframe with ca coordinates and a type column to distinguish
-  # variables and objects
-  df <- data.frame(
-    rbind(q$colcoord, q$rowcoord),
-    type = c(
-      rep("var", nrow(q$colcoord)),
-      rep("obj", nrow(q$rowcoord))
-    ),
-    row.names = c(
-      colnames(matrix),
-      rownames(matrix)
-    ),
-    stringsAsFactors = FALSE
-  )
-
-  # set type for passive variables/objects
-  if (!is.null(supr) && !is.null(supc)) {
-    df$type[supc] <- "passivevar"
-    df$type[nrow(q$colcoord) + supr] <- "passiveobj"
-  } else if (!is.null(supr) && is.null(supc)) {
-    df$type[nrow(q$colcoord) + supr] <- "passiveobj"
-  } else if (is.null(supr) && !is.null(supc)) {
-    df$type[supc] <- "passivevar"
+    q <- ca::ca(x)
   }
 
   # call caplot()
@@ -287,7 +268,70 @@ camask <- function(matrix, supc = c(), supr = c(), caplot = FALSE) {
     quantAAR::caplot(q)
   }
 
-  return(df)
+  # create a dataframe with ca coordinates and a type column to distinguish
+  # variables and objects
+  res <- data.frame(
+    rbind(q$colcoord, q$rowcoord),
+    type = c(
+      rep("var", nrow(q$colcoord)),
+      rep("obj", nrow(q$rowcoord))
+    ),
+    row.names = c(
+      colnames(x),
+      rownames(x)
+    ),
+    stringsAsFactors = FALSE
+  )
+
+  # set type for passive variables/objects
+  if (!is.null(supr) && !is.null(supc)) {
+    res$type[supc] <- "passivevar"
+    res$type[nrow(q$colcoord) + supr] <- "passiveobj"
+  } else if (!is.null(supr) && is.null(supc)) {
+    res$type[nrow(q$colcoord) + supr] <- "passiveobj"
+  } else if (is.null(supr) && !is.null(supc)) {
+    res$type[supc] <- "passivevar"
+  }
+
+  # prepare verbose output
+  if (verbose) {
+    verbose_out <- list(
+      result = res,
+      principal_inertias = data.frame(
+        singular_value = q$sv,
+        summary(q)[["scree"]] %>% `colnames<-`(paste0("summary_",
+          c("dim_number", "eigenvalue", "percent", "cum_percent")
+        ))
+      ),
+      row_diag = data.frame(
+        rowname = if(is.null(q$rownames)) { NA } else { q$rownames },
+        rowmass = q$rowmass,
+        rowdist = q$rowdist,
+        rowinertia = q$rowinertia,
+        summary(q)[["rows"]] %>% `colnames<-`(paste0("summary_",
+          c("name", "mass", "qlt", "inr", "k_1", "cor_1", "ctr_1", "k_2", "cor_2", "ctr_2")
+        )),
+        stringsAsFactors = FALSE
+      ),
+      col_diag = data.frame(
+        colname = if(is.null(q$colnames)) { NA } else { q$colnames },
+        colmass = q$colmass,
+        coldist = q$coldist,
+        colinertia = q$colinertia,
+        summary(q)[["columns"]] %>% `colnames<-`(paste0("summary_",
+          c("name", "mass", "qlt", "inr", "k_1", "cor_1", "ctr_1", "k_2", "cor_2", "ctr_2")
+        )),
+        stringsAsFactors = FALSE
+      )
+    )
+  }
+
+  # output
+  if (verbose) {
+    return(verbose_out)
+  } else {
+    return(res)
+  }
 }
 
 # End CA Utility Functions  ---------------------------

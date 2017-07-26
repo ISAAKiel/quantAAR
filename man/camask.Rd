@@ -4,23 +4,29 @@
 \alias{camask}
 \title{Mask function for ca:ca() to get the ca results in a tidy data.frame}
 \usage{
-camask(matrix, supc = c(), supr = c(), caplot = FALSE)
+camask(x, supc = NULL, supr = NULL, caplot = FALSE, verbose = FALSE)
 }
 \arguments{
-\item{matrix}{data.frame with numeric values}
+\item{x}{data.frame with numeric values}
 
-\item{supc}{vector of indezes of variables (columns) that should be included as
+\item{supc}{numeric vector of indexes of variables (columns) that should be included as
 passive entities into the ca
 
-default = c()}
+default = NULL}
 
-\item{supr}{vector of indezes of objects (rows) that should be included as
+\item{supr}{numeric vector of indexes of objects (rows) that should be included as
 passive entities into the ca
 
-default = c()}
+default = NULL}
 
 \item{caplot}{boolean switch, to decide, whether caplot() should be called to get
 some early plots
+
+default = FALSE}
+
+\item{verbose}{boolean switch, to decide, whether the output should be a list with all
+the diagnostic output of \code{ca::ca()} (TRUE) or just the result coordinate data.frame
+(FALSE)
 
 default = FALSE}
 }
