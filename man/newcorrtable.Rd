@@ -38,4 +38,3 @@ newcorrtable(testmatrix, 2)
 corrtabrows <- newcorrtable(matrix = testmatrix, dim = 2)
 
 }
-

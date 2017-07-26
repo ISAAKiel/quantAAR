@@ -34,4 +34,3 @@ countvar <- presencecount(testmatrix, 1)
 countobj <- presencecount(testmatrix, 2)
 
 }
-

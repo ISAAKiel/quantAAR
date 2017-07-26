@@ -52,4 +52,3 @@ testpath <- file.path(".",paste("testfile", ".png", sep = ""))
 igraphmask(testrel, testpath, w = 1000, h = 1000)
 
 }
-

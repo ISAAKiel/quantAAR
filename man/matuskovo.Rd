@@ -49,4 +49,3 @@
 A dataset containing graves (objects) and grave attributes
 (variables) of a burial site from the Unetice culture in western Slovakia.
 }
-

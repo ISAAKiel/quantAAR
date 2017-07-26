@@ -26,4 +26,3 @@ library(ca)
 caplot(ca(testmatrixrand))
 
 }
-

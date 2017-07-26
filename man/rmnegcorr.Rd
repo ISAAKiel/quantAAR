@@ -46,4 +46,3 @@ testcorr <- corrmat(testmatrixrand, "chi2", chi2limit = 0.1, dim = 1)
 rmnegcorr(testcorr, testmatrixrand, dim = 1)
 
 }
-

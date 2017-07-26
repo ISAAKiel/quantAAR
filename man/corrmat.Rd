@@ -78,4 +78,3 @@ phicorrtablewnr <- corrmat(
  )
 
 }
-

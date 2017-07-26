@@ -29,4 +29,3 @@ booleanize(testmatrix, 5, 10)
 cakedata <- booleanize(matrix = testmatrix, present = "cake", absent = "no cake")
 
 }
-

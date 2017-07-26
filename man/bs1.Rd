@@ -27,4 +27,3 @@
 \description{
 A dataset containing graves (objects) and stereotypical grave attributes (variables)
 }
-

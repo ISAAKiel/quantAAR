@@ -44,4 +44,3 @@ rel <- reltable(testcorr)
 predictvo(testmatrixrand, rel, c("X2", "X3"))
 
 }
-

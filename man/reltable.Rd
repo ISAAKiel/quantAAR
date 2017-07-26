@@ -42,4 +42,3 @@ reltable(testcorr)
 reltable(testcorr, testcorr2)
 
 }
-
