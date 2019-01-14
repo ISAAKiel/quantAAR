@@ -4,7 +4,8 @@
 \alias{igraphmask}
 \title{Mask function for igraph::plot.igraph() to visualize a relation table as a graph}
 \usage{
-igraphmask(reltable, mypath, w = 3000, h = 3000, colorvector = c("red"))
+igraphmask(reltable, mypath, w = 3000, h = 3000,
+  colorvector = c("red"))
 }
 \arguments{
 \item{reltable}{list of bivariate relations (as produced by quantAAR::reltable())}

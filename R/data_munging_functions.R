@@ -457,10 +457,10 @@ corrmat <- function (matrix, method = "chi2",
           result <- 0
         }
       } else if (method == "phi") {
-        # calculation of phi = √(chi2/n)
+        # calculation of phi = sqrt(chi2/n)
         result <- sqrt((chi2) / sum(tbl))
       } else if (method == "cc") {
-        # calculation of CC = √(chi2/(chi2+n))
+        # calculation of CC = sqrt(chi2/(chi2+n))
         result <- sqrt((chi2) / ((chi2) + sum(tbl)))
       } else if (method == "lambda") {
         # calculation of mean lambda value

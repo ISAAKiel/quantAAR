@@ -4,7 +4,8 @@
 \alias{camask}
 \title{Mask function for ca:ca() to get the ca results in a tidy data.frame}
 \usage{
-camask(x, supc = NULL, supr = NULL, caplot = FALSE, verbose = FALSE)
+camask(x, supc = NULL, supr = NULL, caplot = FALSE,
+  verbose = FALSE)
 }
 \arguments{
 \item{x}{data.frame with numeric values}

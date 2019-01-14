@@ -11,7 +11,7 @@ Maintainer: Martin Hinz <martin.hinz@ufg.uni-kiel.de>
 Description: quantAAR is a collection of functions useful for archaeologists.
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 URL: https://github.com/ISAAKiel/quantAAR
 Imports:
     ca (>= 0.64),
@@ -31,4 +31,5 @@ Suggests:
     roxygen2 (>= 5.0.1),
     testthat (>= 1.0.2)
 VignetteBuilder: knitr
-Depends: R (>= 3.3.1)
+Depends: R (>= 3.3.0)
+Encoding: UTF-8
