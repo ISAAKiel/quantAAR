@@ -1,4 +1,4 @@
-context("Tests of function delrc")
+context("Tests of function itremove")
 
 testmatrix1 <- data.frame(
   c1 = c(0, 3, 8, 2, 0),
@@ -16,26 +16,26 @@ testmatrix2 <- data.frame(
 )
 
 test_that(
-  "the output of delrc is a data.frame or FALSE",  {
+  "the output of itremove is a data.frame or FALSE",  {
     expect_equal(
-      is.data.frame(delrc(testmatrix1, climit = 3, rlimit = 2)),
+      is.data.frame(itremove(testmatrix1, cmin = 3, rmin = 2)),
       TRUE
     )
     expect_equal(
-      delrc(testmatrix2, climit = 3, rlimit = 2),
-      FALSE
+      itremove(testmatrix2, cmin = 3, rmin = 2),
+      NA
     )
   }
 )
 
 test_that(
-  "the output of delrc with minimalistic settings is
+  "the output of itremove with minimalistic settings is
   a data.frame without empty rows or columns ",  {
     expect_equal(
       length(
         which(
           apply(
-            delrc(testmatrix1, climit = 0, rlimit = 1),
+            itremove(testmatrix1, cmin = 0, rmin = 1),
             1,
             sum) == 0)
         ) > 0,
@@ -45,7 +45,7 @@ test_that(
       length(
         which(
           apply(
-            delrc(testmatrix1, climit = 1, rlimit = 0),
+            itremove(testmatrix1, cmin = 1, rmin = 0),
             2,
             sum) == 0)
         ) > 0,
@@ -55,13 +55,13 @@ test_that(
 )
 
 test_that(
-  "delrc removes the correct amount of columns and rows
+  "itremove removes the correct amount of columns and rows
   depending on the settings",  {
     expect_equal(
       length(
         which(
           apply(
-            delrc(testmatrix1, climit = 3, rlimit = 2),
+            itremove(testmatrix1, cmin = 3, rmin = 2),
             1, sum) > 0)
         ),
       3
@@ -70,7 +70,7 @@ test_that(
       length(
         which(
           apply(
-            delrc(testmatrix1, climit = 3, rlimit = 2),
+            itremove(testmatrix1, cmin = 3, rmin = 2),
             2,
             sum) > 0)
         ),
@@ -80,14 +80,15 @@ test_that(
 )
 
 test_that(
-  "delrc keeps the correct rows and columns",  {
+  "itremove keeps the correct rows and columns",  {
     expect_equal(
-      colnames(delrc(testmatrix1, climit = 3, rlimit = 2)),
+      colnames(itremove(testmatrix1, cmin = 3, rmin = 2)),
       c("c1", "c4")
     )
     expect_equal(
-      rownames(delrc(testmatrix1, climit = 3, rlimit = 2)),
+      rownames(itremove(testmatrix1, cmin = 3, rmin = 2)),
       c("2", "3", "4")
     )
   }
 )
+

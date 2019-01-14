@@ -25,11 +25,11 @@ This Vignette shows a workflow for archaeologists workig on burial sites. Starti
 bs1[1:10,9:16]
 ```
 
-For bivariate analysis it's useful to use categorized data. In the context of burialsites the simple information wether a grave good is present or absent in a certain grave is often already sufficient. To reduce our dataset to this information the function `booleanize()` can be applied. Empty graves and attributes that never appeare can be removed with `delempty()`. 
+For bivariate analysis it's useful to use categorized data. In the context of burialsites the simple information wether a grave good is present or absent in a certain grave is often already sufficient. To reduce our dataset to this information the function `booleanize()` can be applied. Empty graves and attributes that never appeare can be removed with `itremove(x,1)`. 
 
 ```{r, echo=FALSE, echo=TRUE}
 bs <- quantAAR::booleanize(bs1)
-bs <- quantAAR::delempty(bs)
+bs <- quantAAR::itremove(bs,1)
 bs[1:10,9:16]
 ```
 
@@ -45,11 +45,11 @@ ggplot(presence.m,
   geom_bar(stat = "identity")
 ```
 
-With `delrc()` we can delete every grave good that appeares less than ten times. As a consequence *pottery_4* is removed.
+With `itremove()` we can delete every grave good that appeares less than ten times. As a consequence *pottery_4* is removed.
 
 ```{r, echo=TRUE, message=FALSE, fig.width=7.5, fig.height=5}
 bsred <- bs[,7:18]
-bsred <- quantAAR::delrc(bsred, climit = 10)
+bsred <- quantAAR::itremove(bsred, cmin = 10, rmin = 0)
 
 presencematerial <- quantAAR::presencecount(bsred, dim = 1)
 presence.m <- reshape2::melt(presencematerial)

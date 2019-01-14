@@ -2,24 +2,56 @@
 % Please edit documentation in R/ca_utility_functions.R
 \name{itremove}
 \alias{itremove}
-\title{Removes iterative all rows and columns of a matrix or dataframe with less than a given number of non zero elements.}
+\title{Iteratively removes all rows and columns of a matrix or dataframe with less than a given
+number of non zero elements.}
 \usage{
-itremove(object, minnumber)
+itremove(x, minnumber = NA, cmin = NA, rmin = NA)
 }
 \arguments{
-\item{object}{A matrix or dataframe.}
+\item{x}{matrix or data.frame. Table with only numeric values.}
 
-\item{minnumber}{A number of minimum non zero elements.}
+\item{minnumber}{integer. A number of minimum non zero elements. How many values > 0 have to be
+present to consider a row/column sufficiently linked to perform further analysis?
+Every column with less values > 0 will be removed. Either \code{minnumber} or \code{cmin} and
+\code{rmin} must be given.}
+
+\item{cmin}{integer. Same as \code{minnumber}, but specifically for columns.}
+
+\item{rmin}{integer. Same as \code{minnumber}, but specifically for rows.}
 }
 \value{
-A matrix or dataframe with all rows and columns removed that had less than the given number of non zero elements.
+A matrix or dataframe with all rows and columns removed that had less than
+the given number of non zero elements. If \code{minnumber} or \code{cmin} and
+\code{rmin} are too restrictive and no content remains in the table, than the result is
+\code{NA}.
 }
 \description{
-Removes iterative all rows and columns of a matrix or dataframe with less than a given number of non zero elements.
+Iteratively removes all rows and columns of a matrix or dataframe with less than a given
+number of non zero elements.
+}
+\details{
+A matrix or data.frame with numeric values often contains rows and columns with an
+insufficient amount of values > 0 for a certain task. For example correspondence analysis
+or bivariate correlation analysis requires a minimum amount of usable values.
+In an archaeological context this could apply for example, if certain find categories
+are particularly rare in a burial site context.
+
+\code{delrc} allows to remove rows and columns, that don't fulfill the requirements.
 }
 \examples{
-a <- matrix(c(0,1,0,0,0,0,0,0,1,0,1,0,0,1,0,0),nrow=4)
-a
-itremove(a,1)
+testmatrix <- data.frame(
+c1 = c(0,3,8,2),
+c2 = c(0,6,7,0),
+c3 = c(0,0,0,0),
+c4 = c(0,3,8,2),
+c5 = c(0,6,7,0),
+c6 = c(1,0,0,1)
+)
+
+# The following code removes every column with less than 3 values > 0.
+# That will remove the columns c2, c3, c5 and c6.
+# Further, every row with less than 2 values gets removed.
+# That will delete row 1.
+itremove(testmatrix, cmin = 3, rmin = 2)
 
 }
