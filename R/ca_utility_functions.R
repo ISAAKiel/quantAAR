@@ -123,135 +123,60 @@ booleanize <- function(x, present = TRUE, absent = FALSE) {
 
 #' Mask function for ca:ca() to get the ca results in a tidy data.frame
 #'
-#' \code{camask()} delivers the coordinates of objects and variables of a correspondence
-#' analyse as a tidy data.frame. Further it allows to directly call the function
-#' \code{quantAAR::caplot()} to get three pages of plots for a first impression.
-#' The CA is calculated by \code{ca::ca()}. See \code{?ca} for further information.
-#'
-#' @details
-#' Structure of the resulting table:
-#'
-#' column 1 - X:    ca coordinates of objects/variables for different dimensions
-#'
-#' column X+1:      type (var, obj, passivevar, passiveobj)
+#' \code{tidyca()} delivers the coordinates of objects and variables of a correspondence
+#' analyse as a tidy data.frame. The CA is calculated by \code{ca::ca()}.
+#' See \code{?ca} for further information.
 #'
 #' @param x data.frame with numeric values
-#' @param supc numeric vector of indexes of variables (columns) that should be included as
-#' passive entities into the ca
-#'
-#' default = NULL
-#'
-#' @param supr numeric vector of indexes of objects (rows) that should be included as
-#' passive entities into the ca
-#'
-#' default = NULL
-#'
-#' @param caplot boolean switch, to decide, whether caplot() should be called to get
-#' some early plots
-#'
-#' default = FALSE
-#'
-#' @param verbose boolean switch, to decide, whether the output should be a list with all
-#' the diagnostic output of \code{ca::ca()} (TRUE) or just the result coordinate data.frame
-#' (FALSE)
-#'
-#' default = FALSE
+#' @param ... further options of \code{ca::ca}
 #'
 #' @return data.frame with ca coordinates of variables and objects of the input data.frame
 #'
-#'@examples
+#' @examples
 #' testmatrixrand <- data.frame(
 #'    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 #' )
 #' rownames(testmatrixrand) <- paste("row", seq(1:nrow(testmatrixrand)))
 #'
-#' camask(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
+#' tidyca(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
 #'
 #' @export
-camask <- function(x, supc = NULL, supr = NULL, caplot = FALSE, verbose = FALSE) {
+tidyca <- function(x, ...) {
 
   # call ca::ca() to perform CA
-  # switch ist necessary to deal with presence or absence of passive variables:
-  # ca() can't simply work with empty vectors
-  if (!is.null(supr) && !is.null(supc)) {
-    q <- ca::ca(x, suprow = supr, supcol = supc)
-  } else if (!is.null(supr) && is.null(supc)) {
-    q <- ca::ca(x, suprow = supr)
-  } else if (is.null(supr) && !is.null(supc)) {
-    q <- ca::ca(x, supcol = supc)
-  } else {
-    q <- ca::ca(x)
-  }
+  q <- ca::ca(x, ...)
 
-  # call caplot()
-  if (caplot) {
-    quantAAR::caplot(q)
-  }
-
-  # create a dataframe with ca coordinates and a type column to distinguish
-  # variables and objects
-  res <- data.frame(
-    rbind(q$colcoord, q$rowcoord),
-    type = c(
-      rep("var", nrow(q$colcoord)),
-      rep("obj", nrow(q$rowcoord))
+  # prepare tidy output
+  row_res <- dplyr::bind_cols(
+    tibble::tibble(
+      name = q$rownames,
+      type = "row",
+      sup = 1:length(q$rownames) %in% q$rowsup,
+      mass = q$rowmass,
+      dist = q$rowdist,
+      inertia = q$rowinertia
     ),
-    row.names = c(
-      colnames(x),
-      rownames(x)
-    ),
-    stringsAsFactors = FALSE
+    tibble::as_tibble(q$rowcoord)
   )
 
-  # set type for passive variables/objects
-  if (!is.null(supr) && !is.null(supc)) {
-    res$type[supc] <- "passivevar"
-    res$type[nrow(q$colcoord) + supr] <- "passiveobj"
-  } else if (!is.null(supr) && is.null(supc)) {
-    res$type[nrow(q$colcoord) + supr] <- "passiveobj"
-  } else if (is.null(supr) && !is.null(supc)) {
-    res$type[supc] <- "passivevar"
-  }
+  col_res <- dplyr::bind_cols(
+    tibble::tibble(
+      name = q$colnames,
+      type = "col",
+      sup = 1:length(q$colnames) %in% q$colsup,
+      mass = q$colmass,
+      dist = q$coldist,
+      inertia = q$colinertia
+    ),
+    tibble::as_tibble(q$colcoord)
+  )
 
-  # prepare verbose output
-  if (verbose) {
-    verbose_out <- list(
-      result = res,
-      principal_inertias = data.frame(
-        singular_value = q$sv,
-        summary(q)[["scree"]] %>% `colnames<-`(paste0("summary_",
-          c("dim_number", "eigenvalue", "percent", "cum_percent")
-        ))
-      ),
-      row_diag = data.frame(
-        rowname = if(is.null(q$rownames)) { NA } else { q$rownames },
-        rowmass = q$rowmass,
-        rowdist = q$rowdist,
-        rowinertia = q$rowinertia,
-        summary(q)[["rows"]] %>% `colnames<-`(paste0("summary_",
-          c("name", "mass", "qlt", "inr", "k_1", "cor_1", "ctr_1", "k_2", "cor_2", "ctr_2")
-        )),
-        stringsAsFactors = FALSE
-      ),
-      col_diag = data.frame(
-        colname = if(is.null(q$colnames)) { NA } else { q$colnames },
-        colmass = q$colmass,
-        coldist = q$coldist,
-        colinertia = q$colinertia,
-        summary(q)[["columns"]] %>% `colnames<-`(paste0("summary_",
-          c("name", "mass", "qlt", "inr", "k_1", "cor_1", "ctr_1", "k_2", "cor_2", "ctr_2")
-        )),
-        stringsAsFactors = FALSE
-      )
-    )
-  }
+  res <- dplyr::bind_rows(
+    row_res,
+    col_res
+  )
 
-  # output
-  if (verbose) {
-    return(verbose_out)
-  } else {
-    return(res)
-  }
+  return(res)
 }
 
 # End CA Utility Functions  ---------------------------

@@ -2,7 +2,6 @@
 
 export("%>%")
 export(booleanize)
-export(camask)
 export(caplot)
 export(corrmat)
 export(corrplotmask)
@@ -14,4 +13,5 @@ export(predictvo)
 export(presencecount)
 export(reltable)
 export(rmnegcorr)
+export(tidyca)
 importFrom(magrittr,"%>%")

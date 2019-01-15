@@ -19,7 +19,8 @@ Imports:
     graphics,
     magrittr,
     rapportools (>= 1.0),
-    stats
+    stats,
+    tibble (>= 2.0.0)
 Suggests:
     corrplot (>= 0.77),
     devtools (>= 1.12.0),
