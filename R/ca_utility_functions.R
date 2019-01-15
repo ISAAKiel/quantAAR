@@ -1,7 +1,7 @@
 # Begin CA Utility Functions  ---------------------------
 
 #' Iteratively removes all rows and columns of a matrix or dataframe with less than a given
-#' number of non zero elements.
+#' number of non zero elements
 #'
 #' @details A matrix or data.frame with numeric values often contains rows and columns with an
 #' insufficient amount of values > 0 for a certain task. For example correspondence analysis
@@ -89,6 +89,37 @@ itremove_algorithm <- function(x, cmin, rmin) {
   }
 }
 check_num_nonzero <- function(x, minnumber) (sum(x == 0) + (minnumber - 1)) < length(x)
+
+#' Reduce the numeric values of a data.frame to boolean values
+#'
+#' \code{booleanize} returns an other version of the input data.frame with
+#' simple, definable present-absent information instead of numeric values.
+#' Absent means zero.
+#'
+#' @param x matrix or data.frame. Table with only numeric values.
+#' @param present any atomic type. Replacement values for cells with numeric value >0.
+#' default: TRUE
+#' @param absent any atomic type. Replacement values for cells with numeric value 0.
+#' default: FALSE
+#'
+#' @return A matrix or data.frame with present-absent values.
+#'
+#' @examples
+#' testmatrix <- data.frame(c1 = c(0,2,0,8), c2 = c(5,6,7,0), c3 = c(5,6,7,0))
+#'
+#' booleanize(testmatrix)
+#' booleanize(x = testmatrix, present = "cake", absent = "no cake")
+#'
+#' @export
+booleanize <- function(x, present = TRUE, absent = FALSE) {
+
+  absent_elements <- which(x == 0, arr.ind = T)
+  present_elements <- which(x > 0, arr.ind = T)
+  x[absent_elements] <- absent
+  x[present_elements] <- present
+
+  return(x)
+}
 
 #' Mask function for ca:ca() to get the ca results in a tidy data.frame
 #'

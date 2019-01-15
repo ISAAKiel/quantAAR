@@ -61,35 +61,6 @@ presencecount <- function(matrix, dim=1){
   return(presencecount)
 }
 
-#' Reduce the numeric values of a data.frame to boolean values
-#'
-#' \code{booleanize} returns an other version of the input data.frame with
-#' simple, definable present-absent information instead of numeric values.
-#'
-#' @param matrix data.frame with numeric values
-#' @param present replacement values for cells with numeric value >0. default: TRUE
-#' @param absent replacement values for cells with numeric value 0. default: FALSE
-#' @return data.frame with present-absent values
-#'
-#' @examples
-#' testmatrix <- data.frame(c1 = c(0,2,0,8), c2 = c(5,6,7,0), c3 = c(5,6,7,0))
-#'
-#' booleanize(testmatrix)
-#' booleanize(testmatrix, 5, 10)
-#'
-#' cakedata <- booleanize(matrix = testmatrix, present = "cake", absent = "no cake")
-#'
-#' @export
-booleanize <- function(matrix, present = TRUE, absent = FALSE) {
-
-  absent_elements <- which(matrix == 0, arr.ind = T)
-  present_elements <- which(matrix > 0, arr.ind = T)
-  matrix[absent_elements] <- absent
-  matrix[present_elements] <- present
-
-  return(matrix)
-}
-
 # End General Data Munging Functions  ---------------------------
 
 # Begin Correlation Data Munging Functions  ---------------------------

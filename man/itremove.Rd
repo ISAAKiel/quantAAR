@@ -3,7 +3,7 @@
 \name{itremove}
 \alias{itremove}
 \title{Iteratively removes all rows and columns of a matrix or dataframe with less than a given
-number of non zero elements.}
+number of non zero elements}
 \usage{
 itremove(x, minnumber = NA, cmin = NA, rmin = NA)
 }
@@ -27,7 +27,7 @@ the given number of non zero elements. If \code{minnumber} or \code{cmin} and
 }
 \description{
 Iteratively removes all rows and columns of a matrix or dataframe with less than a given
-number of non zero elements.
+number of non zero elements
 }
 \details{
 A matrix or data.frame with numeric values often contains rows and columns with an
