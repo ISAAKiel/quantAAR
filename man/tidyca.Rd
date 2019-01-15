@@ -2,12 +2,19 @@
 % Please edit documentation in R/ca_utility_functions.R
 \name{tidyca}
 \alias{tidyca}
+\alias{get_dimension_label}
 \title{Mask function for ca:ca() to get the ca results in a tidy data.frame}
 \usage{
 tidyca(...)
+
+get_dimension_label(x, dim)
 }
 \arguments{
 \item{...}{Input arguments of \code{ca::ca}.}
+
+\item{x}{Output of \code{tidyca}.}
+
+\item{dim}{Index of dimension.}
 }
 \value{
 A tibble with the ca results for variables (columns) and objects (rows).

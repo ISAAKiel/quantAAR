@@ -157,6 +157,8 @@ booleanize <- function(x, present = TRUE, absent = FALSE) {
 #'
 #' tidyca(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
 #'
+#' @rdname tidyca
+#'
 #' @export
 tidyca <- function(...) {
 
@@ -198,6 +200,23 @@ tidyca <- function(...) {
   attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
 
   return(res)
+}
+
+#' @param x Output of \code{tidyca}.
+#' @param dim Index of dimension.
+#'
+#' @rdname tidyca
+#'
+#' @export
+get_dimension_label <- function(x, dim) {
+  return(
+    paste0(
+      "Dimension ", dim,
+      " (",
+      attr(x, "simplified_dimension_weights")[dim],
+      "%)"
+    )
+  )
 }
 
 # End CA Utility Functions  ---------------------------
