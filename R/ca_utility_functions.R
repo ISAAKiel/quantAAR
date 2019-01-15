@@ -130,6 +130,9 @@ booleanize <- function(x, present = TRUE, absent = FALSE) {
 #' @param ... Input arguments of \code{ca::ca}.
 #'
 #' @return A tibble with the ca results for variables (columns) and objects (rows).
+#' The singular values and simplified dimension weights are stored as attributes to
+#' the tibble and can be accessed via \code{attr(res, "singluar_values")} and
+#' \code{attr(res, "simplified_dimension_weights")}.
 #'
 #' names: Character. Names of rows and columns.
 #'
@@ -189,6 +192,10 @@ tidyca <- function(...) {
     row_res,
     col_res
   )
+
+  # store dimension weights
+  attr(res, "singluar_values") <- q$sv
+  attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
 
   return(res)
 }

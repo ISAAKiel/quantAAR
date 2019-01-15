@@ -11,6 +11,9 @@ tidyca(...)
 }
 \value{
 A tibble with the ca results for variables (columns) and objects (rows).
+The singular values and simplified dimension weights are stored as attributes to
+the tibble and can be accessed via \code{attr(res, "singluar_values")} and
+\code{attr(res, "simplified_dimension_weights")}.
 
 names: Character. Names of rows and columns.
 
