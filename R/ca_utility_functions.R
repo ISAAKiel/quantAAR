@@ -127,24 +127,38 @@ booleanize <- function(x, present = TRUE, absent = FALSE) {
 #' analyse as a tidy data.frame. The CA is calculated by \code{ca::ca()}.
 #' See \code{?ca} for further information.
 #'
-#' @param x data.frame with numeric values
-#' @param ... further options of \code{ca::ca}
+#' @param ... Input arguments of \code{ca::ca}.
 #'
-#' @return data.frame with ca coordinates of variables and objects of the input data.frame
+#' @return A tibble with the ca results for variables (columns) and objects (rows).
+#'
+#' names: Character. Names of rows and columns.
+#'
+#' type: Character. Type of entry ("row" or "col").
+#'
+#' sup: Boolean. Was this entry treated as a supplementary point?
+#'
+#' mass: Row and column masses.
+#'
+#' dist: Row and column chi-square distances to centroid.
+#'
+#' mass: Row and column inertias.
+#'
+#' Dim1...DimX: Standard coordinates of this entry in all available dimensions.
 #'
 #' @examples
 #' testmatrixrand <- data.frame(
 #'    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 #' )
-#' rownames(testmatrixrand) <- paste("row", seq(1:nrow(testmatrixrand)))
+#' rownames(testmatrixrand) <- paste0("row", seq(1:nrow(testmatrixrand)))
+#' colnames(testmatrixrand) <- paste0("col", seq(1:ncol(testmatrixrand)))
 #'
 #' tidyca(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
 #'
 #' @export
-tidyca <- function(x, ...) {
+tidyca <- function(...) {
 
   # call ca::ca() to perform CA
-  q <- ca::ca(x, ...)
+  q <- ca::ca(...)
 
   # prepare tidy output
   row_res <- dplyr::bind_cols(

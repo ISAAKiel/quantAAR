@@ -4,15 +4,27 @@
 \alias{tidyca}
 \title{Mask function for ca:ca() to get the ca results in a tidy data.frame}
 \usage{
-tidyca(x, ...)
+tidyca(...)
 }
 \arguments{
-\item{x}{data.frame with numeric values}
-
-\item{...}{further options of \code{ca::ca}}
+\item{...}{Input arguments of \code{ca::ca}.}
 }
 \value{
-data.frame with ca coordinates of variables and objects of the input data.frame
+A tibble with the ca results for variables (columns) and objects (rows).
+
+names: Character. Names of rows and columns.
+
+type: Character. Type of entry ("row" or "col").
+
+sup: Boolean. Was this entry treated as a supplementary point?
+
+mass: Row and column masses.
+
+dist: Row and column chi-square distances to centroid.
+
+mass: Row and column inertias.
+
+Dim1...DimX: Standard coordinates of this entry in all available dimensions.
 }
 \description{
 \code{tidyca()} delivers the coordinates of objects and variables of a correspondence
@@ -23,7 +35,8 @@ See \code{?ca} for further information.
 testmatrixrand <- data.frame(
    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
 )
-rownames(testmatrixrand) <- paste("row", seq(1:nrow(testmatrixrand)))
+rownames(testmatrixrand) <- paste0("row", seq(1:nrow(testmatrixrand)))
+colnames(testmatrixrand) <- paste0("col", seq(1:ncol(testmatrixrand)))
 
 tidyca(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
 
