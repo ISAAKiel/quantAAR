@@ -4,15 +4,15 @@
 \alias{tidyseriation}
 \title{tidyseriation}
 \usage{
-tidyseriation(x, dist_method = "euclidian",
-  seriate_method = "Spectral")
+tidyseriation(x, dist_args = list(method = "euclidian"),
+  seriate_args = list(method = "Spectral"))
 }
 \arguments{
 \item{x}{test}
 
-\item{dist_method}{test}
+\item{dist_args}{test}
 
-\item{seriate_method}{test}
+\item{seriate_args}{test}
 }
 \description{
 tidyseriation
