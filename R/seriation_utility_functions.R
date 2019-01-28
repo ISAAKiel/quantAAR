@@ -20,8 +20,11 @@ tidyseriation <- function(
   seriation_order_cols <- seriation::get_order(seriation_result, dim = 2)
 
   x_matrix_reordered <- x_matrix[seriation_order_rows, seriation_order_cols]
-  x_tibble_reordered <- tibble::as_tibble(x_matrix_reordered)
+  x_df_reordered <- as.data.frame(
+    x_matrix_reordered,
+    row.names = rownames(x)[seriation_order_rows]
+  )
 
-  return(x_tibble_reordered)
+  return(x_df_reordered)
 
 }
