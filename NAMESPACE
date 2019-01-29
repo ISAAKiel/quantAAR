@@ -3,5 +3,6 @@
 export(booleanize)
 export(get_dimension_label)
 export(itremove)
+export(seriation2widedf)
 export(tidyca)
 export(tidyseriation)
