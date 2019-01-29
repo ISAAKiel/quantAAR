@@ -7,7 +7,7 @@
 seriation2widedf(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{test}
 }
 \description{
 seriation2widedf

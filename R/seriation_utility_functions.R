@@ -28,7 +28,7 @@ tidyseriation <- function(
     x_tibble_reordered,
     key = "col",
     value = "value",
-    -row, -row_order
+    -"row", -"row_order"
   )
 
   x_gathered$col_order <- rep(1:length(seriation_order_cols), each = length(seriation_order_rows))
@@ -55,7 +55,7 @@ tidyseriation <- function(
 
 #' seriation2widedf
 #'
-#' @param x
+#' @param x test
 #'
 #' @export
 seriation2widedf <- function(x) {
