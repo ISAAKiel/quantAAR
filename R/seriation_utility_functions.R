@@ -15,7 +15,12 @@ tidyseriation <- function(
 
   x_matrix <- as.matrix(x)
 
-  seriation_result <- seriation::seriate(x_matrix, ...)
+  seriation_result <- seriation::seriate(
+    x_matrix,
+    method = method,
+    control = control,
+    ...
+  )
   seriation_order_rows <- seriation::get_order(seriation_result, dim = 1)
   seriation_order_cols <- seriation::get_order(seriation_result, dim = 2)
 
