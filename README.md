@@ -1,32 +1,26 @@
-[![Travis-CI Build Status](https://travis-ci.org/ISAAKiel/quantAAR.svg?branch=master)](https://travis-ci.org/ISAAKiel/quantAAR) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/quantAAR/master.svg)](https://codecov.io/github/ISAAKiel/quantAAR?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/ISAAKiel/quantAAR.svg?branch=master)](https://travis-ci.org/ISAAKiel/quantAAR) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/quantAAR/master.svg)](https://codecov.io/github/ISAAKiel/quantAAR?branch=master)[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/quantAAR)](http://cran.r-project.org/package=quantAAR)
 
-quantAAR
---------
+# quantAAR
 
-R Library for Quantitative Analysis in Archaeology
+`quantAAR` contains tidy wrappers and useful utility function for common applications of exploratory statistics in archaeology:
 
-#### Released version
+Wrapper functions:
 
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/quantAAR)](http://cran.r-project.org/package=quantAAR)
+- `tidyca` does **Correspondence Analysis** via `ca::ca`
+- `tidyseriation` reorders data with **Seriation** via `seriation::seriate`
 
-`quantAAR` is a collection of functions useful for archaeologists.
+Utility functions:
 
-Just started...
+- `itremove` iteratively removes all rows and columns of a matrix or dataframe with less than a given number of non zero elements
+- `booleanize` reduces the numeric values of a data.frame to boolean values
 
-Licence
--------
-
-`quantAAR` is released under the [GNU General Public Licence, version 2](http://www.r-project.org/Licenses/GPL-2). Comments and feedback are welcome, as are code contributions.
-
-Installation
-------------
+## Installation
 
 `quantAAR` is currently not on [CRAN](http://cran.r-project.org/), but you can use [devtools](http://cran.r-project.org/web/packages/devtools/index.html) to install the development version. To do so:
 
     if(!require('devtools')) install.packages('devtools')
-    library(devtools)
-    install_github('ISAAKiel/quantAAR')
-    
-To install with vignettes:
+    devtools::install_github('ISAAKiel/quantAAR')
 
-    install_github('ISAAKiel/quantAAR', build_vignettes = TRUE, force = TRUE)
+## Licence
+
+`quantAAR` is released under the [GNU General Public Licence, version 2](http://www.r-project.org/Licenses/GPL-2). Comments and feedback are welcome, as are code contributions.
