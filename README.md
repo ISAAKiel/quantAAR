@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.org/ISAAKiel/quantAAR.svg?branch=master)](https://travis-ci.org/ISAAKiel/quantAAR) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/quantAAR/master.svg)](https://codecov.io/github/ISAAKiel/quantAAR?branch=master)[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/quantAAR)](http://cran.r-project.org/package=quantAAR)
+[![Travis-CI Build Status](https://travis-ci.org/ISAAKiel/quantAAR.svg?branch=master)](https://travis-ci.org/ISAAKiel/quantAAR) [![Coverage Status](https://img.shields.io/codecov/c/github/ISAAKiel/quantAAR/master.svg)](https://codecov.io/github/ISAAKiel/quantAAR?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/quantAAR)](http://cran.r-project.org/package=quantAAR)
 
 # quantAAR
 
@@ -11,8 +11,8 @@ Wrapper functions:
 
 Utility functions:
 
-- `itremove` iteratively removes all rows and columns of a matrix or dataframe with less than a given number of non zero elements
-- `booleanize` reduces the numeric values of a data.frame to boolean values
+- `itremove` iteratively removes all rows and columns of a dataframe with less than a given number of non zero elements
+- `booleanize` reduces the numeric values of a dataframe to boolean presence-absence indicators
 
 ## Installation
 
