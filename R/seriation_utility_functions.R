@@ -1,25 +1,75 @@
 #' tidyseriation
 #'
-#' @param x test
-#' @param method test
-#' @param control test
-#' @param ... test
+#' Mask function for seriation::seriate() to get the seriation results in a tidy data.frame.
+#' The result table can be transformed back to a wide format with \code{seriation2widedf}.
+#'
+#' \code{tidyseriation()} reorders the input table with seriation and gives back the result in a long tidy data.frame.
+#' The seriation is calculated by \code{seriation::seriate()}.
+#' See \code{?seriate} for further information.
+#'
+#' @param ... Input arguments of \code{seriation::seriate}.
+#'
+#' @return A tibble with the seriation result in a long format.
+#'
+#' row: Character. Names of rows.
+#'
+#' row_order: Integer. Order of rows.
+#'
+#' col: Character. Names of columns.
+#'
+#' col_order: Integer. Order of columns.
+#'
+#' value: Numeric. Value in input matrix for respective row and col.
+#'
+#' @examples
+#' testmatrixrand <- data.frame(
+#'    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
+#' )
+#' rownames(testmatrixrand) <- paste0("row", seq(1:nrow(testmatrixrand)))
+#' colnames(testmatrixrand) <- paste0("col", seq(1:ncol(testmatrixrand)))
+#'
+#' tidyseriation(testmatrixrand, method = "PCA")
+#'
+#' # transform back to wide format
+#' seriation2widedf(tidyseriation(testmatrixrand, method = "PCA"))
+#'
+#' @rdname tidyseriation
 #'
 #' @export
-tidyseriation <- function(
-  x,
-  method = "PCA",
-  control = NULL,
-  ...
-) {
+tidyseriation <- function(...) {
 
-  x_matrix <- as.matrix(x)
+  # modify input
+  other_params <- list()
+  if ("x" %in% names(list(...))) {
+    x <- list(...)$x
+    if (length(list(...)) > 1) {
+      other_params <- list(...)[names(list(...)) != "x"]
+    }
+  } else {
+    x <- list(...)[[1]]
+    if (length(list(...)) > 1) {
+      other_params <- list(...)[2:length(list(...))]
+    }
+  }
+  if (length(other_params) == 0) {
+    other_params$method <- "PCA"
+  } else if (length(other_params) == 1 & is.null(other_params[[1]])) {
+    other_params$method <- "PCA"
+  }
 
-  seriation_result <- seriation::seriate(
-    x_matrix,
-    method = method,
-    control = control,
-    ...
+  if (is.data.frame(x)) {
+    x_matrix <- as.matrix(x)
+  } else {
+    x <- as.matrix(x)
+  }
+
+  # run seriation
+  seriation_result <- do.call(
+    what = seriation::seriate,
+    args = list(
+      x = x_matrix,
+      unlist(other_params)
+    )
   )
   seriation_order_rows <- seriation::get_order(seriation_result, dim = 1)
   seriation_order_cols <- seriation::get_order(seriation_result, dim = 2)
@@ -51,16 +101,13 @@ tidyseriation <- function(
   x_res$row <- forcats::fct_inorder(x_res$row)
   x_res$col <- forcats::fct_inorder(x_res$col)
 
-  # store method
-  attr(x_res, "method") <- method
-
   return(x_res)
 
 }
 
-#' seriation2widedf
+#' @rdname tidyseriation
 #'
-#' @param x test
+#' @param x Data.frame. Output of tidyseriation.
 #'
 #' @export
 seriation2widedf <- function(x) {
