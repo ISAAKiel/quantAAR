@@ -7,6 +7,7 @@
 Wrapper functions:
 
 - `tidyca` does **Correspondence Analysis** via `ca::ca`
+- `tidypca` does **Principal Components Analysis** via `stats::prcomp`
 - `tidyseriation` reorders data with **Seriation** via `seriation::seriate`
 
 Utility functions:
