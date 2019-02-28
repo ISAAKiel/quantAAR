@@ -3,7 +3,7 @@
 \name{matuskovo}
 \alias{matuskovo}
 \title{A burial site from the Unetice culture in western Slovakia}
-\format{A data frame with 62 rows and 34 variables:
+\format{A tibble (data.frame) with 62 rows and 34 variables:
 \itemize{
   \item grave_nr: number of the grave in Tocik 1979
   \item burial_depth_in_cm: numeric
