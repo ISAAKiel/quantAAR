@@ -11,28 +11,23 @@
 #' the tibble and can be accessed via \code{attr(res, "singluar_values")} and
 #' \code{attr(res, "simplified_dimension_weights")}.
 #'
-#' names: Character. Names of rows and columns.
+#' name: Character. Names of rows and columns.
 #'
 #' type: Character. Type of entry ("row" or "col").
 #'
 #' sup: Boolean. Was this entry treated as a supplementary point?
 #'
-#' mass: Row and column masses.
+#' mass: Mumeric. Row and column masses.
 #'
-#' dist: Row and column chi-square distances to centroid.
+#' dist: Mumeric. Row and column chi-square distances to centroid.
 #'
-#' mass: Row and column inertias.
+#' mass: Mumeric. Row and column inertias.
 #'
-#' Dim1...DimX: Standard coordinates of this entry in all available dimensions.
+#' Dim1...DimX: Mumeric. Standard coordinates of this entry in all available dimensions.
 #'
 #' @examples
-#' testmatrixrand <- data.frame(
-#'    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
-#' )
-#' rownames(testmatrixrand) <- paste0("row", seq(1:nrow(testmatrixrand)))
-#' colnames(testmatrixrand) <- paste0("col", seq(1:ncol(testmatrixrand)))
-#'
-#' tidyca(testmatrixrand, supc = c(1,2,3), supr = c(15,16))
+#' haireye <- margin.table(datasets::HairEyeColor, 1:2)
+#' quantAAR::tidyca(haireye)
 #'
 #' @rdname tidyca
 #'
