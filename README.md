@@ -4,16 +4,20 @@
 
 `quantAAR` contains tidy wrappers and useful utility function for common applications of exploratory statistics in archaeology:
 
-Wrapper functions:
+**Wrapper functions:**
 
 - `tidyca` does **Correspondence Analysis** via `ca::ca`
 - `tidypca` does **Principal Components Analysis** via `stats::prcomp`
 - `tidyseriation` reorders data with **Seriation** via `seriation::seriate`
 
-Utility functions:
+**Utility functions:**
 
 - `itremove` iteratively removes all rows and columns of a dataframe with less than a given number of non zero elements
 - `booleanize` reduces the numeric values of a dataframe to boolean presence-absence indicators
+
+**Data: **
+
+- `matuskovo`: A dataset containing graves (objects) and grave attributes (variables) of a burial site from the Unetice culture in western Slovakia
 
 ## Installation
 
