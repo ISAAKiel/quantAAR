@@ -15,7 +15,7 @@
 - `itremove` iteratively removes all rows and columns of a dataframe with less than a given number of non zero elements
 - `booleanize` reduces the numeric values of a dataframe to boolean presence-absence indicators
 
-**Data: **
+**Data:**
 
 - `matuskovo`: A dataset containing graves (objects) and grave attributes (variables) of a burial site from the Unetice culture in western Slovakia
 
