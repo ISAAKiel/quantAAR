@@ -29,7 +29,7 @@ type: Character. Type of entry ("row" or "col").
 
 ...: Additional variables as provided by the wrapped functions.
 
-x1...xX: Mumeric. Standard coordinates of this entry in all available dimensions.
+x1...xX: Numeric. Standard coordinates of this entry in all available dimensions.
 }
 \description{
 Transforms the output coordinates of objects and variables of a correspondence
@@ -38,5 +38,6 @@ analysis to a tidy data.frame.
 \examples{
 haireye <- margin.table(datasets::HairEyeColor, 1:2)
 quantAAR::ca.ca_ca(haireye)
+quantAAR::ca.vegan_cca(haireye)
 
 }

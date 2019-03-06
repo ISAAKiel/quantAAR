@@ -14,7 +14,7 @@
 #'
 #' ...: Additional variables as provided by the wrapped functions.
 #'
-#' x1...xX: Mumeric. Standard coordinates of this entry in all available dimensions.
+#' x1...xX: Numeric. Standard coordinates of this entry in all available dimensions.
 #'
 #' @examples
 #' haireye <- margin.table(datasets::HairEyeColor, 1:2)
