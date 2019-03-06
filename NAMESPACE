@@ -2,6 +2,7 @@
 
 export(booleanize)
 export(ca.ca_ca)
+export(ca.vegan_cca)
 export(get_dimension_label)
 export(itremove)
 export(pca.stats_prcomp)

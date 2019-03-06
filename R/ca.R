@@ -1,32 +1,25 @@
 #' Correspondence Analysis
 #'
 #' Transforms the output coordinates of objects and variables of a correspondence
-#' analysis to a tidy data.frame. The CA is calculated by \code{ca::ca()}.
+#' analysis to a tidy data.frame.
 #'
-#' @param ... Input arguments of \code{ca::ca}.
+#' @param ... Input arguments of the relevant wrapped functions.
 #'
 #' @return A tibble with the ca results for variables (columns) and objects (rows).
-#' The singular values and simplified dimension weights are stored as attributes to
-#' the tibble and can be accessed via \code{attr(res, "singluar_values")} and
-#' \code{attr(res, "simplified_dimension_weights")}.
+#' Additional values are stored in object attributes.
 #'
 #' name: Character. Names of rows and columns.
 #'
 #' type: Character. Type of entry ("row" or "col").
 #'
-#' sup: Boolean. Was this entry treated as a supplementary point?
+#' ...: Additional variables as provided by the wrapped functions.
 #'
-#' mass: Mumeric. Row and column masses.
-#'
-#' dist: Mumeric. Row and column chi-square distances to centroid.
-#'
-#' mass: Mumeric. Row and column inertias.
-#'
-#' Dim1...DimX: Mumeric. Standard coordinates of this entry in all available dimensions.
+#' x1...xX: Mumeric. Standard coordinates of this entry in all available dimensions.
 #'
 #' @examples
 #' haireye <- margin.table(datasets::HairEyeColor, 1:2)
 #' quantAAR::ca.ca_ca(haireye)
+#' quantAAR::ca.vegan_cca(haireye)
 #'
 #' @rdname ca
 #'
@@ -66,6 +59,9 @@ ca.ca_ca <- function(...) {
     col_res
   )
 
+  # rename dimensions
+  colnames(res) <- gsub("Dim", "x", colnames(res))
+
   # store dimension weights
   attr(res, "singluar_values") <- q$sv
   attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
@@ -88,4 +84,61 @@ get_dimension_label <- function(x, dim) {
       "%)"
     )
   )
+}
+
+#' @rdname ca
+#'
+#' @export
+ca.vegan_cca <- function(...) {
+
+  # call ca::ca() to perform CA
+  q <- vegan::cca(...)
+
+  # CA
+  if (is.null(q$CCA) & is.null(q$pCCA)) {
+    eoi <- "CA"
+  } else if (!is.null(q$CCA) & is.null(q$pCCA)) {
+    eoi <- "CCA"
+  } else {
+    eoi <- "pCCA"
+  }
+
+  if (eoi == "CA") {
+
+    # prepare tidy output
+    row_res <- dplyr::bind_cols(
+      tibble::tibble(
+        name = names(q$rowsum),
+        type = "row",
+        sum = q$rowsum
+      ),
+      tibble::as_tibble(q$CA$u)
+    )
+
+    col_res <- dplyr::bind_cols(
+      tibble::tibble(
+        name = names(q$colsum),
+        type = "col",
+        sum = q$colsum
+      ),
+      tibble::as_tibble(q$CA$v)
+    )
+
+    res <- dplyr::bind_rows(
+      row_res,
+      col_res
+    )
+
+    # rename dimensions
+    colnames(res) <- gsub("CA", "x", colnames(res))
+
+    # store dimension weights
+    # attr(res, "singluar_values") <- q$sv
+    # attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
+
+  } else {
+    stop("CCA and pCCA are not implemented yet.")
+  }
+
+  return(res)
 }
