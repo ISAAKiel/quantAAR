@@ -1,11 +1,8 @@
-#' tidyseriation
+#' Seriation
 #'
 #' Mask function for seriation::seriate() to get the seriation results in a tidy data.frame.
-#' The result table can be transformed back to a wide format with \code{seriation2widedf}.
-#'
-#' \code{tidyseriation()} reorders the input table with seriation and gives back the result in a long tidy data.frame.
 #' The seriation is calculated by \code{seriation::seriate()}.
-#' See \code{?seriate} for further information.
+#' The result table can be transformed back to a wide format with \code{seriation2widedf}.
 #'
 #' @param ... Input arguments of \code{seriation::seriate}.
 #'
@@ -22,21 +19,24 @@
 #' value: Numeric. Value in input matrix for respective row and col.
 #'
 #' @examples
-#' testmatrixrand <- data.frame(
-#'    matrix(base::sample(0:1,400,replace=TRUE), nrow=20, ncol=20)
-#' )
-#' rownames(testmatrixrand) <- paste0("row", seq(1:nrow(testmatrixrand)))
-#' colnames(testmatrixrand) <- paste0("col", seq(1:ncol(testmatrixrand)))
+#' ## seriate matrix
+#' data("iris")
+#' x <- iris[-5]
 #'
-#' tidyseriation(testmatrixrand, method = "PCA")
+#' ## to make the variables comparable, we scale the data
+#' x <- scale(x, center = FALSE)
+#' x <- as.data.frame(x)
 #'
-#' # transform back to wide format
-#' seriation2widedf(tidyseriation(testmatrixrand, method = "PCA"))
+#' ## try some methods
+#' order <- quantAAR::seriation.seriation_seriate(x, method = "PCA")
 #'
-#' @rdname tidyseriation
+#' ## transform back to wide format
+#' seriation2widedf(order)
+#'
+#' @rdname seriation
 #'
 #' @export
-tidyseriation <- function(...) {
+seriation.seriation_seriate <- function(...) {
 
   # modify input
   other_params <- list()
@@ -60,7 +60,7 @@ tidyseriation <- function(...) {
   if (is.data.frame(x)) {
     x_matrix <- as.matrix(x)
   } else {
-    x <- as.matrix(x)
+    stop("x is not a data.frame.")
   }
 
   # run seriation
@@ -105,7 +105,7 @@ tidyseriation <- function(...) {
 
 }
 
-#' @rdname tidyseriation
+#' @rdname seriation
 #'
 #' @param x Data.frame. Output of tidyseriation.
 #'

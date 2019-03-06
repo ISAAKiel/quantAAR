@@ -1,8 +1,7 @@
-#' Mask function for stats::prcomp() to get the PCA results in a tidy data.frame
+#' Principal Components Analysis
 #'
-#' \code{tidypca()} delivers the coordinates of objects and variables of a principal components
-#' analyse as a tidy data.frame. The PCA is calculated by \code{stats::prcomp()}.
-#' See \code{?stats::prcomp} for further information.
+#' Transforms the output coordinates of objects and variables of a principal components
+#' analysis to a tidy data.frame. The PCA is calculated by \code{stats::prcomp()}.
 #'
 #' @param ... Input arguments of \code{stats::prcomp}.
 #'
@@ -19,12 +18,12 @@
 #' PC1...PCX: Numeric. Resulting coordinates in all principal component dimensions.
 #'
 #' @examples
-#' quantAAR::tidypca(datasets::USArrests)
+#' quantAAR::pca.stats_prcomp(datasets::USArrests)
 #'
-#' @rdname tidypca
+#' @rdname pca
 #'
 #' @export
-tidypca <- function(...) {
+pca.stats_prcomp <- function(...) {
 
   # call stats::prcomp() to perform PCA
   q <- stats::prcomp(...)

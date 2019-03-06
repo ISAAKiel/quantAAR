@@ -6,11 +6,11 @@
 
 **Wrapper functions:**
 
-- `tidyca` does **Correspondence Analysis** via `ca::ca`
-- `tidypca` does **Principal Components Analysis** via `stats::prcomp`
-- `tidyseriation` reorders data with **Seriation** via `seriation::seriate`
+- `ca.ca_ca` does **Correspondence Analysis** via `ca::ca`
+- `pca.stats_prcomp` does **Principal Components Analysis** via `stats::prcomp`
+- `seriation.seriation_seriate` reorders data with **Seriation** via `seriation::seriate`
 
-**Utility functions:**
+**Data preparation functions:**
 
 - `itremove` iteratively removes all rows and columns of a dataframe with less than a given number of non zero elements
 - `booleanize` reduces the numeric values of a dataframe to boolean presence-absence indicators

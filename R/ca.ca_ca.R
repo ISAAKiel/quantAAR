@@ -1,8 +1,7 @@
-#' Mask function for ca:ca() to get the ca results in a tidy data.frame
+#' Correspondence Analysis
 #'
-#' \code{tidyca()} delivers the coordinates of objects and variables of a correspondence
-#' analyse as a tidy data.frame. The CA is calculated by \code{ca::ca()}.
-#' See \code{?ca} for further information.
+#' Transforms the output coordinates of objects and variables of a correspondence
+#' analysis to a tidy data.frame. The CA is calculated by \code{ca::ca()}.
 #'
 #' @param ... Input arguments of \code{ca::ca}.
 #'
@@ -27,12 +26,12 @@
 #'
 #' @examples
 #' haireye <- margin.table(datasets::HairEyeColor, 1:2)
-#' quantAAR::tidyca(haireye)
+#' quantAAR::ca.ca_ca(haireye)
 #'
-#' @rdname tidyca
+#' @rdname ca
 #'
 #' @export
-tidyca <- function(...) {
+ca.ca_ca <- function(...) {
 
   # call ca::ca() to perform CA
   q <- ca::ca(...)
@@ -74,10 +73,10 @@ tidyca <- function(...) {
   return(res)
 }
 
-#' @param x Output of \code{tidyca}.
+#' @param x Output of \code{ca.ca_ca}.
 #' @param dim Index of dimension.
 #'
-#' @rdname tidyca
+#' @rdname ca
 #'
 #' @export
 get_dimension_label <- function(x, dim) {
