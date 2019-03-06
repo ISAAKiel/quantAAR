@@ -1,7 +1,7 @@
 Package: quantAAR
 Type: Package
 Title: R Library for Quantitative Analysis in Archaeology
-Version: 0.1.0
+Version: 0.2.0
 Author: c(
   person("Martin", "Hinz", email = "martin.hinz@ufg.uni-kiel.de", role = c("aut", "cre")),
   person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut")),
@@ -19,7 +19,8 @@ Imports:
   forcats (>= 0.3.0),
   seriation (>= 1.2-3),
   tibble (>= 2.0.0),
-  tidyr (>= 0.8.2)
+  tidyr (>= 0.8.2),
+  vegan (>= 2.5-4)
 Suggests: 
   testthat,
   knitr
