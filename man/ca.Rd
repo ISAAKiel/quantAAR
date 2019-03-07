@@ -6,14 +6,17 @@
 \alias{ca.vegan_cca}
 \title{Correspondence Analysis}
 \usage{
-ca.ca_ca(...)
+ca.ca_ca(..., raw_output = TRUE)
 
 get_dimension_label(x, dim)
 
-ca.vegan_cca(...)
+ca.vegan_cca(..., raw_output = TRUE)
 }
 \arguments{
 \item{...}{Input arguments of the relevant wrapped functions.}
+
+\item{raw_output}{Logical. Should the raw output of the wrapped functions be stored as
+an additional output attribute "raw"? Default: TRUE.}
 
 \item{x}{Output of \code{ca.ca_ca}.}
 
@@ -21,7 +24,7 @@ ca.vegan_cca(...)
 }
 \value{
 A tibble with the ca results for variables (columns) and objects (rows).
-Additional values are stored in object attributes. See \code{attributes(result)}.
+Additional values are stored in object attributes. See \code{attributes(result)$raw}.
 
 name: Character. Names of rows and columns.
 

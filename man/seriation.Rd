@@ -6,20 +6,23 @@
 \alias{seriation.tabula_seriate}
 \title{Seriation}
 \usage{
-seriation.seriation_seriate(...)
+seriation.seriation_seriate(..., raw_output = TRUE)
 
 spread_seriation(x)
 
-seriation.tabula_seriate(...)
+seriation.tabula_seriate(..., raw_output = TRUE)
 }
 \arguments{
 \item{...}{Input arguments of \code{seriation::seriate}.}
+
+\item{raw_output}{Logical. Should the raw output of the wrapped functions be stored as
+an additional output attribute "raw"? Default: TRUE.}
 
 \item{x}{Data.frame. Output of the seriation wrapper functions.}
 }
 \value{
 A tibble with the seriation result in a long format.
-Additional values are stored in object attributes. See \code{attributes(result)}.
+Additional values are stored in object attributes. See \code{attributes(result)$raw}.
 
 row: Character. Names of rows.
 

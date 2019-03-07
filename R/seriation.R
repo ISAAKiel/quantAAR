@@ -4,9 +4,11 @@
 #' The result table can be transformed to a wide format with \code{seriation2widedf}.
 #'
 #' @param ... Input arguments of \code{seriation::seriate}.
+#' @param raw_output Logical. Should the raw output of the wrapped functions be stored as
+#' an additional output attribute "raw"? Default: TRUE.
 #'
 #' @return A tibble with the seriation result in a long format.
-#' Additional values are stored in object attributes. See \code{attributes(result)}.
+#' Additional values are stored in object attributes. See \code{attributes(result)$raw}.
 #'
 #' row: Character. Names of rows.
 #'
@@ -30,7 +32,7 @@
 #' @rdname seriation
 #'
 #' @export
-seriation.seriation_seriate <- function(...) {
+seriation.seriation_seriate <- function(..., raw_output = TRUE) {
 
   check_if_packages_are_available(c("seriation"))
 
@@ -62,15 +64,15 @@ seriation.seriation_seriate <- function(...) {
   }
 
   # run seriation
-  seriation_result <- do.call(
+  q <- do.call(
     what = seriation::seriate,
     args = list(
       x = x_matrix,
       unlist(other_params)
     )
   )
-  seriation_order_rows <- seriation::get_order(seriation_result, dim = 1)
-  seriation_order_cols <- seriation::get_order(seriation_result, dim = 2)
+  seriation_order_rows <- seriation::get_order(q, dim = 1)
+  seriation_order_cols <- seriation::get_order(q, dim = 2)
 
   x_matrix_reordered <- x_matrix[seriation_order_rows, seriation_order_cols]
   x_tibble_reordered <- tibble::as_tibble(x_matrix_reordered)
@@ -98,6 +100,11 @@ seriation.seriation_seriate <- function(...) {
   # set factor levels
   x_res$row <- forcats::fct_inorder(x_res$row)
   x_res$col <- forcats::fct_inorder(x_res$col)
+
+  # raw output
+  if (raw_output) {
+    attr(res, "raw") <- q
+  }
 
   return(x_res)
 }
@@ -132,7 +139,7 @@ spread_seriation <- function(x) {
 #' @rdname seriation
 #'
 #' @export
-seriation.tabula_seriate <- function(...) {
+seriation.tabula_seriate <- function(..., raw_output = TRUE) {
 
   check_if_packages_are_available(c("tabula"))
 
@@ -143,10 +150,10 @@ seriation.tabula_seriate <- function(...) {
   }
 
   # run seriation
-  seriation_result <- tabula::seriate(...)
+  q <- tabula::seriate(...)
 
-  seriation_order_rows <- seriation_result@rows
-  seriation_order_cols <- seriation_result@columns
+  seriation_order_rows <- q@rows
+  seriation_order_cols <- q@columns
 
   x_matrix_reordered <- object[seriation_order_rows, seriation_order_cols]
   x_tibble_reordered <- tibble::as_tibble(x_matrix_reordered)
@@ -174,6 +181,11 @@ seriation.tabula_seriate <- function(...) {
   # set factor levels
   x_res$row <- forcats::fct_inorder(x_res$row)
   x_res$col <- forcats::fct_inorder(x_res$col)
+
+  # raw output
+  if (raw_output) {
+    attr(res, "raw") <- q
+  }
 
   return(x_res)
 }

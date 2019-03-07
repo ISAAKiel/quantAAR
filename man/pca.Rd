@@ -4,14 +4,17 @@
 \alias{pca.stats_prcomp}
 \title{Principal Components Analysis}
 \usage{
-pca.stats_prcomp(...)
+pca.stats_prcomp(..., raw_output = TRUE)
 }
 \arguments{
 \item{...}{Input arguments of the relevant wrapped functions.}
+
+\item{raw_output}{Logical. Should the raw output of the wrapped functions be stored as
+an additional output attribute "raw"? Default: TRUE.}
 }
 \value{
 A tibble with the PCA results for variables (columns) and objects (rows).
-Additional values are stored in object attributes. See \code{attributes(result)}.
+Additional values are stored in object attributes. See \code{attributes(result)$raw}.
 
 name: Character. Names of rows and columns.
 

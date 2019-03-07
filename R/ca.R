@@ -3,9 +3,11 @@
 #' Correspondence Analysis function wrappers that give the result in a tidy data.frame.
 #'
 #' @param ... Input arguments of the relevant wrapped functions.
+#' @param raw_output Logical. Should the raw output of the wrapped functions be stored as
+#' an additional output attribute "raw"? Default: TRUE.
 #'
 #' @return A tibble with the ca results for variables (columns) and objects (rows).
-#' Additional values are stored in object attributes. See \code{attributes(result)}.
+#' Additional values are stored in object attributes. See \code{attributes(result)$raw}.
 #'
 #' name: Character. Names of rows and columns.
 #'
@@ -22,7 +24,7 @@
 #' @rdname ca
 #'
 #' @export
-ca.ca_ca <- function(...) {
+ca.ca_ca <- function(..., raw_output = TRUE) {
 
   check_if_packages_are_available("ca")
 
@@ -62,8 +64,10 @@ ca.ca_ca <- function(...) {
   # rename dimensions
   colnames(res) <- gsub("Dim", "x", colnames(res))
 
-  # store dimension weights
-  attr(res, "sv") <- q$sv
+  # raw output
+  if (raw_output) {
+    attr(res, "raw") <- q
+  }
   attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
 
   return(res)
@@ -89,7 +93,7 @@ get_dimension_label <- function(x, dim) {
 #' @rdname ca
 #'
 #' @export
-ca.vegan_cca <- function(...) {
+ca.vegan_cca <- function(..., raw_output = TRUE) {
 
   check_if_packages_are_available("vegan")
 
@@ -134,22 +138,14 @@ ca.vegan_cca <- function(...) {
     # rename dimensions
     colnames(res) <- gsub("CA", "x", colnames(res))
 
-    # attributes
-    attr(res, "method") <- eoi
-    attr(res, "eig") <- q$CA$eig
-    attr(res, "poseig") <- q$CA$poseig
-    attr(res, "rank") <- q$CA$rank
-    attr(res, "Xbar") <- q$CA$Xbar
-
   } else {
     stop("CCA and pCCA are not implemented yet.")
   }
 
-  # general attributes
-  attr(res, "inertia") <- q$inertia
-  attr(res, "grand.total") <- q$grand.total
-  attr(res, "tot.chi") <- q$tot.chi
-  attr(res, "Ybar") <- q$Ybar
+  # raw output
+  if (raw_output) {
+    attr(res, "raw") <- q
+  }
 
   return(res)
 }

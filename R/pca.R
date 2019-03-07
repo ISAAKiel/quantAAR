@@ -3,9 +3,11 @@
 #' Principal Components Analysis function wrappers that give the result in a tidy data.frame.
 #'
 #' @param ... Input arguments of the relevant wrapped functions.
+#' @param raw_output Logical. Should the raw output of the wrapped functions be stored as
+#' an additional output attribute "raw"? Default: TRUE.
 #'
 #' @return A tibble with the PCA results for variables (columns) and objects (rows).
-#' Additional values are stored in object attributes. See \code{attributes(result)}.
+#' Additional values are stored in object attributes. See \code{attributes(result)$raw}.
 #'
 #' name: Character. Names of rows and columns.
 #'
@@ -24,7 +26,7 @@
 #' @rdname pca
 #'
 #' @export
-pca.stats_prcomp <- function(...) {
+pca.stats_prcomp <- function(..., raw_output = TRUE) {
 
   check_if_packages_are_available("stats")
 
@@ -56,10 +58,10 @@ pca.stats_prcomp <- function(...) {
   # rename dimensions
   colnames(res) <- gsub("PC", "x", colnames(res))
 
-  # store dimension weights
-  attr(res, "standard_deviations") <- q$sdev
-  attr(res, "center") <- q$center
-  attr(res, "scale") <- q$scale
+  # raw output
+  if (raw_output) {
+    attr(res, "raw") <- q
+  }
 
   return(res)
 
