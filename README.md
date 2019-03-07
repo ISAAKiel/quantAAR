@@ -6,9 +6,9 @@
 
 **Wrapper functions:**
 
-- `ca.ca_ca` does **Correspondence Analysis** via `ca::ca`
-- `pca.stats_prcomp` does **Principal Components Analysis** via `stats::prcomp`
-- `seriation.seriation_seriate` reorders data with **Seriation** via `seriation::seriate`
+- *Correspondence Analysis*: `ca.ca_ca` (*`ca::ca`*), `ca.vegan_cca` (*`vegan::cca`*)
+- *Principal Components Analysis*: `pca.stats_prcomp` (*`stats::prcomp`*)
+- *Seriation*: `seriation.seriation_seriate` (*`seriation::seriate`*), `seriation.tabula_seriate` (*`tabula::seriate`*)
 
 **Data preparation functions:**
 
@@ -17,15 +17,15 @@
 
 **Data:**
 
-- `matuskovo`: A dataset containing graves (objects) and grave attributes (variables) of a burial site from the Unetice culture in western Slovakia
+- `matuskovo` + `matuskovo_material`: A dataset containing graves (objects) and grave attributes (variables) of a burial site from the Unetice culture in western Slovakia
 
-## Installation
+### Installation
 
 `quantAAR` is currently not on [CRAN](http://cran.r-project.org/), but you can use [devtools](http://cran.r-project.org/web/packages/devtools/index.html) to install the development version. To do so:
 
     if(!require('devtools')) install.packages('devtools')
     devtools::install_github('ISAAKiel/quantAAR')
 
-## Licence
+### Licence
 
 `quantAAR` is released under the [GNU General Public Licence, version 2](http://www.r-project.org/Licenses/GPL-2). Comments and feedback are welcome, as are code contributions.
