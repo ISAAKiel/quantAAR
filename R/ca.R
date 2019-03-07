@@ -21,6 +21,11 @@
 #' ca.ca_ca(matuskovo_material)
 #' ca.vegan_cca(matuskovo_material)
 #'
+#' @name ca
+#' @rdname ca
+NULL
+
+
 #' @rdname ca
 #'
 #' @export
@@ -71,23 +76,6 @@ ca.ca_ca <- function(..., raw_output = TRUE) {
   attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
 
   return(res)
-}
-
-#' @param x Output of \code{ca.ca_ca}.
-#' @param dim Index of dimension.
-#'
-#' @rdname ca
-#'
-#' @export
-get_dimension_label <- function(x, dim) {
-  return(
-    paste0(
-      "Dimension ", dim,
-      " (",
-      attr(x, "simplified_dimension_weights")[dim],
-      "%)"
-    )
-  )
 }
 
 #' @rdname ca
