@@ -22,6 +22,7 @@ Suggests:
   ca (>= 0.64),
   seriation (>= 1.2-3),
   stats,
+  tabula (>= 1.0.0),
   vegan (>= 2.5-4)
 Depends: R (>= 3.3.0)
 Encoding: UTF-8

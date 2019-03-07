@@ -1,8 +1,7 @@
 #' Seriation
 #'
-#' Mask function for seriation::seriate() to get the seriation results in a tidy data.frame.
-#' The seriation is calculated by \code{seriation::seriate()}.
-#' The result table can be transformed back to a wide format with \code{seriation2widedf}.
+#' Seriation function wrappers that give the result in a long tidy data.frame.
+#' The result table can be transformed to a wide format with \code{seriation2widedf}.
 #'
 #' @param ... Input arguments of \code{seriation::seriate}.
 #'
@@ -29,6 +28,9 @@
 #'
 #' ## try some methods
 #' order <- quantAAR::seriation.seriation_seriate(x, method = "PCA")
+#'
+#' #x_matrix <- as(x, "IncidenceMatrix")
+#' #order <- quantAAR::seriation.tabula_seriate(x_matrix, method = "correspondance")
 #'
 #' ## transform back to wide format
 #' seriation2widedf(order)
@@ -104,12 +106,11 @@ seriation.seriation_seriate <- function(...) {
   x_res$col <- forcats::fct_inorder(x_res$col)
 
   return(x_res)
-
 }
 
 #' @rdname seriation
 #'
-#' @param x Data.frame. Output of tidyseriation.
+#' @param x Data.frame. Output of the seriation wrapper functions.
 #'
 #' @export
 seriation2widedf <- function(x) {
@@ -131,6 +132,49 @@ seriation2widedf <- function(x) {
     "row"
   )
 
- return(x_res)
-
+  return(x_res)
 }
+
+#' @rdname seriation
+#'
+#' @export
+seriation.tabula_seriate <- function(...) {
+
+  check_if_packages_are_available(c("tabula"))
+
+  # run seriation
+  seriation_result <- tabula::seriate(...)
+
+  seriation_order_rows <- seriation_result@rows
+  seriation_order_cols <- seriation_result@columns
+
+  x_matrix_reordered <- object[seriation_order_rows, seriation_order_cols]
+  x_tibble_reordered <- tibble::as_tibble(x_matrix_reordered)
+  x_tibble_reordered$row <- rownames(object)[seriation_order_rows]
+  x_tibble_reordered$row_order <- 1:nrow(x_tibble_reordered)
+
+  x_gathered <- tidyr::gather(
+    x_tibble_reordered,
+    key = "col",
+    value = "value",
+    -"row", -"row_order"
+  )
+
+  x_gathered$col_order <- rep(1:length(seriation_order_cols), each = length(seriation_order_rows))
+
+  x_res <- dplyr::select(
+    x_gathered,
+    "row",
+    "row_order",
+    "col",
+    "col_order",
+    "value"
+  )
+
+  # set factor levels
+  x_res$row <- forcats::fct_inorder(x_res$row)
+  x_res$col <- forcats::fct_inorder(x_res$col)
+
+  return(x_res)
+}
+

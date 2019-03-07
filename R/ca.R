@@ -1,7 +1,6 @@
 #' Correspondence Analysis
 #'
-#' Transforms the output coordinates of objects and variables of a correspondence
-#' analysis to a tidy data.frame.
+#' Correspondence Analysis function wrappers that give the result in a tidy data.frame.
 #'
 #' @param ... Input arguments of the relevant wrapped functions.
 #'

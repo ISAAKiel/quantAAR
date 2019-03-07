@@ -22,8 +22,7 @@ type: Character. Type of entry ("row" or "col").
 x1...xX: Numeric. Resulting coordinates in all principal component dimensions.
 }
 \description{
-Transforms the output coordinates of objects and variables of a principal components
-analysis to a tidy data.frame.
+Principal Components Analysis function wrappers that give the result in a tidy data.frame.
 }
 \examples{
 quantAAR::pca.stats_prcomp(datasets::USArrests)

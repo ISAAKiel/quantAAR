@@ -1,7 +1,6 @@
 #' Principal Components Analysis
 #'
-#' Transforms the output coordinates of objects and variables of a principal components
-#' analysis to a tidy data.frame.
+#' Principal Components Analysis function wrappers that give the result in a tidy data.frame.
 #'
 #' @param ... Input arguments of the relevant wrapped functions.
 #'

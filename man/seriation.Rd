@@ -3,16 +3,19 @@
 \name{seriation.seriation_seriate}
 \alias{seriation.seriation_seriate}
 \alias{seriation2widedf}
+\alias{seriation.tabula_seriate}
 \title{Seriation}
 \usage{
 seriation.seriation_seriate(...)
 
 seriation2widedf(x)
+
+seriation.tabula_seriate(...)
 }
 \arguments{
 \item{...}{Input arguments of \code{seriation::seriate}.}
 
-\item{x}{Data.frame. Output of tidyseriation.}
+\item{x}{Data.frame. Output of the seriation wrapper functions.}
 }
 \value{
 A tibble with the seriation result in a long format.
@@ -28,9 +31,8 @@ col_order: Integer. Order of columns.
 value: Numeric. Value in input matrix for respective row and col.
 }
 \description{
-Mask function for seriation::seriate() to get the seriation results in a tidy data.frame.
-The seriation is calculated by \code{seriation::seriate()}.
-The result table can be transformed back to a wide format with \code{seriation2widedf}.
+Seriation function wrappers that give the result in a long tidy data.frame.
+The result table can be transformed to a wide format with \code{seriation2widedf}.
 }
 \examples{
 ## seriate matrix
@@ -43,6 +45,9 @@ x <- as.data.frame(x)
 
 ## try some methods
 order <- quantAAR::seriation.seriation_seriate(x, method = "PCA")
+
+#x_matrix <- as(x, "IncidenceMatrix")
+#order <- quantAAR::seriation.tabula_seriate(x_matrix, method = "correspondance")
 
 ## transform back to wide format
 seriation2widedf(order)

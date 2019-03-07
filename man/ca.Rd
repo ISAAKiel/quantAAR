@@ -32,8 +32,7 @@ type: Character. Type of entry ("row" or "col").
 x1...xX: Numeric. Standard coordinates of this entry in all available dimensions.
 }
 \description{
-Transforms the output coordinates of objects and variables of a correspondence
-analysis to a tidy data.frame.
+Correspondence Analysis function wrappers that give the result in a tidy data.frame.
 }
 \examples{
 haireye <- margin.table(datasets::HairEyeColor, 1:2)
