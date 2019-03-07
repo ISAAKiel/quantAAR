@@ -26,7 +26,7 @@ type: Character. Type of entry ("row" or "col").
 
 ...: Additional variables as provided by the wrapped functions.
 
-x1...xX: Numeric. Standard coordinates of this entry in all available dimensions.
+CA1...CAX: Numeric. Resulting coordinates.
 }
 \description{
 Correspondence Analysis function wrappers that give the result in a tidy data.frame.

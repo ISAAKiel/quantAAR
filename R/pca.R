@@ -15,7 +15,7 @@
 #'
 #' ...: Additional variables as provided by the wrapped functions.
 #'
-#' x1...xX: Numeric. Resulting coordinates in all principal component dimensions.
+#' PC1...PCX: Numeric. Resulting coordinates.
 #'
 #' @examples
 #' # establish an other distance measure in the data that allows application of PCA
@@ -59,9 +59,6 @@ pca.stats_prcomp <- function(..., raw_output = TRUE) {
     row_res,
     col_res
   )
-
-  # rename dimensions
-  colnames(res) <- gsub("PC", "x", colnames(res))
 
   # raw output
   if (raw_output) {
@@ -116,9 +113,6 @@ pca.vegan_rda <- function(..., raw_output = TRUE) {
       row_res,
       col_res
     )
-
-    # rename dimensions
-    colnames(res) <- gsub("PC", "x", colnames(res))
 
   } else {
     stop("CCA and pCCA are not implemented yet.")

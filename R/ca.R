@@ -15,7 +15,7 @@
 #'
 #' ...: Additional variables as provided by the wrapped functions.
 #'
-#' x1...xX: Numeric. Standard coordinates of this entry in all available dimensions.
+#' CA1...CAX: Numeric. Resulting coordinates.
 #'
 #' @examples
 #' ca.ca_ca(matuskovo_material)
@@ -66,7 +66,7 @@ ca.ca_ca <- function(..., raw_output = TRUE) {
   )
 
   # rename dimensions
-  colnames(res) <- gsub("Dim", "x", colnames(res))
+  colnames(res) <- gsub("Dim", "CA", colnames(res))
 
   # raw output
   if (raw_output) {
@@ -121,9 +121,6 @@ ca.vegan_cca <- function(..., raw_output = TRUE) {
       row_res,
       col_res
     )
-
-    # rename dimensions
-    colnames(res) <- gsub("CA", "x", colnames(res))
 
   } else {
     stop("CCA and pCCA are not implemented yet.")
