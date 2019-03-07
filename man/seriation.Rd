@@ -37,7 +37,7 @@ value: Numeric. Value in input matrix for respective row and col.
 }
 \description{
 Seriation function wrappers that give the result in a long tidy data.frame.
-The result table can be transformed to a wide format with \code{seriation2widedf}.
+The result table can be transformed to a wide format with \code{spread_seriation}.
 }
 \examples{
 seriation.seriation_seriate(matuskovo_material, method = "PCA")

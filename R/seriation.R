@@ -1,7 +1,7 @@
 #' Seriation
 #'
 #' Seriation function wrappers that give the result in a long tidy data.frame.
-#' The result table can be transformed to a wide format with \code{seriation2widedf}.
+#' The result table can be transformed to a wide format with \code{spread_seriation}.
 #'
 #' @param ... Input arguments of \code{seriation::seriate}.
 #' @param raw_output Logical. Should the raw output of the wrapped functions be stored as
