@@ -22,6 +22,7 @@
 #' matuskovo_distance <- vegan::decostand(matuskovo_material, "norm")
 #'
 #' pca.stats_prcomp(matuskovo_distance)
+#' pca.vegan_rda(matuskovo_distance)
 #'
 #' @name pca
 #' @rdname pca
@@ -69,4 +70,64 @@ pca.stats_prcomp <- function(..., raw_output = TRUE) {
 
   return(res)
 
+}
+
+#' @rdname pca
+#'
+#' @export
+pca.vegan_rda <- function(..., raw_output = TRUE) {
+
+  check_if_packages_are_available("vegan")
+
+  # call ca::ca() to perform CA
+  q <- vegan::rda(...)
+
+  # CA
+  if (is.null(q$CCA) & is.null(q$pCCA)) {
+    eoi <- "CA"
+  } else if (!is.null(q$CCA) & is.null(q$pCCA)) {
+    eoi <- "CCA"
+  } else {
+    eoi <- "pCCA"
+  }
+
+  if (eoi == "CA") {
+
+    # prepare tidy output
+    row_res <- dplyr::bind_cols(
+      tibble::tibble(
+        name = rownames(q$CA$u),
+        type = "row",
+        sum = NA
+      ),
+      tibble::as_tibble(q$CA$u)
+    )
+
+    col_res <- dplyr::bind_cols(
+      tibble::tibble(
+        name = names(q$colsum),
+        type = "col",
+        sum = q$colsum
+      ),
+      tibble::as_tibble(q$CA$v)
+    )
+
+    res <- dplyr::bind_rows(
+      row_res,
+      col_res
+    )
+
+    # rename dimensions
+    colnames(res) <- gsub("PC", "x", colnames(res))
+
+  } else {
+    stop("CCA and pCCA are not implemented yet.")
+  }
+
+  # raw output
+  if (raw_output) {
+    attr(res, "raw") <- q
+  }
+
+  return(res)
 }

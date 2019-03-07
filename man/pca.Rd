@@ -3,9 +3,12 @@
 \name{pca}
 \alias{pca}
 \alias{pca.stats_prcomp}
+\alias{pca.vegan_rda}
 \title{Principal Components Analysis}
 \usage{
 pca.stats_prcomp(..., raw_output = TRUE)
+
+pca.vegan_rda(..., raw_output = TRUE)
 }
 \arguments{
 \item{...}{Input arguments of the relevant wrapped functions.}
@@ -33,5 +36,6 @@ Principal Components Analysis function wrappers that give the result in a tidy d
 matuskovo_distance <- vegan::decostand(matuskovo_material, "norm")
 
 pca.stats_prcomp(matuskovo_distance)
+pca.vegan_rda(matuskovo_distance)
 
 }
