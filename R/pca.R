@@ -42,7 +42,9 @@ pca.stats_prcomp <- function(..., raw_output = TRUE) {
   row_res <- dplyr::bind_cols(
     tibble::tibble(
       name = rownames(q$x),
-      type = "row"
+      type = "row",
+      sdev = NA,
+      center = NA
     ),
     tibble::as_tibble(q$x)
   )
@@ -50,7 +52,9 @@ pca.stats_prcomp <- function(..., raw_output = TRUE) {
   col_res <- dplyr::bind_cols(
     tibble::tibble(
       name = rownames(q$rotation),
-      type = "col"
+      type = "col",
+      sdev = q$sdev,
+      center = q$center
     ),
     tibble::as_tibble(q$rotation)
   )
