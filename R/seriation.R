@@ -30,6 +30,10 @@
 #' # transform back to wide format
 #' spread_seriation(seriation.seriation_seriate(matuskovo_material, method = "PCA"))
 #'
+#' @name seriation
+#' @rdname seriation
+NULL
+
 #' @rdname seriation
 #'
 #' @export
@@ -112,33 +116,6 @@ seriation.seriation_seriate <- function(..., raw_output = TRUE) {
 
 #' @rdname seriation
 #'
-#' @param x Data.frame. Output of the seriation wrapper functions.
-#'
-#' @export
-spread_seriation <- function(x) {
-
-  x_simple <- dplyr::select(
-    x,
-    -"row_order",
-    -"col_order"
-  )
-
-  x_spread <- tidyr::spread(
-    x_simple,
-    key = "col",
-    value = "value"
-  )
-
-  res <- tibble::column_to_rownames(
-    x_spread,
-    "row"
-  )
-
-  return(res)
-}
-
-#' @rdname seriation
-#'
 #' @export
 seriation.tabula_seriate <- function(..., raw_output = TRUE) {
 
@@ -191,3 +168,29 @@ seriation.tabula_seriate <- function(..., raw_output = TRUE) {
   return(res)
 }
 
+#' @rdname seriation
+#'
+#' @param x Data.frame. Output of the seriation wrapper functions.
+#'
+#' @export
+spread_seriation <- function(x) {
+
+  x_simple <- dplyr::select(
+    x,
+    -"row_order",
+    -"col_order"
+  )
+
+  x_spread <- tidyr::spread(
+    x_simple,
+    key = "col",
+    value = "value"
+  )
+
+  res <- tibble::column_to_rownames(
+    x_spread,
+    "row"
+  )
+
+  return(res)
+}

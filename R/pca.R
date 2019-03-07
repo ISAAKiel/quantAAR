@@ -23,6 +23,10 @@
 #'
 #' pca.stats_prcomp(matuskovo_distance)
 #'
+#' @name pca
+#' @rdname pca
+NULL
+
 #' @rdname pca
 #'
 #' @export

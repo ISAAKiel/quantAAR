@@ -25,7 +25,6 @@
 #' @rdname ca
 NULL
 
-
 #' @rdname ca
 #'
 #' @export
