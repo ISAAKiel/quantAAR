@@ -4,8 +4,7 @@ Title: R Library for Quantitative Analysis in Archaeology
 Version: 0.2.0
 Author: c(
   person("Martin", "Hinz", email = "martin.hinz@ufg.uni-kiel.de", role = c("aut", "cre")),
-  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut")),
-  person("Benjamin", "Serbe", email = "b.serbe@web.de", role = c("aut"))
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("aut"))
   )
 Maintainer: Martin Hinz <martin.hinz@ufg.uni-kiel.de>
 Description: quantAAR is a collection of functions useful for archaeologists.
