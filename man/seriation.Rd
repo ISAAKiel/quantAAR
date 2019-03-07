@@ -41,6 +41,7 @@ The result table can be transformed to a wide format with \code{seriation2widedf
 \examples{
 seriation.seriation_seriate(matuskovo_material, method = "PCA")
 
+library(tabula)
 matuskovo_CountMatrix <- as(matuskovo_material, "CountMatrix")
 seriation.tabula_seriate(matuskovo_CountMatrix, method = "correspondance")
 
