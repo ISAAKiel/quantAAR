@@ -26,6 +26,8 @@
 #' @export
 ca.ca_ca <- function(...) {
 
+  check_if_packages_are_available("ca")
+
   # call ca::ca() to perform CA
   q <- ca::ca(...)
 
@@ -90,6 +92,8 @@ get_dimension_label <- function(x, dim) {
 #'
 #' @export
 ca.vegan_cca <- function(...) {
+
+  check_if_packages_are_available("vegan")
 
   # call ca::ca() to perform CA
   q <- vegan::cca(...)

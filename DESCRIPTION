@@ -14,16 +14,15 @@ LazyData: TRUE
 RoxygenNote: 6.1.1
 URL: https://github.com/ISAAKiel/quantAAR
 Imports:
-  ca (>= 0.64),
   dplyr (>= 0.5.0),
   forcats (>= 0.3.0),
-  seriation (>= 1.2-3),
   tibble (>= 2.0.0),
-  tidyr (>= 0.8.2),
-  vegan (>= 2.5-4)
+  tidyr (>= 0.8.2)
 Suggests: 
   testthat,
-  knitr
-VignetteBuilder: knitr
+  ca (>= 0.64),
+  seriation (>= 1.2-3),
+  stats,
+  vegan (>= 2.5-4)
 Depends: R (>= 3.3.0)
 Encoding: UTF-8

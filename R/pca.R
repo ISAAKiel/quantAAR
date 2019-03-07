@@ -24,6 +24,8 @@
 #' @export
 pca.stats_prcomp <- function(...) {
 
+  check_if_packages_are_available("stats")
+
   # call stats::prcomp() to perform PCA
   q <- stats::prcomp(...)
 

@@ -38,6 +38,8 @@
 #' @export
 seriation.seriation_seriate <- function(...) {
 
+  check_if_packages_are_available(c("seriation"))
+
   # modify input
   other_params <- list()
   if ("x" %in% names(list(...))) {
