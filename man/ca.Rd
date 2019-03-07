@@ -35,8 +35,7 @@ x1...xX: Numeric. Standard coordinates of this entry in all available dimensions
 Correspondence Analysis function wrappers that give the result in a tidy data.frame.
 }
 \examples{
-haireye <- margin.table(datasets::HairEyeColor, 1:2)
-quantAAR::ca.ca_ca(haireye)
-quantAAR::ca.vegan_cca(haireye)
+ca.ca_ca(matuskovo_material)
+ca.vegan_cca(matuskovo_material)
 
 }

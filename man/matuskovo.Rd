@@ -2,6 +2,7 @@
 % Please edit documentation in R/data.R
 \name{matuskovo}
 \alias{matuskovo}
+\alias{matuskovo_material}
 \title{A burial site from the Unetice culture in western Slovakia}
 \format{A tibble (data.frame) with 62 rows and 34 variables:
 \itemize{
@@ -46,6 +47,7 @@
  und weitere altbronzezeitliche Graberfelder in der Sudwestslowakei. Nitra.}
 }
 \description{
-A dataset containing graves (objects) and grave attributes
+\code{matuskovo} is a tibble containing graves (objects) and grave attributes
 (variables) of a burial site from the Unetice culture in western Slovakia.
+\code{matuskovo_material} is a matrix subset with only the artefact count variables.
 }

@@ -16,7 +16,10 @@
 #' x1...xX: Numeric. Resulting coordinates in all principal component dimensions.
 #'
 #' @examples
-#' quantAAR::pca.stats_prcomp(datasets::USArrests)
+#' # establish an other distance measure in the data that allows application of PCA
+#' matuskovo_distance <- vegan::decostand(matuskovo_material, "norm")
+#'
+#' pca.stats_prcomp(matuskovo_distance)
 #'
 #' @rdname pca
 #'

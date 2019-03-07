@@ -2,13 +2,13 @@
 % Please edit documentation in R/seriation.R
 \name{seriation.seriation_seriate}
 \alias{seriation.seriation_seriate}
-\alias{seriation2widedf}
+\alias{spread_seriation}
 \alias{seriation.tabula_seriate}
 \title{Seriation}
 \usage{
 seriation.seriation_seriate(...)
 
-seriation2widedf(x)
+spread_seriation(x)
 
 seriation.tabula_seriate(...)
 }
@@ -35,21 +35,12 @@ Seriation function wrappers that give the result in a long tidy data.frame.
 The result table can be transformed to a wide format with \code{seriation2widedf}.
 }
 \examples{
-## seriate matrix
-data("iris")
-x <- iris[-5]
+seriation.seriation_seriate(matuskovo_material, method = "PCA")
 
-## to make the variables comparable, we scale the data
-x <- scale(x, center = FALSE)
-x <- as.data.frame(x)
+matuskovo_CountMatrix <- as(matuskovo_material, "CountMatrix")
+seriation.tabula_seriate(matuskovo_CountMatrix, method = "correspondance")
 
-## try some methods
-order <- quantAAR::seriation.seriation_seriate(x, method = "PCA")
-
-#x_matrix <- as(x, "IncidenceMatrix")
-#order <- quantAAR::seriation.tabula_seriate(x_matrix, method = "correspondance")
-
-## transform back to wide format
-seriation2widedf(order)
+# transform back to wide format
+spread_seriation(seriation.seriation_seriate(matuskovo_material, method = "PCA"))
 
 }

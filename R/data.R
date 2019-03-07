@@ -1,7 +1,8 @@
 #' A burial site from the Unetice culture in western Slovakia
 #'
-#' A dataset containing graves (objects) and grave attributes
+#' \code{matuskovo} is a tibble containing graves (objects) and grave attributes
 #' (variables) of a burial site from the Unetice culture in western Slovakia.
+#' \code{matuskovo_material} is a matrix subset with only the artefact count variables.
 #'
 #' @format A tibble (data.frame) with 62 rows and 34 variables:
 #' \itemize{
@@ -44,5 +45,13 @@
 #' @source {Tocik, Anton (1979) Vycapy-Opatovce : a dalsie pohrebiska z
 #'  starsej doby bronzovej na Juhozapadnom Slovensku = Vycapy-Oopatovce :
 #'  und weitere altbronzezeitliche Graberfelder in der Sudwestslowakei. Nitra.}
+#'
+#' @rdname matuskovo
+#'
 #' @name matuskovo
+NULL
+
+#' @rdname matuskovo
+#'
+#' @name matuskovo_material
 NULL

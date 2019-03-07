@@ -18,22 +18,13 @@
 #' value: Numeric. Value in input matrix for respective row and col.
 #'
 #' @examples
-#' ## seriate matrix
-#' data("iris")
-#' x <- iris[-5]
+#' seriation.seriation_seriate(matuskovo_material, method = "PCA")
 #'
-#' ## to make the variables comparable, we scale the data
-#' x <- scale(x, center = FALSE)
-#' x <- as.data.frame(x)
+#' matuskovo_CountMatrix <- as(matuskovo_material, "CountMatrix")
+#' seriation.tabula_seriate(matuskovo_CountMatrix, method = "correspondance")
 #'
-#' ## try some methods
-#' order <- quantAAR::seriation.seriation_seriate(x, method = "PCA")
-#'
-#' #x_matrix <- as(x, "IncidenceMatrix")
-#' #order <- quantAAR::seriation.tabula_seriate(x_matrix, method = "correspondance")
-#'
-#' ## transform back to wide format
-#' seriation2widedf(order)
+#' # transform back to wide format
+#' spread_seriation(seriation.seriation_seriate(matuskovo_material, method = "PCA"))
 #'
 #' @rdname seriation
 #'
@@ -63,6 +54,8 @@ seriation.seriation_seriate <- function(...) {
 
   if (is.data.frame(x)) {
     x_matrix <- as.matrix(x)
+  } else if (is.matrix(x)) {
+    x_matrix <- x
   } else {
     stop("x is not a data.frame.")
   }
@@ -113,7 +106,7 @@ seriation.seriation_seriate <- function(...) {
 #' @param x Data.frame. Output of the seriation wrapper functions.
 #'
 #' @export
-seriation2widedf <- function(x) {
+spread_seriation <- function(x) {
 
   x_simple <- dplyr::select(
     x,
@@ -141,6 +134,12 @@ seriation2widedf <- function(x) {
 seriation.tabula_seriate <- function(...) {
 
   check_if_packages_are_available(c("tabula"))
+
+  if ("object" %in% names(list(...))) {
+    object <- list(...)$object
+  } else {
+    object <- list(...)[[1]]
+  }
 
   # run seriation
   seriation_result <- tabula::seriate(...)
