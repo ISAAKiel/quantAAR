@@ -88,7 +88,7 @@ seriation.seriation_seriate <- function(..., raw_output = TRUE) {
 
   x_gathered$col_order <- rep(1:length(seriation_order_cols), each = length(seriation_order_rows))
 
-  x_res <- dplyr::select(
+  res <- dplyr::select(
     x_gathered,
     "row",
     "row_order",
@@ -98,15 +98,15 @@ seriation.seriation_seriate <- function(..., raw_output = TRUE) {
   )
 
   # set factor levels
-  x_res$row <- forcats::fct_inorder(x_res$row)
-  x_res$col <- forcats::fct_inorder(x_res$col)
+  res$row <- forcats::fct_inorder(res$row)
+  res$col <- forcats::fct_inorder(res$col)
 
   # raw output
   if (raw_output) {
     attr(res, "raw") <- q
   }
 
-  return(x_res)
+  return(res)
 }
 
 #' @rdname seriation
@@ -128,12 +128,12 @@ spread_seriation <- function(x) {
     value = "value"
   )
 
-  x_res <- tibble::column_to_rownames(
+  res <- tibble::column_to_rownames(
     x_spread,
     "row"
   )
 
-  return(x_res)
+  return(res)
 }
 
 #' @rdname seriation
@@ -169,7 +169,7 @@ seriation.tabula_seriate <- function(..., raw_output = TRUE) {
 
   x_gathered$col_order <- rep(1:length(seriation_order_cols), each = length(seriation_order_rows))
 
-  x_res <- dplyr::select(
+  res <- dplyr::select(
     x_gathered,
     "row",
     "row_order",
@@ -179,14 +179,14 @@ seriation.tabula_seriate <- function(..., raw_output = TRUE) {
   )
 
   # set factor levels
-  x_res$row <- forcats::fct_inorder(x_res$row)
-  x_res$col <- forcats::fct_inorder(x_res$col)
+  res$row <- forcats::fct_inorder(res$row)
+  res$col <- forcats::fct_inorder(res$col)
 
   # raw output
   if (raw_output) {
     attr(res, "raw") <- q
   }
 
-  return(x_res)
+  return(res)
 }
 
