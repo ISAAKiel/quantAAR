@@ -19,6 +19,7 @@ seriation.tabula_seriate(...)
 }
 \value{
 A tibble with the seriation result in a long format.
+Additional values are stored in object attributes. See \code{attributes(result)}.
 
 row: Character. Names of rows.
 

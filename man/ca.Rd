@@ -21,7 +21,7 @@ ca.vegan_cca(...)
 }
 \value{
 A tibble with the ca results for variables (columns) and objects (rows).
-Additional values are stored in object attributes.
+Additional values are stored in object attributes. See \code{attributes(result)}.
 
 name: Character. Names of rows and columns.
 

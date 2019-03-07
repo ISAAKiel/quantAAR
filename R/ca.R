@@ -5,7 +5,7 @@
 #' @param ... Input arguments of the relevant wrapped functions.
 #'
 #' @return A tibble with the ca results for variables (columns) and objects (rows).
-#' Additional values are stored in object attributes.
+#' Additional values are stored in object attributes. See \code{attributes(result)}.
 #'
 #' name: Character. Names of rows and columns.
 #'
@@ -63,7 +63,7 @@ ca.ca_ca <- function(...) {
   colnames(res) <- gsub("Dim", "x", colnames(res))
 
   # store dimension weights
-  attr(res, "singluar_values") <- q$sv
+  attr(res, "sv") <- q$sv
   attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
 
   return(res)
@@ -134,13 +134,22 @@ ca.vegan_cca <- function(...) {
     # rename dimensions
     colnames(res) <- gsub("CA", "x", colnames(res))
 
-    # store dimension weights
-    # attr(res, "singluar_values") <- q$sv
-    # attr(res, "simplified_dimension_weights") <- round(100 * (q$sv^2)/sum(q$sv^2), 2)
+    # attributes
+    attr(res, "method") <- eoi
+    attr(res, "eig") <- q$CA$eig
+    attr(res, "poseig") <- q$CA$poseig
+    attr(res, "rank") <- q$CA$rank
+    attr(res, "Xbar") <- q$CA$Xbar
 
   } else {
     stop("CCA and pCCA are not implemented yet.")
   }
+
+  # general attributes
+  attr(res, "inertia") <- q$inertia
+  attr(res, "grand.total") <- q$grand.total
+  attr(res, "tot.chi") <- q$tot.chi
+  attr(res, "Ybar") <- q$Ybar
 
   return(res)
 }
