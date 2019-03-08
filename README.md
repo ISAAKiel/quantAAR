@@ -9,6 +9,7 @@
 - *Correspondence Analysis*: `ca.ca_ca` (*`ca::ca`*), `ca.vegan_cca` (*`vegan::cca`*)
 - *Principal Components Analysis*: `pca.stats_prcomp` (*`stats::prcomp`*), `pca.vegan_rda` (*`vegan::rda`*)
 - *Seriation*: `seriation.seriation_seriate` (*`seriation::seriate`*), `seriation.tabula_seriate` (*`tabula::seriate`*)
+- *Principal Curves*: `principal_curve.princurve_principal_curve` (*`princurve::principal_curve`*)
 
 **Data preparation functions:**
 
